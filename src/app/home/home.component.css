@@ -1,0 +1,15 @@
+mat-card {
+  width: 20%;
+  min-width: 15em;
+  height: 50vh;
+  margin: 1em;
+}
+
+.cardContainer {
+  width: 90%;
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -1,0 +1,24 @@
+<h1>
+  {{title}}
+</h1>
+
+<div style="display: block">
+  <canvas baseChart class="chart"
+          [chartType]="'bar'"
+          [labels]="label"
+          [data]="data"
+          [datasets]="datasets"
+          [colors]="colors"
+          [options]="options"
+          [legend]="true">
+  </canvas>
+</div>
+
+<section id="options">
+  <mat-button-toggle-group #group="matButtonToggleGroup" >
+    <mat-button-toggle color="primary" *ngFor="let name of label; let i = index;" (click)="addPollResult(i)" value="{{name}}">
+      {{name}}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <!--<button *ngFor="let name of label; let i = index;" (click)="addData(i)">{{name}}</button>-->
+</section>

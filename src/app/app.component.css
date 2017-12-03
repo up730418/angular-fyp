@@ -1,0 +1,23 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+mat-sidenav {
+  width: 200px;
+  display: block;
+}
+
+material-app, mat-sidenav-container {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#menuButton {
+  cursor: pointer;
+}
+
+mat-sidenav-container {
+  min-height: 100vh;
+  
+}

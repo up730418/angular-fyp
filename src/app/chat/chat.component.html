@@ -1,0 +1,13 @@
+ <h1>Best Chat App Ever</h1>
+
+<!--  <input type="text" id="userName" [(ngModel)]="userName" placeholder="Enter User Name"  maxlength="25" requiered tabindex="1" >-->
+  <mat-form-field class="full-width">
+    <input matInput id="userName" [(ngModel)]="userName" placeholder="Enter User Name"  maxlength="25" requiered tabindex="1" >
+  </mat-form-field>
+  <div id="testMessage"> </div>
+
+<!--  <input type="text" id="test" [(ngModel)]="mess" placeholder="Coment Here" tabindex="2" (keyup.enter)="sendMessage()">-->
+<mat-form-field class="full-width">
+  <textarea matInput id="test" placeholder="Enter a message" [(ngModel)]="mess" tabindex="2" (keyup.enter)="sendMessage()"></textarea>
+
+</mat-form-field>
