@@ -8,28 +8,36 @@ import { Observable } from 'rxjs/Observable';
 
 import { Poll, UA } from './modle';
 
+
+import { LoginService } from './login.service'
+
 @Injectable()
 export class PollService {
   
   private serverUrl = 'http://localhost:8080';
   
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+             private loginService: LoginService,) { }
   
   getPoll(id: string): Promise<Poll> {
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.loginService.authtoken});
+    const options = new RequestOptions({ headers: headers });
     const url = this.serverUrl + "/api/poll/" + id;
 
-    return this.http.get(url)
+    return this.http.get(url, options)
                 .toPromise()
                 .then(response => response.json() as Poll)
                 .catch(this.handleError);
   }
 
   updatePoll(id: string, data): Promise<Poll> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                                  'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
     data = JSON.stringify(data);
     const url = `${this.serverUrl}/api/poll/${id}`;
-    return this.http.post(url, data)
+    return this.http.post(url, data, options)
                 .toPromise()
                 .then((res) => {
       console.log(res['_body'])

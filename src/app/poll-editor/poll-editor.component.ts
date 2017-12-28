@@ -10,26 +10,38 @@ import {ENTER, COMMA} from '@angular/cdk/keycodes';
 import { PollService } from '../poll.service';
 import { Poll, UA } from '../modle';
 
+import { LoginService } from '../login.service'
+
 @Component({
   selector: 'app-poll-editor',
   templateUrl: './poll-editor.component.html',
   styleUrls: ['./poll-editor.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class PollEditorComponent implements OnInit {
   
-  private model: Poll
+  model: Poll
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
   addOnBlur: boolean = true;
-
+  userName: string;
+  
   constructor(private route: ActivatedRoute,
     private router: Router,
     private pollService: PollService,
+    private loginService: LoginService,
               ) { }
 
   ngOnInit() {
+    this.loginService.checkSignIn()
+    this.loginService.login.subscribe((login) => {
+      if(login){
+         this.getPoll();
+         this.userName = this.loginService.userName;
+       }
+    })
     this.getPoll()
   }
  
@@ -41,7 +53,7 @@ export class PollEditorComponent implements OnInit {
         .subscribe(poll =>{
           console.log(poll)
                       if (poll == null) {
-                        this.model = new Poll(NaN, '', [], [], '', [new UA('', '' )]);
+                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [new UA('', '' )]);
                       } else {
 
                         this.model = poll;
@@ -53,12 +65,11 @@ export class PollEditorComponent implements OnInit {
     
    }
   onSubmit() {
-    console.log(this.model)
+//    console.log(this.model)
 //    this.model.questions = this.model.questions.split(',');
     this.pollService.updatePoll(this.model.pollId.toString(), this.model).then((res) => {
       this.router.navigateByUrl(`/poll-editor/${res}`);
     });
-//    console.log(x)
   }
   
 
@@ -66,12 +77,10 @@ export class PollEditorComponent implements OnInit {
     let input = event.input;
     let value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
       this.model.questions.push( value.trim() );
     }
 
-    // Reset the input value
     if (input) {
       input.value = '';
     }
@@ -88,12 +97,10 @@ export class PollEditorComponent implements OnInit {
     let input = event.input;
     let value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
       this.model.access.push( value.trim() );
     }
-
-    // Reset the input value
+    
     if (input) {
       input.value = '';
     }

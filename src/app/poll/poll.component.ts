@@ -13,6 +13,8 @@ import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { WebsocketDialogueComponent } from '../websocket-dialogue/websocket-dialogue.component';
 
+import { LoginService } from '../login.service'
+
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
@@ -22,12 +24,13 @@ import { WebsocketDialogueComponent } from '../websocket-dialogue/websocket-dial
 
 export class PollComponent implements OnInit {
   title = 'Poll of polls';
-  private url = "localhost"
-  private messages: Array<any>;
-  private socket: WebSocket;
-  private pollId: any;
+  public url = "localhost"
+  public messages: Array<any>;
+  public socket: WebSocket;
+  public pollId: any;
+  private userName: string;
 
-  private colors: Array<any> = [
+  public colors: Array<any> = [
     { // Blue
       backgroundColor: 'rgba(63, 81, 181, 0.9)',
       borderColor: 'rgba(77,83,96,1)',
@@ -54,7 +57,7 @@ export class PollComponent implements OnInit {
     }
   ];
 
-  private options:any = {
+  public options:any = {
     // All of my other bar chart option here
     scales: {
         yAxes: [{
@@ -66,25 +69,34 @@ export class PollComponent implements OnInit {
     
   }
 
-  private label: Array<any>;
+  public label: Array<any>;
 
-  private data: Array<any>;
+  public data: Array<any>;
   
-  private datasets: Array<any> = [{label: '#Votes'}];
+  public datasets: Array<any> = [{label: '#Votes'}];
   
   constructor(private http: Http,
               private route: ActivatedRoute,
-              private dialog: MatDialog,) { 
+              private dialog: MatDialog,
+              private loginService: LoginService, 
+              ) { 
     
     this.pollId = this.route.snapshot.params['id']; 
     this.messages = []; 
     this.socket = new WebSocket('ws://' + this.url + ':1334/', this.pollId);
     this.data = [];
     this.label = [];
+    this.userName = this.loginService.userName;
   }
 
   ngOnInit() {
-    
+    this.loginService.checkSignIn()
+    this.loginService.login.subscribe((login) => {
+      if(login){
+         this.getPollData(this.pollId);
+        this.userName = this.loginService.userName;
+       }
+    })
     this.getPollData(this.pollId)
   }
 
@@ -121,7 +133,7 @@ export class PollComponent implements OnInit {
   }
 
   addData(i): void {
-    this.socket.send(JSON.stringify({type: "poll", vote: i, pollId: this.pollId, user: "rob"}));
+    this.socket.send(JSON.stringify({type: "poll", vote: i, pollId: this.pollId, user: this.userName}));
 
   }
 
@@ -141,7 +153,8 @@ export class PollComponent implements OnInit {
 
  getPollData(room: string): Promise<string> {
     const url = 'http://'+ this.url +':8080/api/poll/' + room;
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                                  'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options)
@@ -170,11 +183,12 @@ export class PollComponent implements OnInit {
   
   addPollResult(vote: string) {
     const url = 'http://'+ this.url +':8080/api/poll/' + this.pollId;
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                                  'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
-    const body = JSON.stringify({type: "poll", vote: vote.toString(), pollId: this.pollId, user: "rob"})
+    const body = JSON.stringify({type: "poll", vote: vote.toString(), pollId: this.pollId, user: this.userName})
                          
-    return this.http.put(url, body)
+    return this.http.put(url, body, options)
                 .toPromise()
                 .then(response =>{
                   return 'success';

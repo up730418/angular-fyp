@@ -19,6 +19,9 @@ import { WebsocketDialogueComponent } from './websocket-dialogue/websocket-dialo
 
 import { PollService } from './poll.service';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService, LoginDialog } from './login.service';
+import { LessonsComponent } from './lessons/lessons.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { HomeComponent } from './home/home.component';
     PollComponent,
     PollEditorComponent,
     WebsocketDialogueComponent,
-    HomeComponent
+    LoginDialog,
+    HomeComponent,
+    LoginComponent,
+    LessonsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +53,10 @@ import { HomeComponent } from './home/home.component';
     MatChipsModule,
     MatCardModule,
   ],
-  providers: [PollService,],
+  providers: [PollService, 
+              LoginService, ],
   bootstrap: [AppComponent],
-  entryComponents: [WebsocketDialogueComponent]
+  entryComponents: [WebsocketDialogueComponent, 
+                   LoginDialog, ]
 })
 export class AppModule { }

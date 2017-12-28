@@ -3,11 +3,13 @@ import 'rxjs/add/operator/switchMap';
 
 import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject, OnChanges } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
+
+import { LoginService } from '../login.service'
 
 @Component({
   selector: 'app-chat',
@@ -27,23 +29,51 @@ export class ChatComponent implements OnInit {
 
   constructor(private http: Http,
               private route: ActivatedRoute,
+              private router: Router,
+              private loginService: LoginService, 
               @Inject(DOCUMENT) private document: Document, 
                ) {
+    
     this.room = this.route.snapshot.params['id']; 
     this.userColour = {};
     this.colours = ["red", "blue", "greeen", "pink", "orange"];
     this.messages = []; 
     this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
-    this.userName = "";
+    this.userName = this.loginService.userName;;
     this.mess = "";
+                 
+   this.router.events.subscribe(event => {
+     // Do whatever in here
+     if(this.room !== this.route.snapshot.params['id']){
+       document.getElementById("testMessage").innerHTML = "";
+       this.room = this.route.snapshot.params['id'];
+       this.getChatData(this.room);
+       this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
+       
+     }
+     
+//     console.log(this.room);
+//     console.log(event);
+     
+   });
   }
 
   ngOnInit(){
-
+   // console.log(user);
+    this.loginService.login.subscribe((login) => {
+      if(login){
+        this.getChatData(this.room)
+        this.userName = this.loginService.userName;
+        this.userNameChange();
+       }
+    })
   }
+
   
   ngAfterViewInit(){
-    this.getChatData(this.room);
+    this.loginService.checkSignIn()
+    this.getChatData(this.room)
+    
     
     this.askNotification()
     
@@ -125,7 +155,6 @@ export class ChatComponent implements OnInit {
 
   sendMessage(): void {
     this.userNameChange()
-    console.log(this.mess)
     if(this.mess.trim() != ""){
       try{
         this.socket.send(JSON.stringify({message : this.mess,
@@ -147,7 +176,7 @@ export class ChatComponent implements OnInit {
     }
 
     // Assign all new users messages
-    const className = "." + this.userName.replace(/\s/g, '');
+    const className = "." + this.userName.replace(/@/g, '');
     const elementsToUpdate = document.querySelectorAll(className);
     for (let i = 0; i < elementsToUpdate.length; i++) {
         elementsToUpdate[i].removeAttribute("style")
@@ -170,8 +199,10 @@ export class ChatComponent implements OnInit {
   }
 
   getChatData(room: string): Promise<string> {
-    const url = 'http://'+ this.url +'/api/chat/' + room;
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+//    console.log(" attempted get")
+    const url = 'http://'+ this.url +':8080/api/chat/' + room;
+    const headers = new Headers({ 'Content-Type': 'application/json', 
+                                  'Authorization': 'Bearer ' + this.loginService.authtoken });
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options)

@@ -1,59 +1,104 @@
-<div class="cardContainer">
-  <mat-card class="one">
-    <mat-card-header>
-      <mat-card-title>Design</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        Preper a lesson 
-      </p>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card class="one">
-    <mat-card-header>
-      <mat-card-title>Present</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        Present a lesson 
-      </p>
-    </mat-card-content>
-  </mat-card>
-
-
-  <mat-card class="one">
-    <mat-card-header>
-      <mat-card-title>Review</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        Review a lesson 
-      </p>
-    </mat-card-content>
-  </mat-card>
+<div [ngSwitch]="templateToLoad">
   
-  <mat-card class="two">
-    <mat-card-header>
-      <mat-card-title>New Lesson</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        Create a lesson and add polls, quizs and game
-      </p>
-    </mat-card-content>
-  </mat-card>
+  <div *ngSwitchCase="" id="home" class="cardContainer">
+    <mat-card class="one">
+      <a routerLink="/home/design">
+        <mat-card-header>
+          <mat-card-title>Design</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Preper a lesson 
+          </p>
+        </mat-card-content>
+      </a>
+    </mat-card>
+
+    <mat-card class="one">
+      <a routerLink="/home/present">
+        <mat-card-header>
+          <mat-card-title>Present</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Present a lesson 
+          </p>
+        </mat-card-content>
+      </a>
+    </mat-card>
+
+
+    <mat-card class="one">
+      <a routerLink="/home/review">
+        <mat-card-header>
+          <mat-card-title>Review</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Review a lesson 
+          </p>
+        </mat-card-content>
+      </a>
+    </mat-card>
+
+  </div>
+
+  <div *ngSwitchCase="'design'" id="design" class="cardContainer">
+    <mat-card class="two">
+      <a routerLink="lesson-editor/na">
+        <mat-card-header>
+          <mat-card-title>New Lesson</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Create a lesson and add polls, quizs and game
+          </p>
+        </mat-card-content>
+      </a>
+    </mat-card>
+
+    <mat-card class="two">
+      <mat-card-header>
+        <mat-card-title>Edit lesson</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>Recent Lessons:</h4>
+      <a routerLink="lesson-editor/1"> Lesson 1 </a>
+      <a routerLink="lesson-editor/2"> Lesson 2 </a>
+      <a routerLink="lesson-editor/3"> Lesson 3 </a>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>OTHER</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
   
-  <mat-card class="two">
-    <mat-card-header>
-      <mat-card-title>Edit lesson</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <h4>Lessons:</h4>
-      <p>Lesson 1 </p>
-      <p>Lesson 2 </p>
-      <p>Lesson 3 </p>
-    </mat-card-content>
-  </mat-card>
+  <div *ngSwitchCase="'present'" id="present" class="cardContainer">
+
+    <mat-card class="three">
+      <a routerLink="lesson-present/1">
+        <mat-card-header>
+          <mat-card-title>Lesson 1</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h4>BUILDER LESSON CHECK</h4>
+        </mat-card-content>
+      </a>
+    </mat-card>
+  </div>
   
+  <div *ngSwitchCase="'review'" id="review" class="cardContainer">
+
+    <mat-card class="four">
+      <a routerLink="lesson-review/1">
+        <mat-card-header>
+          <mat-card-title>Review: Lesson 1</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h4>BUILDER LESSON CHECK</h4>
+        </mat-card-content>
+      </a>
+    </mat-card>
+  </div>
+
 </div>
