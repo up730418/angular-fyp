@@ -2,6 +2,7 @@ mat-card {
   width: 20%;
   min-width: 15em;
   min-height: 50vh;
+  height: auto;
   margin: 1em;
 }
 
@@ -16,4 +17,10 @@ mat-card {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.buttonContainer > button{
+  width: 40%;
+  margin-bottom: 1em !important;
+  display: inline-block;
 }

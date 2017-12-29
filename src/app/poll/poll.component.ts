@@ -14,6 +14,7 @@ import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from 
 import { WebsocketDialogueComponent } from '../websocket-dialogue/websocket-dialogue.component';
 
 import { LoginService } from '../login.service'
+import { PollService } from '../poll.service'
 
 @Component({
   selector: 'app-poll',
@@ -23,12 +24,11 @@ import { LoginService } from '../login.service'
 })
 
 export class PollComponent implements OnInit {
-  title = 'Poll of polls';
+  title = "Error pole does not exist or you don't have access";
   public url = "localhost"
   public messages: Array<any>;
   public socket: WebSocket;
   public pollId: any;
-  private userName: string;
 
   public colors: Array<any> = [
     { // Blue
@@ -79,6 +79,7 @@ export class PollComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private loginService: LoginService, 
+              private pollService: PollService, 
               ) { 
     
     this.pollId = this.route.snapshot.params['id']; 
@@ -86,7 +87,6 @@ export class PollComponent implements OnInit {
     this.socket = new WebSocket('ws://' + this.url + ':1334/', this.pollId);
     this.data = [];
     this.label = [];
-    this.userName = this.loginService.userName;
   }
 
   ngOnInit() {
@@ -94,9 +94,8 @@ export class PollComponent implements OnInit {
     this.loginService.login.subscribe((login) => {
       if(login){
          this.getPollData(this.pollId);
-        this.userName = this.loginService.userName;
        }
-    })
+    });
     this.getPollData(this.pollId)
   }
 
@@ -133,7 +132,7 @@ export class PollComponent implements OnInit {
   }
 
   addData(i): void {
-    this.socket.send(JSON.stringify({type: "poll", vote: i, pollId: this.pollId, user: this.userName}));
+    this.socket.send(JSON.stringify({type: "poll", vote: i, pollId: this.pollId, user: this.loginService.userName}));
 
   }
 
@@ -182,21 +181,9 @@ export class PollComponent implements OnInit {
   }
   
   addPollResult(vote: string) {
-    const url = 'http://'+ this.url +':8080/api/poll/' + this.pollId;
-    const headers = new Headers({ 'Content-Type': 'application/json',
-                                  'Authorization': 'Bearer ' + this.loginService.authtoken});
-    const options = new RequestOptions({ headers: headers });
-    const body = JSON.stringify({type: "poll", vote: vote.toString(), pollId: this.pollId, user: this.userName})
-                         
-    return this.http.put(url, body, options)
-                .toPromise()
-                .then(response =>{
-                  return 'success';
-              })
-              .catch((e) => {return e.toString()});
-  }
-    
-  
 
+    const data = {type: "poll", vote: vote.toString(), pollId: this.pollId, user: this.loginService.userName}
+    this.pollService.updatePoll(this.pollId, data);
+  }
   
 }

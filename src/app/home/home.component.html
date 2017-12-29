@@ -45,7 +45,7 @@
 
   <div *ngSwitchCase="'design'" id="design" class="cardContainer">
     <mat-card class="two">
-      <a routerLink="lesson-editor/na">
+      <a routerLink="/lesson-editor/na">
         <mat-card-header>
           <mat-card-title>New Lesson</mat-card-title>
         </mat-card-header>
@@ -68,7 +68,7 @@
       <a routerLink="lesson-editor/3"> Lesson 3 </a>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>OTHER</button>
+        <button mat-button routerLink="/lessons">OTHER</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -76,7 +76,7 @@
   <div *ngSwitchCase="'present'" id="present" class="cardContainer">
 
     <mat-card class="three">
-      <a routerLink="lesson-present/1">
+      <a routerLink="/lesson-present/1">
         <mat-card-header>
           <mat-card-title>Lesson 1</mat-card-title>
         </mat-card-header>
@@ -90,7 +90,7 @@
   <div *ngSwitchCase="'review'" id="review" class="cardContainer">
 
     <mat-card class="four">
-      <a routerLink="lesson-review/1">
+      <a routerLink="/lesson-review/1">
         <mat-card-header>
           <mat-card-title>Review: Lesson 1</mat-card-title>
         </mat-card-header>

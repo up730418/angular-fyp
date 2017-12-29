@@ -1,5 +1,5 @@
 <h2>Poll Editor</h2>
-
+<h3 *ngIf="!model"> Error pole does not exist or you don't have access</h3>
   <form #pollForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="model">    
     <mat-form-field class="full-width">
       <input matInput type="number" [(ngModel)]="model.pollId" placeholder="pollId" name="pollId"  disabled required>    
@@ -61,5 +61,6 @@
         <input matInput type="text" [(ngModel)]="answer.answer" placeholder="Answers"  name="answersAnswer{{y}}" >    
       </mat-form-field>
     </div> 
-    <button type="submit" mat-raised-button color="accent" class="btn">Save</button>
+    <button mat-raised-button type="submit" color="accent" class="btn">Save</button>
 </form>
+    <button mat-raised-button *ngIf="model" (click)="deletePoll()"  color="primary" class="btn">Delete</button>

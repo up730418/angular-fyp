@@ -18,10 +18,12 @@ import { PollEditorComponent } from './poll-editor/poll-editor.component';
 import { WebsocketDialogueComponent } from './websocket-dialogue/websocket-dialogue.component';
 
 import { PollService } from './poll.service';
+import { LessonService } from './lesson.service';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService, LoginDialog } from './login.service';
 import { LessonsComponent } from './lessons/lessons.component';
+import { LessonComponent } from './lesson/lesson.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { LessonsComponent } from './lessons/lessons.component';
     LoginDialog,
     HomeComponent,
     LoginComponent,
-    LessonsComponent
+    LessonsComponent,
+    LessonComponent
   ],
   imports: [
     BrowserModule,
@@ -54,8 +57,11 @@ import { LessonsComponent } from './lessons/lessons.component';
     MatCardModule,
   ],
   providers: [PollService, 
-              LoginService, ],
+              LoginService, 
+              LessonService, ],
+  
   bootstrap: [AppComponent],
+  
   entryComponents: [WebsocketDialogueComponent, 
                    LoginDialog, ]
 })

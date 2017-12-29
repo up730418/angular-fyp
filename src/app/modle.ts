@@ -15,7 +15,7 @@ export class Poll {
 
 export class Chat {
   constructor(
-    public chatId: string,
+    public chatId: number,
     public title: string,
     public access: Array<any>,
     public owner: string,
@@ -25,7 +25,7 @@ export class Chat {
 
 export class Lesson {
   constructor(
-    public lessonId: string,
+    public lessonId: number,
     public title: string,
     public polls: Array<any>,
     public chats: Array<any>,
@@ -37,7 +37,7 @@ export class Lesson {
 
 export class Questionair {
   constructor(
-    public questionairId: string,
+    public questionairId: number,
     public title: string,
     public access: Array<any>,
     public owner: string,

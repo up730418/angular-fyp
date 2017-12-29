@@ -26,7 +26,6 @@ export class PollEditorComponent implements OnInit {
   selectable: boolean = true;
   removable: boolean = true;
   addOnBlur: boolean = true;
-  userName: string;
   
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -39,14 +38,12 @@ export class PollEditorComponent implements OnInit {
     this.loginService.login.subscribe((login) => {
       if(login){
          this.getPoll();
-         this.userName = this.loginService.userName;
        }
     })
     this.getPoll()
   }
  
   getPoll() {
-    console.log("1")
    // let courseToReturn: Course;
     this.route.params
         .switchMap((params: Params) => this.pollService.getPoll(params['id']))
@@ -68,7 +65,12 @@ export class PollEditorComponent implements OnInit {
 //    console.log(this.model)
 //    this.model.questions = this.model.questions.split(',');
     this.pollService.updatePoll(this.model.pollId.toString(), this.model).then((res) => {
-      this.router.navigateByUrl(`/poll-editor/${res}`);
+      if(res.toString() != "ok"){
+        this.router.navigateByUrl(`/poll-editor/${res}`);
+      } else {
+        console.log("ok");
+      }
+      
     });
   }
   
@@ -112,6 +114,17 @@ export class PollEditorComponent implements OnInit {
     if (index >= 0) {
       this.model.access.splice(index, 1);
     }
+  }
+  
+  deletePoll(): void{
+    this.pollService.deletePoll(this.model.pollId).then(res => {
+      console.log(res == "Accepted")
+      if(res != "Accepted"){
+          console.error("Error Unable to delete");
+        } else {
+          this.router.navigateByUrl(`/poll-editor/na`);
+        }
+    });
   }
   get diagnostic() { return JSON.stringify(this.model); }
   separatorKeysCodes = [ENTER, COMMA];

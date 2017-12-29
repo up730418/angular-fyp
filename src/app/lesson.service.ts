@@ -6,37 +6,49 @@ import { Title } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs/Observable';
 
-import { Poll, UA } from './modle';
-
+import { Lesson, } from './modle';
 
 import { LoginService } from './login.service'
 
 @Injectable()
-export class PollService {
+ 
+export class LessonService {
   
   private serverUrl = 'http://localhost:8080';
   
   constructor(private http: Http,
              private loginService: LoginService,) { }
   
-  getPoll(id: string): Promise<Poll> {
+  getLesson(id: string): Promise<Lesson> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
-    const url = this.serverUrl + "/api/poll/" + id;
+    const url = this.serverUrl + "/api/lesson/" + id;
 
     return this.http.get(url, options)
                 .toPromise()
-                .then(response => response.json() as Poll)
+                .then(response => response.json() as Lesson)
+                .catch(this.handleError);
+  }
+  
+  getLessons(): Promise<Lesson[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.loginService.authtoken});
+    const options = new RequestOptions({ headers: headers });
+    const url = this.serverUrl + "/api/lesson";
+
+    return this.http.get(url, options)
+                .toPromise()
+                .then(response => { return response.json() as Lesson[] })
                 .catch(this.handleError);
   }
 
-  updatePoll(id: string, data): Promise<Poll> {
+  updateLesson(id: string, data): Promise<Lesson> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
     data = JSON.stringify(data);
-    const url = `${this.serverUrl}/api/poll/${id}`;
+    const url = `${this.serverUrl}/api/lesson/${id}`;
     return this.http.post(url, data, options)
                 .toPromise()
                 .then((res) => {
@@ -46,28 +58,12 @@ export class PollService {
                 .catch(this.handleError);
   }
   
-  addPollResult(id: number, data): Promise<any> {
-    const url =  this.serverUrl + '/api/poll/'  + id;
-    const headers = new Headers({ 'Content-Type': 'application/json',
-                                  'Authorization': 'Bearer ' + this.loginService.authtoken});
-    const options = new RequestOptions({ headers: headers });
-    const body = JSON.stringify(data);
-                         
-    return this.http.put(url, body, options)
-                .toPromise()
-                .then(response =>{
-                  return 'success';
-              })
-              .catch((e) => {return e.toString()});
-  }
-    
-  
-  deletePoll(id: number): Promise<any> {
+  deleteLesson(id: number): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'text/html',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
     
-    const url = `${this.serverUrl}/api/poll/${id}`;
+    const url = `${this.serverUrl}/api/lesson/${id}`;
     return this.http.delete(url, options)
                 .toPromise()
                 .then((res) => {
