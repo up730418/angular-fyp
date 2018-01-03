@@ -90,12 +90,12 @@ export class PollComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.checkSignIn()
     this.loginService.login.subscribe((login) => {
       if(login){
          this.getPollData(this.pollId);
        }
     });
+    this.loginService.checkSignIn()
     this.getPollData(this.pollId)
   }
 

@@ -10,6 +10,7 @@ export class LoginService {
   public signedIn: Boolean;
   public name: string;
   public userName: string;
+  public expiresAt: number;
   
   @Output() login = new EventEmitter(false);
 
@@ -18,9 +19,17 @@ export class LoginService {
   }
 
   public checkSignIn(){
+    if(localStorage.getItem("authToken") && new Date(parseInt(localStorage.getItem("authExpiresAt"))) > new Date()){
+      this.authtoken = localStorage.getItem("authToken");
+      this.signedIn = true;
+      this.name = localStorage.getItem("authName");
+      this.userName = localStorage.getItem("authUserName");
+      this.expiresAt = parseInt(localStorage.getItem("authExpiresAt"));
+      this.login.emit(this.signedIn);
+    }
+    
     if(!this.signedIn){
       this.openDialog();
-      
     }
   }
 
@@ -30,14 +39,17 @@ export class LoginService {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log(result)
         if(result){
           this.user = result;
           this.authtoken = result.Zi.id_token;
           this.signedIn = true;
           this.name = result.w3.ig;
           this.userName = result.w3.U3;
+          this.expiresAt = result.Zi.expires_at;
+          localStorage.setItem("authToken", result.Zi.id_token);
+          localStorage.setItem("authName", result.w3.ig);
+          localStorage.setItem("authUserName", result.w3.U3);
+          localStorage.setItem("authExpiresAt", result.Zi.expires_at);
         }
         this.login.emit(this.signedIn);
         

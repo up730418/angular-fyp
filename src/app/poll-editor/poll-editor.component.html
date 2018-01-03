@@ -43,6 +43,22 @@
 
       </mat-chip-list>
     </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <mat-chip-list #lessonChipList>
+        <mat-chip color="warn" *ngFor="let lesson of model.lesson" [selectable]="selectable"
+                 [removable]="removable" (remove)="removeLesson(lesson)" >
+          {{lesson}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+         <input placeholder="Associated Lesson Id's"
+             [matChipInputFor]="lessonChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="addLesson($event)" />
+
+      </mat-chip-list>
+    </mat-form-field>
 <!--
     <mat-form-field class="full-width">
       <input matInput type="text" [(ngModel)]="model.access" placeholder="Access" name="access" required>    

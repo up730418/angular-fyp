@@ -9,6 +9,7 @@ export class Poll {
     public questions: Array<string>,
     public access: Array<string>,
     public owner: string,
+    public lesson: Array<string>, 
     public answers: [ UA ],
   ) { }
 }
@@ -19,6 +20,7 @@ export class Chat {
     public title: string,
     public access: Array<any>,
     public owner: string,
+    public lesson: Array<string>,
     public message: [ UM ],
   ) { }
 }

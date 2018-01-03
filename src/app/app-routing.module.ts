@@ -18,8 +18,10 @@ const routes: Routes = [
   { path: 'home/:id', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'chat/:id', component: ChatComponent },
+  { path: 'chat/:id', component: ChatComponent },
   { path: 'poll/:id', component: PollComponent },
   { path: 'poll-editor/:id', component: PollEditorComponent },
+  { path: 'poll-editor/:id/:lesson', component: PollEditorComponent },
   { path: 'lessons', component: LessonsComponent },
   
 ];

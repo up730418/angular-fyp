@@ -30,14 +30,14 @@ export class LessonsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.checkSignIn();
     this.loginService.login.subscribe((login) => {
       if(login){
+         console.log(this.loginService.authtoken)
          this.getLessons();
 //         this.createLesson();
-//         this.userName = this.loginService.userName;
        }
     });
+    this.loginService.checkSignIn();
   }
   
   getLessons(): void {
@@ -72,9 +72,9 @@ export class LessonsComponent implements OnInit {
   }
 
   createLesson(): void {
-    this.lessonService.updateLesson("2",{lessonId: 2, 
-                               title: "the second lesson", 
-                               polls: [{"id":"14", "title": "poll 14"}, {"id":"2", "title": "poll 2" }],
+    this.lessonService.updateLesson("3",{lessonId: 3, 
+                               title: "the third lesson", 
+                               polls: [{"id":"15", "title": "poll 15"}, {"id":"2", "title": "poll 2" }],
                                chats: [{"id":"room1", "title": "chat 1"}, {"id":"room2", "title": "chat 2" }], 
                                questionairs: [{"id":"1", "title": "quiz 1"},{"id":"2", "title": "quiz 2" }], 
                                access: ["up730418@myport.ac.uk"], 

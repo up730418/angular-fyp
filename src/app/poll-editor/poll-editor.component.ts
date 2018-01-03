@@ -26,6 +26,8 @@ export class PollEditorComponent implements OnInit {
   selectable: boolean = true;
   removable: boolean = true;
   addOnBlur: boolean = true;
+  lesson: Array<string>;
+  assosiatLesson: string;
   
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -34,36 +36,37 @@ export class PollEditorComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    this.loginService.checkSignIn()
     this.loginService.login.subscribe((login) => {
       if(login){
          this.getPoll();
        }
-    })
-    this.getPoll()
+    });
+    this.loginService.checkSignIn();
+    this.getPoll();
+    this.route.params.subscribe(params => {  this.assosiatLesson = params['lesson']  });
+    
   }
  
   getPoll() {
-   // let courseToReturn: Course;
     this.route.params
         .switchMap((params: Params) => this.pollService.getPoll(params['id']))
         .subscribe(poll =>{
           console.log(poll)
                       if (poll == null) {
-                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [new UA('', '' )]);
+                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [], [new UA('', '' )]);
                       } else {
 
                         this.model = poll;
                       }
+                      if(this.assosiatLesson != undefined){
+                        this.model.lesson.push(this.assosiatLesson.toString());
+                      }
 
                     },
                   error => console.log);
-    // return courseToReturn;
     
    }
   onSubmit() {
-//    console.log(this.model)
-//    this.model.questions = this.model.questions.split(',');
     this.pollService.updatePoll(this.model.pollId.toString(), this.model).then((res) => {
       if(res.toString() != "ok"){
         this.router.navigateByUrl(`/poll-editor/${res}`);
@@ -105,6 +108,8 @@ export class PollEditorComponent implements OnInit {
     
     if (input) {
       input.value = '';
+          console.log(value)
+
     }
   }
 
@@ -113,6 +118,28 @@ export class PollEditorComponent implements OnInit {
 
     if (index >= 0) {
       this.model.access.splice(index, 1);
+    }
+  }
+  
+  addLesson(event: MatChipInputEvent): void {
+    let input = event.input;
+    let value = event.value;
+
+    if ((value || '').trim()) {
+      this.model.lesson.push( value );
+    }
+    
+    if (input) {
+      input.value = '';
+    console.log(value)
+    }
+  }
+
+  removeLesson(lesson: any): void {
+    let index = this.lesson.indexOf(lesson);
+
+    if (index >= 0) {
+      this.model.lesson.splice(index, 1);
     }
   }
   
@@ -126,6 +153,5 @@ export class PollEditorComponent implements OnInit {
         }
     });
   }
-  get diagnostic() { return JSON.stringify(this.model); }
   separatorKeysCodes = [ENTER, COMMA];
 }
