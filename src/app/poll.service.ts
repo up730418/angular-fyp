@@ -27,8 +27,7 @@ export class PollService {
 
     return this.http.get(url, options)
                 .toPromise()
-                .then(response =>{console.log(response.json())
-                                 return response.json() as Poll})
+                .then(response =>{return response.json() as Poll})
                 .catch(this.handleError);
   }
 

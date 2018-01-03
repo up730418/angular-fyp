@@ -42,7 +42,11 @@ export class PollEditorComponent implements OnInit {
        }
     });
     this.loginService.checkSignIn();
-    this.getPoll();
+    
+    if(this.loginService.signedIn){
+      this.getPoll();
+    }
+    
     this.route.params.subscribe(params => {  this.assosiatLesson = params['lesson']  });
     
   }
@@ -59,6 +63,7 @@ export class PollEditorComponent implements OnInit {
                         this.model = poll;
                       }
                       if(this.assosiatLesson != undefined){
+                        //If a lessonId has been pased in the url push it to the lesson array
                         this.model.lesson.push(this.assosiatLesson.toString());
                       }
 
@@ -154,4 +159,6 @@ export class PollEditorComponent implements OnInit {
     });
   }
   separatorKeysCodes = [ENTER, COMMA];
+
+  get diagnostic() { return JSON.stringify(this.model); }
 }

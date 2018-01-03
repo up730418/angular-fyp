@@ -1,4 +1,5 @@
 <h2>Poll Editor</h2>
+
 <h3 *ngIf="!model"> Error pole does not exist or you don't have access</h3>
   <form #pollForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="model">    
     <mat-form-field class="full-width">

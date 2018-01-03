@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit {
     this.mess = "";
                  
    this.router.events.subscribe(event => {
-     // Do whatever in here
+     // when the room id changes, refresh model
      if(this.room !== this.route.snapshot.params['id']){
        document.getElementById("testMessage").innerHTML = "";
        this.room = this.route.snapshot.params['id'];
@@ -51,15 +51,10 @@ export class ChatComponent implements OnInit {
        this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
        
      }
-     
-//     console.log(this.room);
-//     console.log(event);
-     
    });
   }
 
   ngOnInit(){
-   // console.log(user);
     this.loginService.login.subscribe((login) => {
       if(login){
         this.getChatData(this.room)

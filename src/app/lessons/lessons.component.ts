@@ -18,6 +18,7 @@ import { Lesson } from './../modle';
 })
 export class LessonsComponent implements OnInit {
   lessons: Lesson[];
+  lessonId: string;
   
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -25,65 +26,62 @@ export class LessonsComponent implements OnInit {
               private lessonService: LessonService,
               private loginService: LoginService,
               @Inject(DOCUMENT) private document: Document, ) { 
-    this.getLessons(); 
+    this.lessons = [];
+    this.lessonId = this.route.snapshot.params['id']; 
+    //If user is signed in get lesson data
+    if(this.loginService.signedIn){
+      this.getLessons();            
+    }
+    
+    this.router.events.subscribe(event => {
+     // when the lesson id changes, refresh model
+     if(this.lessonId !== this.route.snapshot.params['id']){
+       this.lessonId = this.route.snapshot.params['id']; 
+       this.getLessons();
+     }
+    });
   
   }
 
   ngOnInit() {
+    //Check when the login status of a user changes 
     this.loginService.login.subscribe((login) => {
       if(login){
-         console.log(this.loginService.authtoken)
          this.getLessons();
-//         this.createLesson();
        }
     });
+    //Check if user is already signed in or not
     this.loginService.checkSignIn();
   }
   
   getLessons(): void {
-    this.lessonService.getLessons().then(lessons => {
-      console.log(lessons);
-      this.lessons = lessons;
-    });
-  }
-  getLessons2(): void {
-    this.lessons = [new Lesson(1, 
-                               "the first lesson", 
-                               [{"id":"14", "title": "poll 14"}, {"id":"2", "title": "poll 2" }],
-                               [{"id":"room1", "title": "chat 1"}, {"id":"room2", "title": "chat 2" }], 
-                               [{"id":"1", "title": "quiz 1"},{"id":"2", "title": "quiz 2" }], 
-                               ["up730418@myport.ac.uk"], 
-                               "up730418@myport.ac.uk" ),
-                    new Lesson(1, 
-                               "the SECOND lesson", 
-                               [{"id":"1", "title": "poll 1"}, {"id":"2", "title": "poll 2" }],
-                               [{"id":"room1", "title": "chat 1"},{"id":"room2", "title": "chat 2" }],
-                               [{"id":"1", "title": "quiz 1"},{"id":"2", "title": "quiz 2" }],
-                               ["up730418@myport.ac.uk"], 
-                               "up730418@myport.ac.uk" ),
-                    new Lesson(1, 
-                               "the SECOND lesson", 
-                               [{"id":"1", "title": "poll 1"}, {"id":"2", "title": "poll 2" }],
-                               [{"id":"room1", "title": "chat 1"},{"id":"room2", "title": "chat 2" }],
-                               [{"id":"1", "title": "quiz 1"},{"id":"2", "title": "quiz 2" }],
-                               ["up730418@myport.ac.uk"], 
-                               "up730418@myport.ac.uk" ) ]; 
-    console.log(this.lessons);
+    
+    // If a single  lesson has been selected
+    if(this.lessonId){
+      // if the user wishes to create a new lesson
+      if(this.lessonId === "na"){
+        this.lessonService.updateLesson("na", new Lesson(0, "New Lesson", [], [], [], [], this.loginService.userName)).then(res => {
+          this.router.navigateByUrl(`/lessons/${res}`);
+        })
+      } else {
+        //Get a specific lessons data
+        this.lessonService.getLesson(this.lessonId).then(lesson => {
+          this.lessons = [];
+          this.lessons.push(lesson);
+        })
+      }
+    } else {
+      // Get all users Lessons
+      this.lessonService.getLessons().then(lessons => {
+        this.lessons = lessons;
+      });
+      
+    }
   }
 
-  createLesson(): void {
-    this.lessonService.updateLesson("3",{lessonId: 3, 
-                               title: "the third lesson", 
-                               polls: [{"id":"15", "title": "poll 15"}, {"id":"2", "title": "poll 2" }],
-                               chats: [{"id":"room1", "title": "chat 1"}, {"id":"room2", "title": "chat 2" }], 
-                               questionairs: [{"id":"1", "title": "quiz 1"},{"id":"2", "title": "quiz 2" }], 
-                               access: ["up730418@myport.ac.uk"], 
-                               owner: "up730418@myport.ac.uk"});
-  }
-  
+  // Delete a lesson perminently
   deleteLesson(id: number): void{
     this.lessonService.deleteLesson(id).then(res => {
-      console.log(res == "Accepted")
       if(res != "Accepted"){
           console.error("Error Unable to delete");
         } else {
@@ -92,15 +90,23 @@ export class LessonsComponent implements OnInit {
     });
   }
 
+  // Delete a poll permenintly and remove it from the lesson
   deletePoll(id: number): void{
     this.pollService.deletePoll(id).then(res => {
-      console.log(res == "Accepted")
       if(res != "Accepted"){
           console.error("Error Unable to delete");
         } else {
            document.getElementById("poll-" + id).remove();
         }
     });
+  }
+
+ //Update the lessons title
+  updateTitle(id: number): void {
+    let lessonToUpdate 
+    this.lessons.forEach(lesson => { if (lesson.lessonId == id) lessonToUpdate = lesson});
+    this.lessonService.updateLesson(id.toString(), lessonToUpdate)
+    
   }
 
 }

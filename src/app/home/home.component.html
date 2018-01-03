@@ -45,43 +45,52 @@
 
   <div *ngSwitchCase="'design'" id="design" class="cardContainer">
     <mat-card class="two">
-      <a routerLink="/lesson-editor/na">
+      <a routerLink="/lessons/na">
         <mat-card-header>
           <mat-card-title>New Lesson</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>
-            Create a lesson and add polls, quizs and game
+            Create a new lesson and inspire the next generation!
           </p>
         </mat-card-content>
       </a>
     </mat-card>
 
     <mat-card class="two">
-      <mat-card-header>
-        <mat-card-title>Edit lesson</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <h4>Recent Lessons:</h4>
-      <a routerLink="lesson-editor/1"> Lesson 1 </a>
-      <a routerLink="lesson-editor/2"> Lesson 2 </a>
-      <a routerLink="lesson-editor/3"> Lesson 3 </a>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button routerLink="/lessons">OTHER</button>
-      </mat-card-actions>
+      <a routerLink="/lessons/">
+        <mat-card-header>
+          <mat-card-title>Edit lesson</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            Edit a pre existing lesson.
+          </p>
+          <p>
+            Add/Delte/Edit pre existing polls, chats and quizes.
+          </p>
+  <!--
+          <h4>Recent Lessons:</h4>
+          <a routerLink="lesson-editor/1"> Lesson 1 </a>
+          <a routerLink="lesson-editor/2"> Lesson 2 </a>
+          <a routerLink="lesson-editor/3"> Lesson 3 </a>
+  -->
+        </mat-card-content>
+        <mat-card-actions>
+        </mat-card-actions>
+      </a>
     </mat-card>
   </div>
   
   <div *ngSwitchCase="'present'" id="present" class="cardContainer">
-
-    <mat-card class="three">
-      <a routerLink="/lesson-present/1">
+    
+    <mat-card class="three" *ngFor="let lesson of lessons">
+      <a routerLink="/lesson-present/{{lesson.lessonId}}">
         <mat-card-header>
-          <mat-card-title>Lesson 1</mat-card-title>
+          <mat-card-title>{{lesson.title}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <h4>BUILDER LESSON CHECK</h4>
+          <h4>Present this Lesson</h4>
         </mat-card-content>
       </a>
     </mat-card>

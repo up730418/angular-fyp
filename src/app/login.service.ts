@@ -19,7 +19,7 @@ export class LoginService {
   }
 
   public checkSignIn(){
-    if(localStorage.getItem("authToken") && new Date(parseInt(localStorage.getItem("authExpiresAt"))) > new Date()){
+    if(this.signedIn !== true && localStorage.getItem("authToken") && new Date(parseInt(localStorage.getItem("authExpiresAt"))) > new Date()){
       this.authtoken = localStorage.getItem("authToken");
       this.signedIn = true;
       this.name = localStorage.getItem("authName");

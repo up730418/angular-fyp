@@ -1,4 +1,4 @@
-<button mat-raised-button (click)="createLesson()"> New Lesson</button>
+<button mat-raised-button routerLink="/lessons/na"> New Lesson</button>
 <div id="newLesson" *ngIf="newLesson"> </div>
 
 <div id="lessonContainer" class="cardContainer"  *ngIf="lessons">
@@ -6,7 +6,10 @@
   <mat-card class="one" *ngFor="let lesson of lessons" id="lesson-{{lesson.lessonId}}">
     <div *ngIf="lesson"> 
     <mat-card-header >
-      <mat-card-title > <h2>{{lesson.title}} </h2></mat-card-title>
+      <mat-form-field class="full-width">
+        <input matInput type="text" (keyup.enter)="updateTitle(lesson.lessonId)" [(ngModel)]="lesson.title" placeholder="Lesson Title" name="lessonTitle">    
+      </mat-form-field>
+        <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> 
     </mat-card-header>
     <mat-card-content>
       <h4>Polls:</h4>

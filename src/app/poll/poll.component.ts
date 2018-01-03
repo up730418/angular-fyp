@@ -91,12 +91,13 @@ export class PollComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.login.subscribe((login) => {
-      if(login){
+      console.log("123")
+      if(login && this.label === []){
          this.getPollData(this.pollId);
        }
     });
-    this.loginService.checkSignIn()
-    this.getPollData(this.pollId)
+    this.loginService.checkSignIn();
+    this.getPollData(this.pollId);
   }
 
   ngAfterViewInit(){
@@ -183,7 +184,7 @@ export class PollComponent implements OnInit {
   addPollResult(vote: string) {
 
     const data = {type: "poll", vote: vote.toString(), pollId: this.pollId, user: this.loginService.userName}
-    this.pollService.updatePoll(this.pollId, data);
+    this.pollService.addPollResult(this.pollId, data);
   }
   
 }
