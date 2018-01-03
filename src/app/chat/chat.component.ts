@@ -9,7 +9,7 @@ import { Component, OnInit, ViewEncapsulation, Inject, OnChanges } from '@angula
 import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 
-import { LoginService } from '../login.service'
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-chat',
@@ -21,8 +21,8 @@ export class ChatComponent implements OnInit {
   userName: string;
   mess: string;
   colours: Array<String>;
-  userColour : {};
-  private url ='localhost';
+  userColour: {};
+  private url = 'localhost';
   private messages: Array<any>;
   private socket: WebSocket;
   private room: any;
@@ -30,74 +30,74 @@ export class ChatComponent implements OnInit {
   constructor(private http: Http,
               private route: ActivatedRoute,
               private router: Router,
-              private loginService: LoginService, 
-              @Inject(DOCUMENT) private document: Document, 
+              private loginService: LoginService,
+              @Inject(DOCUMENT) private document: Document,
                ) {
-    
-    this.room = this.route.snapshot.params['id']; 
+
+    this.room = this.route.snapshot.params['id'];
     this.userColour = {};
-    this.colours = ["red", "blue", "greeen", "pink", "orange"];
-    this.messages = []; 
+    this.colours = ['red', 'blue', 'greeen', 'pink', 'orange'];
+    this.messages = [];
     this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
-    this.userName = this.loginService.userName;;
-    this.mess = "";
-                 
+    this.userName = this.loginService.userName;
+    this.mess = '';
+
    this.router.events.subscribe(event => {
      // when the room id changes, refresh model
-     if(this.room !== this.route.snapshot.params['id']){
-       document.getElementById("testMessage").innerHTML = "";
+     if (this.room !== this.route.snapshot.params['id']){
+       document.getElementById('testMessage').innerHTML = '';
        this.room = this.route.snapshot.params['id'];
        this.getChatData(this.room);
        this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
-       
+
      }
    });
   }
 
   ngOnInit(){
     this.loginService.login.subscribe((login) => {
-      if(login){
-        this.getChatData(this.room)
+      if (login){
+        this.getChatData(this.room);
         this.userName = this.loginService.userName;
         this.userNameChange();
        }
-    })
+    });
   }
 
-  
+
   ngAfterViewInit(){
-    this.loginService.checkSignIn()
-    this.getChatData(this.room)
-    
-    
-    this.askNotification()
-    
+    this.loginService.checkSignIn();
+    this.getChatData(this.room);
+
+
+    this.askNotification();
+
     this.socket.onmessage = (event) => {
-        this.addMessage(JSON.parse(event.data), true)
-    }
+        this.addMessage(JSON.parse(event.data), true);
+    };
     this.socket.onclose = () => {
-        console.log("/The socket connection has been closed");
-    }
+        console.log('/The socket connection has been closed');
+    };
     this.socket.onopen = () => {
-        console.log("/The socket connection has been established");
-    }
+        console.log('/The socket connection has been established');
+    };
   }
 
   addMessage(data, notifi): void {
 
-    let cssClass = "otherMessage";
+    let cssClass = 'otherMessage';
     let colour: string;
-    let commentor = data['user'];
+    const commentor = data['user'];
 
-    if(this.userName == commentor){
-        cssClass = "myMessage";
+    if (this.userName == commentor){
+        cssClass = 'myMessage';
     }else{
-      if(this.userColour[commentor]){
+      if (this.userColour[commentor]){
           colour = this.userColour[commentor];
 
       }
       else{
-          colour = this.colours[Math.floor(Math.random()*this.colours.length)].toString();
+          colour = this.colours[Math.floor(Math.random() * this.colours.length)].toString();
           this.userColour[commentor] = colour;
       }
 //      if (notifi === true && Notification.permission === "granted") {
@@ -106,77 +106,77 @@ export class ChatComponent implements OnInit {
 //      }
     }
 
-    if(data.user && data.user.length > 25){
-      data.user = data.user.substring(0, 25) + "..."
+    if (data.user && data.user.length > 25){
+      data.user = data.user.substring(0, 25) + '...';
     }
 
-    let className = !data['user'] ? "anon" : data['user'];
+    let className = !data['user'] ? 'anon' : data['user'];
     className = className.replace(/\s/g, '');
 
-    if(data.data && typeof data.data == "string" && (data.data.includes(".gif") || data.data.includes(".jpg") || data.data.includes(".png") ) ){
+    if (data.data && typeof data.data == 'string' && (data.data.includes('.gif') || data.data.includes('.jpg') || data.data.includes('.png') ) ){
       //Add a gif to the chat
-      let newDiv = document.createElement("div");
-      let divText = document.createTextNode(`${data['user']}: \n\n`);
-      let newImg = document.createElement("img")
+      const newDiv = document.createElement('div');
+      const divText = document.createTextNode(`${data['user']}: \n\n`);
+      const newImg = document.createElement('img');
       newImg.setAttribute('src', data['data']);
       newImg.setAttribute('alt', data['user']);
       newDiv.appendChild(divText);
       newDiv.appendChild(newImg);
       newDiv.style.backgroundColor = colour;
-      newDiv.classList.add(cssClass, "message", className);
+      newDiv.classList.add(cssClass, 'message', className);
 
-      document.getElementById("testMessage").appendChild(newDiv);
+      document.getElementById('testMessage').appendChild(newDiv);
 
     }
     else{
       //Add a normal text element to the chat
-      let newDiv = document.createElement("div");
-      let divText = document.createTextNode(`${data['user']}:`);
-      let newP = document.createElement("p");
-      let pText = document.createTextNode(`${data['data']}`);
+      const newDiv = document.createElement('div');
+      const divText = document.createTextNode(`${data['user']}:`);
+      const newP = document.createElement('p');
+      const pText = document.createTextNode(`${data['data']}`);
       newDiv.appendChild(divText);
       newP.appendChild(pText);
       newDiv.appendChild(newP);
       newDiv.style.backgroundColor = colour;
-      newDiv.classList.add(cssClass, "message", className)
+      newDiv.classList.add(cssClass, 'message', className);
 
-      document.getElementById("testMessage").appendChild(newDiv)
+      document.getElementById('testMessage').appendChild(newDiv);
 
     }
 
 
-    document.getElementById("testMessage").scrollTop = document.getElementById("testMessage").scrollHeight;
+    document.getElementById('testMessage').scrollTop = document.getElementById('testMessage').scrollHeight;
   }
 
   sendMessage(): void {
-    this.userNameChange()
-    if(this.mess.trim() != ""){
+    this.userNameChange();
+    if (this.mess.trim() != ''){
       try{
         this.socket.send(JSON.stringify({message : this.mess,
-                 room : this.room, user: this.userName, type: "chat"}));
-        this.mess = "";
+                 room : this.room, user: this.userName, type: 'chat'}));
+        this.mess = '';
 
-      }catch(e){
-          console.error("Unable to send message");
+      }catch (e){
+          console.error('Unable to send message');
       }
     }
   }
 
   userNameChange(): void {
     //Remove all messages curently marked as the userers
-    const elementsToRemove = document.querySelectorAll(".myMessage");
+    const elementsToRemove = document.querySelectorAll('.myMessage');
     for (let i = 0; i < elementsToRemove.length; i++) {
-        elementsToRemove[i].classList.remove("myMessage");
-        elementsToRemove[i].className += " otherMessage";
+        elementsToRemove[i].classList.remove('myMessage');
+        elementsToRemove[i].className += ' otherMessage';
     }
 
     // Assign all new users messages
-    const className = "." + this.userName.replace(/@/g, '');
+    const className = '.' + this.userName.replace(/@/g, '');
     const elementsToUpdate = document.querySelectorAll(className);
     for (let i = 0; i < elementsToUpdate.length; i++) {
-        elementsToUpdate[i].removeAttribute("style")
-        elementsToUpdate[i].classList.remove("otherMessage");
-        elementsToUpdate[i].className += " myMessage";
+        elementsToUpdate[i].removeAttribute('style');
+        elementsToUpdate[i].classList.remove('otherMessage');
+        elementsToUpdate[i].className += ' myMessage';
     }
   }
 
@@ -184,36 +184,36 @@ export class ChatComponent implements OnInit {
     Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
       //console.log("boop")
-      if (permission === "granted") {
+      if (permission === 'granted') {
         //var notification = new Notification("Hi there!");
       }
       else{
-        console.error(permission)
+        console.error(permission);
       }
     });
   }
 
   getChatData(room: string): Promise<string> {
 //    console.log(" attempted get")
-    const url = 'http://'+ this.url +':8080/api/chat/' + room;
-    const headers = new Headers({ 'Content-Type': 'application/json', 
+    const url = 'http://' + this.url + ':8080/api/chat/' + room;
+    const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken });
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options)
                 .toPromise()
-                .then(response =>{
-                  
-                  let x = response.json()
+                .then(response => {
+
+                  const x = response.json();
                   //console.log()
-                  x.reverse()
-                  x.forEach((message) =>{
+                  x.reverse();
+                  x.forEach((message) => {
                     this.addMessage(message, false);
-                  })
+                  });
                   return 'response';
-                  
+
                 })
-                .catch((e) => {return e.toString()});
+                .catch((e) => e.toString());
   }
 
 }

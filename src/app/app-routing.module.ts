@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'poll-editor/:id/:lesson', component: PollEditorComponent },
   { path: 'lessons', component: LessonsComponent },
   { path: 'lessons/:id', component: LessonsComponent },
-  
+
 ];
 
 

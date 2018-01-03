@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewEncapsulation, OnChanges, AfterViewInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
-import { LoginService } from '../login.service'
+import { LoginService } from '../login.service';
 declare const gapi: any;
 
 @Component({
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   name: string;
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(LoginDialog, {
+    const dialogRef = this.dialog.open(LoginDialog, {
       width: '250px',
       data: { name: this.name, animal: this.animal }
     });
@@ -65,7 +65,7 @@ export class LoginDialog implements OnInit {
     this.loginService.authtoken = googleUser.Zi.id_token;
     this.dialogRef.close();
   }
-  
+
 
   onNoClick(): void {
     this.dialogRef.close();

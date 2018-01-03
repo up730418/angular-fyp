@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule, 
-        MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule, 
+import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
+        MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
         MatChipsModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginService, LoginDialog } from './login.service';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonComponent } from './lesson/lesson.component';
+import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { LessonComponent } from './lesson/lesson.component';
     HomeComponent,
     LoginComponent,
     LessonsComponent,
-    LessonComponent
+    LessonComponent,
+    LessonPresenterComponent
   ],
   imports: [
     BrowserModule,
@@ -56,13 +58,13 @@ import { LessonComponent } from './lesson/lesson.component';
     MatChipsModule,
     MatCardModule,
   ],
-  providers: [PollService, 
-              LoginService, 
+  providers: [PollService,
+              LoginService,
               LessonService, ],
-  
+
   bootstrap: [AppComponent],
-  
-  entryComponents: [WebsocketDialogueComponent, 
+
+  entryComponents: [WebsocketDialogueComponent,
                    LoginDialog, ]
 })
 export class AppModule { }
