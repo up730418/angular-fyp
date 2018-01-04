@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { DOCUMENT } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 
 import { PollService } from '../poll.service';
 import { LessonService } from '../lesson.service';

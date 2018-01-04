@@ -11,6 +11,7 @@ import { PollComponent } from './poll/poll.component';
 import { PollEditorComponent } from './poll-editor/poll-editor.component';
 
 import { LessonsComponent } from './lessons/lessons.component';
+import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'poll-editor/:id/:lesson', component: PollEditorComponent },
   { path: 'lessons', component: LessonsComponent },
   { path: 'lessons/:id', component: LessonsComponent },
+  { path: 'lesson-presenter/:id', component: LessonPresenterComponent },
 
 ];
 

@@ -149,7 +149,7 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(): void {
-    this.userNameChange();
+    //this.userNameChange();
     if (this.mess.trim() != ''){
       try{
         this.socket.send(JSON.stringify({message : this.mess,
