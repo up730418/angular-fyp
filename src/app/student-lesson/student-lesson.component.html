@@ -1,0 +1,14 @@
+<h1 *ngIf="lesson"> {{lesson.title}} </h1>
+
+<section id="lessonContent" *ngIf="lesson">
+
+  <mat-card  *ngFor="let poll of lesson.polls" class="fullCard">
+    {{poll.id}}
+    <app-poll pollid="{{{poll.id}}}"></app-poll>
+  </mat-card>
+
+  <mat-card *ngIf="lesson" class="fullCard">
+    <app-chat></app-chat>
+  </mat-card>
+  
+</section>

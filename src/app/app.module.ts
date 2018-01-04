@@ -20,11 +20,11 @@ import { WebsocketDialogueComponent } from './websocket-dialogue/websocket-dialo
 import { PollService } from './poll.service';
 import { LessonService } from './lesson.service';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { LoginService, LoginDialog } from './login.service';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.component';
+import { StudentLessonComponent } from './student-lesson/student-lesson.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +35,10 @@ import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.co
     WebsocketDialogueComponent,
     LoginDialog,
     HomeComponent,
-    LoginComponent,
     LessonsComponent,
     LessonComponent,
-    LessonPresenterComponent
+    LessonPresenterComponent,
+    StudentLessonComponent,
   ],
   imports: [
     BrowserModule,

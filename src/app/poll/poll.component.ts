@@ -2,7 +2,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/switchMap';
 
 import { Observable } from 'rxjs/Observable';
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Attribute } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -20,6 +20,7 @@ import { PollService } from '../poll.service';
   selector: 'app-poll',
   templateUrl: './poll.component.html',
   styleUrls: ['./poll.component.css'],
+  inputs:['pollid'],
   encapsulation: ViewEncapsulation.None
 })
 
@@ -59,6 +60,7 @@ export class PollComponent implements OnInit {
 
   public options: any = {
     // All of my other bar chart option here
+    responsive: true,
     scales: {
         yAxes: [{
             ticks: {
@@ -80,9 +82,10 @@ export class PollComponent implements OnInit {
               private dialog: MatDialog,
               private loginService: LoginService,
               private pollService: PollService,
+              @Attribute('pollid') pollId:string
               ) {
-
-    this.pollId = this.route.snapshot.params['id'];
+                console.log(pollId)
+    this.pollId = pollId ? pollId : this.route.snapshot.params['id'];
     this.messages = [];
     this.socket = new WebSocket('ws://' + this.url + ':1334/', this.pollId);
     this.data = [];

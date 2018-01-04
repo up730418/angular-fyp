@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
   mess: string;
   colours: Array<String>;
   userColour: {};
+  title: string;
   private url = 'localhost';
   private messages: Array<any>;
   private socket: WebSocket;

@@ -61,7 +61,7 @@ export class LoginService {
 
 @Component({
   selector: 'login-dialog',
-  templateUrl: './login/login.componentDialog.html',
+  templateUrl: './login.componentDialog.html',
 })
 
 export class LoginDialog implements OnInit {

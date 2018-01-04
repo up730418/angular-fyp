@@ -2,8 +2,9 @@
   {{title}}
 </h1>
 
-<div style="display: block">
+<div id="pollContainer" style="display: block">
   <canvas baseChart class="chart"
+          height="90%"
           [chartType]="'bar'"
           [labels]="label"
           [data]="data"

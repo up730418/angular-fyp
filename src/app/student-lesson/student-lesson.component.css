@@ -1,0 +1,15 @@
+#lessonContent{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+
+.fullCard{
+  display:inherit;
+  width: 90%;
+  margin-bottom: 1em;
+  margin-right: 0;
+  height: 90vh;
+}
