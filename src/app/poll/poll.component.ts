@@ -2,13 +2,12 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/switchMap';
 
 import { Observable } from 'rxjs/Observable';
-import { Injectable, EventEmitter, Attribute } from '@angular/core';
+import { Input, Injectable, EventEmitter, Attribute, Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 
-import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { WebsocketDialogueComponent } from '../websocket-dialogue/websocket-dialogue.component';
@@ -20,9 +19,10 @@ import { PollService } from '../poll.service';
   selector: 'app-poll',
   templateUrl: './poll.component.html',
   styleUrls: ['./poll.component.css'],
-  inputs:['pollid'],
   encapsulation: ViewEncapsulation.None
 })
+
+
 
 export class PollComponent implements OnInit {
   title = 'Error pole does not exist or you don\'t have access';
@@ -30,6 +30,7 @@ export class PollComponent implements OnInit {
   public messages: Array<any>;
   public socket: WebSocket;
   public pollId: any;
+  @Input() pollid; //Id pased in component def e.g. <app-poll pollid="15"> 
 
   public colors: Array<any> = [
     { // Blue
@@ -82,25 +83,26 @@ export class PollComponent implements OnInit {
               private dialog: MatDialog,
               private loginService: LoginService,
               private pollService: PollService,
-              @Attribute('pollid') pollId:string
               ) {
-                console.log(pollId)
-    this.pollId = pollId ? pollId : this.route.snapshot.params['id'];
+    
     this.messages = [];
-    this.socket = new WebSocket('ws://' + this.url + ':1334/', this.pollId);
     this.data = [];
     this.label = [];
   }
 
   ngOnInit() {
+    //Check if pollid is defined in comp def. If not use url params
+    this.pollId = this.pollid ? this.pollid : this.route.snapshot.params['id'];
+    console.log(this.pollId)
+    
     this.loginService.login.subscribe((login) => {
-      console.log('123');
       if (login && this.label === []){
          this.getPollData(this.pollId);
        }
     });
     this.loginService.checkSignIn();
     this.getPollData(this.pollId);
+    this.socket = new WebSocket('ws://' + this.url + ':1334/', this.pollId);
   }
 
   ngAfterViewInit(){
@@ -127,8 +129,6 @@ export class PollComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       if (result === true) {
         window.location.reload();
       }
@@ -151,7 +151,6 @@ export class PollComponent implements OnInit {
     const clone = JSON.parse(JSON.stringify(this.data));
     clone[index] = this.data[index] + votes;
     this.data = clone;
-    console.log(this.data);
   }
 
  getPollData(room: string): Promise<string> {

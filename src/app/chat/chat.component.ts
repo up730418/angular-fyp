@@ -2,10 +2,10 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/switchMap';
 
 import { Observable } from 'rxjs/Observable';
+import { Input, Component, OnInit, ViewEncapsulation, Inject, OnChanges } from '@angular/core';
 import { Injectable, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Component, OnInit, ViewEncapsulation, Inject, OnChanges } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 
@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   colours: Array<String>;
   userColour: {};
   title: string;
+  @Input() chatid;
   private url = 'localhost';
   private messages: Array<any>;
   private socket: WebSocket;
@@ -35,11 +36,9 @@ export class ChatComponent implements OnInit {
               @Inject(DOCUMENT) private document: Document,
                ) {
 
-    this.room = this.route.snapshot.params['id'];
     this.userColour = {};
     this.colours = ['red', 'blue', 'greeen', 'pink', 'orange'];
     this.messages = [];
-    this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
     this.userName = this.loginService.userName;
     this.mess = '';
 
@@ -56,6 +55,9 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.room = this.chatid ? this.chatid : this.route.snapshot.params['id'];
+    this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
+    console.log(this.room)
     this.loginService.login.subscribe((login) => {
       if (login){
         this.getChatData(this.room);
