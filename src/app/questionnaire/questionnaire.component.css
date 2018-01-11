@@ -1,0 +1,18 @@
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.mat-card {
+  width: 90%;
+  margin: auto;
+  margin-top: 1em;
+}
+
+#answerButton {
+  margin-right: 1em;
+  margin-bottom: 1em;
+}

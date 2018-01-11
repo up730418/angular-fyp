@@ -12,19 +12,24 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
+
+import { LessonService } from './lesson.service';
+import { PollService } from './poll.service';
+import { LoginService, LoginDialog } from './login.service';
+import { QuestionnaireService } from './questionnaire.service';
+
+import { WebsocketDialogueComponent } from './websocket-dialogue/websocket-dialogue.component';
+
 import { ChatComponent } from './chat/chat.component';
 import { PollComponent } from './poll/poll.component';
 import { PollEditorComponent } from './poll-editor/poll-editor.component';
-import { WebsocketDialogueComponent } from './websocket-dialogue/websocket-dialogue.component';
-
-import { PollService } from './poll.service';
-import { LessonService } from './lesson.service';
 import { HomeComponent } from './home/home.component';
-import { LoginService, LoginDialog } from './login.service';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.component';
 import { StudentLessonComponent } from './student-lesson/student-lesson.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnaire-editor.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,8 @@ import { StudentLessonComponent } from './student-lesson/student-lesson.componen
     LessonComponent,
     LessonPresenterComponent,
     StudentLessonComponent,
+    QuestionnaireComponent,
+    QuestionnaireEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,8 @@ import { StudentLessonComponent } from './student-lesson/student-lesson.componen
   ],
   providers: [PollService,
               LoginService,
-              LessonService, ],
+              LessonService,
+              QuestionnaireService, ],
 
   bootstrap: [AppComponent],
 

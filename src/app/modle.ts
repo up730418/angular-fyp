@@ -37,7 +37,7 @@ export class Lesson {
   ) { }
 }
 
-export class Questionair {
+export class Questionnaire {
   constructor(
     public questionairId: number,
     public title: string,

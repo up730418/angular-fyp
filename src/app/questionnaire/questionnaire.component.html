@@ -1,0 +1,14 @@
+<h1>{{questionnaire.title}}</h1>
+<section id="question" *ngIf="questionnaire">
+  <mat-card  *ngFor="let question of questionnaire.questions; let i = index;" id="question-{{i}}" class="hidden">
+    <mat-card-header>
+      <mat-card-title>{{question.question}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-raised-button id="answerButton" *ngFor="let answer of question.otherAnswer" 
+              color="primary" (click)="nextQuestion(i, 0)">{{answer}}</button>
+      <button mat-raised-button color="warn" (click)="nextQuestion(i, 1)">{{question.correctAnswer}}</button>
+    </mat-card-content>
+  </mat-card>
+  
+</section>

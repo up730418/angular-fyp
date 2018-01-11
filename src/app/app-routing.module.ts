@@ -14,6 +14,9 @@ import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.co
 
 import { StudentLessonComponent } from './student-lesson/student-lesson.component';
 
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnaire-editor.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
@@ -27,6 +30,8 @@ const routes: Routes = [
   { path: 'lessons/:id', component: LessonsComponent },
   { path: 'lesson-presenter/:id', component: LessonPresenterComponent },
   { path: 'student-lesson/:id', component: StudentLessonComponent },
+  { path: 'questionnaire/:id', component: QuestionnaireComponent },
+  { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent },
 
 ];
 

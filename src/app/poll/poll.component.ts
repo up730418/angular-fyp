@@ -93,7 +93,6 @@ export class PollComponent implements OnInit {
   ngOnInit() {
     //Check if pollid is defined in comp def. If not use url params
     this.pollId = this.pollid ? this.pollid : this.route.snapshot.params['id'];
-    console.log(this.pollId)
     
     this.loginService.login.subscribe((login) => {
       if (login && this.label === []){
@@ -163,7 +162,6 @@ export class PollComponent implements OnInit {
                 .toPromise()
                 .then(response => {
                   const data = response.json();
-                  console.log(data);
                    const questions = [];
                    data.questions.forEach((question) => {
                      this.label.push(question);

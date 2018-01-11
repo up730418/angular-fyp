@@ -1,4 +1,4 @@
-<h1 *ngIf="lesson"> {{lesson.title}} </h1>
+<h1 *ngIf="lesson">{{lesson.title}}</h1>
 
 <section id="interactionContainer">
   
@@ -8,7 +8,7 @@
     </mat-card-header>
     <mat-card-content>
       <div class="poll presentData"  *ngFor="let poll of lesson.polls">
-        <h4> {{poll.title}}</h4>
+        <h4>{{poll.title}}</h4>
         <button mat-raised-button (click)="sendPoll(poll.id)" color="primary">Send Poll</button>
         <button mat-raised-button routerLink="/poll/{{poll.id}}" color="accent">View Poll</button>
       </div>
@@ -21,7 +21,7 @@
     </mat-card-header>
     <mat-card-content>
       <div class="quiz presentData"  *ngFor="let questionair of lesson.questionairs">
-        <h4> {{questionair.title}}</h4>
+        <h4>{{questionair.title}}</h4>
         <button mat-raised-button (click)="sendQuestionair(questionair.id)" color="primary">Send Quiz</button>
         <button mat-raised-button routerLink="/questionair-results/{{questionair.id}}" color="accent">View Quiz</button>
       </div>
@@ -29,7 +29,7 @@
   </mat-card>
 
   <mat-card *ngIf="lesson" class="chatCard">
-    <app-chat></app-chat>
+    <app-chat chatid="lesson{{lesson.lessonId}}"></app-chat>
   </mat-card>
 
 </section>
