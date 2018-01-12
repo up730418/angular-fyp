@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
+        MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
+        MatChipsModule, MatCardModule } from '@angular/material';
 
 import { LessonComponent } from './lesson.component';
 
@@ -8,7 +11,19 @@ describe('LessonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LessonComponent ]
+      declarations: [ LessonComponent ],
+      imports: [
+        MatInputModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatListModule,
+        MatButtonToggleModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatChipsModule,
+        MatCardModule,
+      ],
     })
     .compileComponents();
   }));

@@ -65,14 +65,18 @@ import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnai
     MatChipsModule,
     MatCardModule,
   ],
-  providers: [PollService,
-              LoginService,
-              LessonService,
-              QuestionnaireService, ],
+  providers: [
+    PollService,
+    LoginService,
+    LessonService,
+    QuestionnaireService, ],
 
   bootstrap: [AppComponent],
 
-  entryComponents: [WebsocketDialogueComponent,
-                   LoginDialog, ]
+  entryComponents: [
+    LoginDialog,
+    WebsocketDialogueComponent,
+  ],
+  
 })
 export class AppModule { }
