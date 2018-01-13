@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Input, Component, OnInit, ViewEncapsulation, Inject, OnChanges } from '@angular/core';
 import { Injectable, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AppConstant } from '../../environments/environment';
 
 import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
@@ -24,7 +25,7 @@ export class ChatComponent implements OnInit {
   userColour: {};
   title: string;
   @Input() chatid;
-  private url = 'localhost';
+  private url;
   private messages: Array<any>;
   private socket: WebSocket;
   private room: any;
@@ -35,7 +36,7 @@ export class ChatComponent implements OnInit {
               private loginService: LoginService,
               @Inject(DOCUMENT) private document: Document,
                ) {
-
+    this.url = AppConstant.BASE_API_URL;
     this.userColour = {};
     this.colours = ['red', 'blue', 'greeen', 'pink', 'orange'];
     this.messages = [];

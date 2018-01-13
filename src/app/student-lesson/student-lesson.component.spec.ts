@@ -31,7 +31,7 @@ describe('StudentLessonComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         StudentLessonComponent,
         ChatComponent,
         PollComponent,

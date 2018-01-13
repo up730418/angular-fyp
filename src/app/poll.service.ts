@@ -3,8 +3,8 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { Title } from '@angular/platform-browser';
-
 import { Observable } from 'rxjs/Observable';
+import { AppConstant } from '../environments/environment';
 
 import { Poll, UA } from './modle';
 
@@ -14,10 +14,12 @@ import { LoginService } from './login.service';
 @Injectable()
 export class PollService {
 
-  private serverUrl = 'http://localhost:8080';
+  private serverUrl; 
 
   constructor(private http: Http,
-             private loginService: LoginService, ) { }
+             private loginService: LoginService,) {
+    this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':8080';
+  }
 
   getPoll(id: string): Promise<Poll> {
     const headers = new Headers({ 'Content-Type': 'application/json',

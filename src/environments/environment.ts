@@ -6,3 +6,7 @@
 export const environment = {
   production: false
 };
+
+export const AppConstant = {
+  BASE_API_URL: 'localhost',
+};
