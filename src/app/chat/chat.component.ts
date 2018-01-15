@@ -199,7 +199,7 @@ export class ChatComponent implements OnInit {
 
   getChatData(room: string): Promise<string> {
 //    console.log(" attempted get")
-    const url = 'http://' + this.url + ':8080/api/chat/' + room;
+    const url = 'http://' + this.url + ':' + AppConstant.BASE_API_PORT + '/api/chat/' + room;
     const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken });
     const options = new RequestOptions({ headers: headers });

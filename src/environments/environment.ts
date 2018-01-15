@@ -9,4 +9,5 @@ export const environment = {
 
 export const AppConstant = {
   BASE_API_URL: 'localhost',
+  BASE_API_PORT: '8080'
 };

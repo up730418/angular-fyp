@@ -19,7 +19,7 @@ export class LessonService {
 
   constructor(private http: Http,
              private loginService: LoginService, ) {
-    this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':8080';
+    this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':' + AppConstant.BASE_API_PORT;
   }
 
   getLesson(id: string): Promise<Lesson> {

@@ -3,6 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { Title } from '@angular/platform-browser';
+import { AppConstant } from '../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -14,7 +15,7 @@ import { LoginService } from './login.service';
 @Injectable()
 export class QuestionnaireService {
 
-    private serverUrl = 'http://localhost:8080';
+    private serverUrl = 'http://' +  AppConstant.BASE_API_URL + ':' + AppConstant.BASE_API_PORT;
 
   constructor(private http: Http,
              private loginService: LoginService, ) { }
