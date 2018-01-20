@@ -1,3 +1,78 @@
-<p>
-  questionnaire-editor works!
-</p>
+<h3 *ngIf="!model"> Error questionnaire does not exist or you don't have access</h3>
+
+<form #pollForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="model">
+  
+  <mat-form-field class="full-width">
+    <input matInput type="number" [(ngModel)]="model.questionnaireId" placeholder="questionnaireId" name="questionnaireId"  disabled required>    
+  </mat-form-field>
+  
+  <mat-form-field class="full-width">
+    <input matInput type="text" [(ngModel)]="model.title" placeholder="Title" name="title" required>    
+  </mat-form-field>
+  
+  <div *ngFor="let question of model.questions; let i = index trackBy: trackByFn">
+    <mat-form-field class="full-width">
+      <input matInput type="text" [(ngModel)]="question.question" placeholder="Question" name="question{{i}}" required>    
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" [(ngModel)]="question.correctAnswer" placeholder="Correct Answer" name="correctAnswer{{i}}" required>    
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <mat-chip-list #questionChipList>
+        <mat-chip color="primary" *ngFor="let answer of question.otherAnswer;" [selectable]="selectable"
+                 [removable]="removable" (remove)="removeQuestion(answer, i)">
+          {{answer}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+         <input placeholder="Other Answers"
+             [matChipInputFor]="questionChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="addQuestion($event, i)" />
+
+      </mat-chip-list>
+    </mat-form-field>
+    
+    <button mat-raised-button type="button" (click)="addQAC()"> Add Question </button>
+    
+  </div>
+  
+  <mat-form-field class="full-width">
+    <input matInput type="text" [(ngModel)]="model.owner" placeholder="Owner" name="Owner" disabled required>    
+  </mat-form-field>
+  
+  <mat-form-field class="full-width">
+    <mat-chip-list #accessChipList>
+      <mat-chip color="warn" *ngFor="let access of model.access" [selectable]="selectable"
+               [removable]="removable" (remove)="removeAccess(access)" >
+        {{access}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+       <input placeholder="User access"
+           [matChipInputFor]="accessChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addAccess($event)" />
+
+    </mat-chip-list>
+  </mat-form-field>
+  
+  <mat-form-field class="full-width">
+    <mat-chip-list #lessonChipList>
+      <mat-chip color="warn" *ngFor="let lesson of model.lesson" [selectable]="selectable"
+               [removable]="removable" (remove)="removeLesson(lesson)" >
+        {{lesson}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+       <input placeholder="Associated Lesson Id's"
+           [matChipInputFor]="lessonChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addLesson($event)" />
+
+    </mat-chip-list>
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary"> Save </button>
+</form>
+  

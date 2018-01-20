@@ -26,7 +26,9 @@ export class QuestionnaireComponent implements OnInit {
               private route: ActivatedRoute,
               private loginService: LoginService,
               private questionnaireService: QuestionnaireService,) { 
-    this.answerTracker = [];
+                
+                this.answerTracker = [];
+                this.correctAnswers = 0;
   }
 
   ngOnInit() {
@@ -45,22 +47,42 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    document.getElementById("question-" + 0).classList.remove("hidden");
     
   }
 
   getQuestionnaireData(id:string){
     
     //Test stuff
-    this.questionnaire = new Questionnaire(1, "Quest 1", [], "up730418@myport.ac.uk", [new QAC("What is the best app", "Defo not this one", ["This one", "Another One", "The Wrong Answer"]), new QAC("What is the best app 2", "Defo not this one", ["This one", "Another One", "The Wrong Answer"])])
-    //this.questionnaireService.getQuestionaire(this.questionnaireId);
-    this.questionnaireService.updateQuestionaire("1", this.questionnaire )
+    //this.questionnaire = new Questionnaire(1, "Quest 1", [], "up730418@myport.ac.uk", [new QAC("What is the best app", "Defo not this one", ["This one", "Another One", "The Wrong Answer"]), new QAC("What is the best app 2", "Defo not this one", ["This one", "Another One", "The Wrong Answer"])])
+    this.questionnaireService.getQuestionaire(id).then( (res) => {
+      this.questionnaire = res;
+      console.log(res)
+      this.numberOfQuestion = this.questionnaire.questions.length;
+//      document.getElementById("question-" + 0).classList.remove("hidden");
+      
+    });
+    //this.questionnaireService.updateQuestionaire("1", this.questionnaire )
     //End test
-    this.numberOfQuestion = this.questionnaire.questions.length;
+//    this.questionnaireService.getQuestionaire(id))
+//        .subscribe(poll => {
+//          console.log(poll);
+//                      if (poll == null) {
+//                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [], [new UA('', '' )]);
+//                      } else {
+//
+//                        this.model = poll;
+//                      }
+//                      if (this.assosiatLesson != undefined){
+//                        //If a lessonId has been pased in the url push it to the lesson array
+//                        this.model.lesson.push(this.assosiatLesson.toString());
+//                      }
+//
+//                    }
   }
   
   nextQuestion(qNo, answerType): void {
-    if(answerType == 0) {
+    console.log(answerType)
+    if(answerType == 1) {
       this.correctAnswers += 1
     }
     this.answerTracker[qNo] = answerType;
@@ -72,6 +94,9 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       console.log(this.questionnaireId, this.answerTracker)
       this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId),this.answerTracker);
+      document.getElementById("question-" + qNo).classList.add("hidden");
+      document.getElementById("finish").classList.remove("hidden");
+
     }
   }
 

@@ -1,83 +1,84 @@
 <h2>Poll Editor</h2>
 
 <h3 *ngIf="!model"> Error pole does not exist or you don't have access</h3>
-  <form #pollForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="model">    
-    <mat-form-field class="full-width">
-      <input matInput type="number" [(ngModel)]="model.pollId" placeholder="pollId" name="pollId"  disabled required>    
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <input matInput type="text" [(ngModel)]="model.title" placeholder="Title" name="title" required>    
-    </mat-form-field>
-    
-    <mat-form-field class="full-width">
-      <mat-chip-list #questionChipList>
-        <mat-chip color="primary" *ngFor="let question of model.questions" [selectable]="selectable"
-                 [removable]="removable" (remove)="removeQuestion(question)">
-          {{question}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-         <input placeholder="Questions"
-             [matChipInputFor]="questionChipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="addQuestion($event)" />
+<form #pollForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="model">    
+  <mat-form-field class="full-width">
+    <input matInput type="number" [(ngModel)]="model.pollId" placeholder="pollId" name="pollId"  disabled required>    
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="text" [(ngModel)]="model.title" placeholder="Title" name="title" required>    
+  </mat-form-field>
 
-      </mat-chip-list>
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-chip-list #questionChipList>
+      <mat-chip color="primary" *ngFor="let question of model.questions" [selectable]="selectable"
+               [removable]="removable" (remove)="removeQuestion(question)">
+        {{question}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+       <input placeholder="Questions"
+           [matChipInputFor]="questionChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addQuestion($event)" />
+
+    </mat-chip-list>
+  </mat-form-field>
 <!--
-    <mat-form-field class="full-width">
-      <input matInput type="text" [(ngModel)]="model.questions" placeholder="Questions" name="questions" required>    
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="text" [(ngModel)]="model.questions" placeholder="Questions" name="questions" required>    
+  </mat-form-field>
 -->
-    <mat-form-field class="full-width">
-      <mat-chip-list #accessChipList>
-        <mat-chip color="warn" *ngFor="let access of model.access" [selectable]="selectable"
-                 [removable]="removable" (remove)="removeAccess(access)" >
-          {{access}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-         <input placeholder="User access"
-             [matChipInputFor]="accessChipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="addAccess($event)" />
+  <mat-form-field class="full-width">
+    <mat-chip-list #accessChipList>
+      <mat-chip color="warn" *ngFor="let access of model.access" [selectable]="selectable"
+               [removable]="removable" (remove)="removeAccess(access)" >
+        {{access}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+       <input placeholder="User access"
+           [matChipInputFor]="accessChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addAccess($event)" />
 
-      </mat-chip-list>
-    </mat-form-field>
-    
-    <mat-form-field class="full-width">
-      <mat-chip-list #lessonChipList>
-        <mat-chip color="warn" *ngFor="let lesson of model.lesson" [selectable]="selectable"
-                 [removable]="removable" (remove)="removeLesson(lesson)" >
-          {{lesson}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-         <input placeholder="Associated Lesson Id's"
-             [matChipInputFor]="lessonChipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="addLesson($event)" />
+    </mat-chip-list>
+  </mat-form-field>
 
-      </mat-chip-list>
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-chip-list #lessonChipList>
+      <mat-chip color="warn" *ngFor="let lesson of model.lesson" [selectable]="selectable"
+               [removable]="removable" (remove)="removeLesson(lesson)" >
+        {{lesson}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+       <input placeholder="Associated Lesson Id's"
+           [matChipInputFor]="lessonChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addLesson($event)" />
+
+    </mat-chip-list>
+  </mat-form-field>
 <!--
-    <mat-form-field class="full-width">
-      <input matInput type="text" [(ngModel)]="model.access" placeholder="Access" name="access" required>    
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="text" [(ngModel)]="model.access" placeholder="Access" name="access" required>    
+  </mat-form-field>
 -->
 
+  <mat-form-field class="full-width">
+    <input matInput type="text" [(ngModel)]="model.owner" placeholder="Owner" name="owner" required>    
+  </mat-form-field>
+  <h3> Answers </h3>
+  <div *ngFor="let answer of model.answers; let y = index; trackBy: trackByFn">
     <mat-form-field class="full-width">
-      <input matInput type="text" [(ngModel)]="model.owner" placeholder="Owner" name="owner" required>    
+      <input matInput type="text" [(ngModel)]="answer.user" placeholder="User"  name="answersQuestion{{y}}" >    
     </mat-form-field>
-    <h3> Answers </h3>
-    <div *ngFor="let answer of model.answers; let y = index; trackBy: trackByFn">
-      <mat-form-field class="full-width">
-        <input matInput type="text" [(ngModel)]="answer.user" placeholder="User"  name="answersQuestion{{y}}" >    
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput type="text" [(ngModel)]="answer.answer" placeholder="Answers"  name="answersAnswer{{y}}" >    
-      </mat-form-field>
-    </div> 
-    <button mat-raised-button type="submit" color="accent" class="btn">Save</button>
+    <mat-form-field class="full-width">
+      <input matInput type="text" [(ngModel)]="answer.answer" placeholder="Answers"  name="answersAnswer{{y}}" >    
+    </mat-form-field>
+  </div> 
+  <button mat-raised-button type="submit" color="accent" class="btn">Save</button>
 </form>
-    <button mat-raised-button *ngIf="model" (click)="deletePoll()"  color="primary" class="btn">Delete</button>
+
+<button mat-raised-button *ngIf="model" (click)="deletePoll()"  color="primary" class="btn">Delete</button>

@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'student-lesson/:id', component: StudentLessonComponent },
   { path: 'questionnaire/:id', component: QuestionnaireComponent },
   { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent },
+  { path: 'questionnaire-editor/:id/:lesson', component: QuestionnaireEditorComponent },
 
 ];
 

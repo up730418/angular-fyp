@@ -39,10 +39,11 @@ export class Lesson {
 
 export class Questionnaire {
   constructor(
-    public questionairId: number,
+    public questionnaireId: number,
     public title: string,
     public access: Array<any>,
     public owner: string,
+    public lesson: Array<string>,
     public questions: [ QAC ],
   ) { }
 }
