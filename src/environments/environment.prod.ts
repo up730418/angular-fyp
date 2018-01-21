@@ -3,5 +3,5 @@ export const environment = {
 };
 export const AppConstant = {
   BASE_API_URL: 'teachingapp.toppicphotography.co.uk',
-  BASE_API_PORT: '80',
+  BASE_API_PORT: '8080',
 };
