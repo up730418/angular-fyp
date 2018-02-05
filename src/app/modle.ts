@@ -51,9 +51,8 @@ export class Questionnaire {
 export class User {
   constructor(
     public username: string,
-    public password: string,
     public userType: string,
-    public chats: Array<any>,
+    // public chats: Array<any>,
     public firstName: string,
     public lastName: string,
   ) { }

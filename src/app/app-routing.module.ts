@@ -17,6 +17,8 @@ import { StudentLessonComponent } from './student-lesson/student-lesson.componen
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnaire-editor.component';
 
+import { UserManagementComponent } from './user-management/user-management.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
@@ -33,6 +35,7 @@ const routes: Routes = [
   { path: 'questionnaire/:id', component: QuestionnaireComponent },
   { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent },
   { path: 'questionnaire-editor/:id/:lesson', component: QuestionnaireEditorComponent },
+  { path: 'user-management', component: UserManagementComponent },
 
 ];
 

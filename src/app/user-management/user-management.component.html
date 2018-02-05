@@ -1,0 +1,29 @@
+<p>
+  user-management works!
+</p>
+
+<form *ngFor="let user of users ">
+  <mat-form-field class="full-width">
+    <input matInput id="userName" name="userName" placeholder="User Name" [(ngModel)]="user.userName" maxlength="50" requiered  >
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput id="firstName" name="firstName" placeholder="First Name" [(ngModel)]="user.firstName" maxlength="25" requiered  >
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput id="lastName"  name="lastName" placeholder="Last Name" [(ngModel)]="user.lastName" maxlength="25" requiered >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="User Type" name="userType" [(value)]="user.userType">
+      <mat-option *ngFor="let type of types" [value]="type" >
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <button mat-raised-button name="sub" (click)="updateUser(user)" color="accent" class="btn">Save</button>
+</form>
+
+<button mat-raised-button (click)="addUser()"  color="primary">Add User</button>

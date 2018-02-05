@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
         MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
-        MatChipsModule, MatCardModule } from '@angular/material';
+        MatChipsModule, MatCardModule, MatSelectModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -30,6 +32,7 @@ import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.co
 import { StudentLessonComponent } from './student-lesson/student-lesson.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnaire-editor.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +49,11 @@ import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnai
     StudentLessonComponent,
     QuestionnaireComponent,
     QuestionnaireEditorComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AppRoutingModule,
     HttpModule,
     FormsModule,
@@ -64,12 +69,14 @@ import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnai
     MatButtonModule,
     MatChipsModule,
     MatCardModule,
+    MatSelectModule,
   ],
   providers: [
     PollService,
     LoginService,
     LessonService,
-    QuestionnaireService, ],
+    QuestionnaireService, 
+  ],
 
   bootstrap: [AppComponent],
 
