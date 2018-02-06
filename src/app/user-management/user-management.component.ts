@@ -13,13 +13,14 @@ import { LoginService } from '../login.service';
 })
 export class UserManagementComponent implements OnInit {
   users: User[];
-  types : Array<any> = ["","Admin", "Student", "Teacher"];
-  serverUrl
+  types: Array<any> = ['', 'Admin', 'Student', 'Teacher'];
+  serverUrl;
+  code: number;
   constructor(private loginService: LoginService,
-              private http: Http,) { 
+              private http: Http, ) {
     this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':' + AppConstant.BASE_API_PORT;
   }
-  
+
   ngOnInit() {
      this.loginService.login.subscribe((login) => {
       if (login){
@@ -35,7 +36,7 @@ export class UserManagementComponent implements OnInit {
         this.users = users;
       });
     }
-    this.updateUser({userName:"up730418@myport.ac.uk", firstName: "Robert", lastName: "Wheelhouse", userType: "Admin"})
+//    this.updateUser({userName:"up730418@myport.ac.uk", firstName: "Robert", lastName: "Wheelhouse", userType: "Admin"})
   }
 
 
@@ -48,27 +49,34 @@ export class UserManagementComponent implements OnInit {
 
     return this.http.get(url, options)
                 .toPromise()
-                .then(response => response.json() as User[] )
+                .then((response) => {
+                                  if (response.status === 200){
+                                    return response.json() as User[];
+                                  } else {
+                                    this.code = response.status;
+                                  }
+
+                                  } )
                 .catch(this.handleError);
   }
-  
+
   updateUser(data): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
     const url = this.serverUrl + '/api/user/';
     const body = JSON.stringify(data);
-    
+
     return this.http.put(url, body, options)
                 .toPromise()
-                .then(response => { return response  })
+                .then(response => response)
                 .catch(this.handleError);
   }
-  
+
   addUser(): void {
-    this.users.push(new User("","","",""))
+    this.users.push(new User('', '', '', ''));
   }
-  
+
   private handleError(error: any): Promise<any> {
     console.error('An error has occured', error);
     return Promise.reject(error.message || error);

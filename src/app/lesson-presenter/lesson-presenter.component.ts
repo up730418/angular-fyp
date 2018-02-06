@@ -15,15 +15,15 @@ import { Lesson } from './../modle';
 })
 
 export class LessonPresenterComponent implements OnInit {
-  
+
   lesson: Lesson;
   lessonId: string;
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
               private lessonService: LessonService, ) {
-    
-    this.lessonId = this.route.snapshot.params['id']
-    
+
+    this.lessonId = this.route.snapshot.params['id'];
+
     if (this.loginService.signedIn){
       this.getLesson();
     }
@@ -38,9 +38,9 @@ export class LessonPresenterComponent implements OnInit {
     });
     //Check if user is already signed in or not
     this.loginService.checkSignIn();
-    
+
   }
-  
+
   getLesson(): void {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;

@@ -14,11 +14,11 @@ import { LoginService } from './login.service';
 @Injectable()
 export class PollService {
 
-  private serverUrl; 
+  private serverUrl;
 
 
   constructor(private http: Http,
-             private loginService: LoginService,) {
+             private loginService: LoginService, ) {
     this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':' + AppConstant.BASE_API_PORT;
   }
 

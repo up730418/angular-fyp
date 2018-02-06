@@ -14,28 +14,28 @@ import { QuestionnaireService } from '../questionnaire.service';
   encapsulation: ViewEncapsulation.None
 })
 export class QuestionnaireComponent implements OnInit {
-  
+
   questionnaire: Questionnaire;
   numberOfQuestion: number;
   correctAnswers: number;
   answerTracker: Array<any>;
   questionnaireId: string;
-  @Input() questionnaireid; //Id pased in component def e.g. <app-uestionnaire uestionnaireid="15"> 
-  
+  @Input() questionnaireid; //Id pased in component def e.g. <app-uestionnaire uestionnaireid="15">
+
   constructor(@Inject(DOCUMENT) private document: Document,
               private route: ActivatedRoute,
               private loginService: LoginService,
-              private questionnaireService: QuestionnaireService,) { 
-                
+              private questionnaireService: QuestionnaireService, ) {
+
                 this.answerTracker = [];
                 this.correctAnswers = 0;
   }
 
   ngOnInit() {
-    
+
     //Check if pollid is defined in comp def. If not use url params
     this.questionnaireId = this.questionnaireid ? this.questionnaireid : this.route.snapshot.params['id'];
-  
+
     this.loginService.login.subscribe((login) => {
       if (login){
          this.getQuestionnaireData(this.questionnaireId);
@@ -43,23 +43,23 @@ export class QuestionnaireComponent implements OnInit {
     });
     this.loginService.checkSignIn();
     this.getQuestionnaireData(this.questionnaireId);
-  
+
   }
 
   ngAfterViewInit() {
-    
+
   }
 
-  getQuestionnaireData(id:string){
-    
+  getQuestionnaireData(id: string){
+
     //Test stuff
     //this.questionnaire = new Questionnaire(1, "Quest 1", [], "up730418@myport.ac.uk", [new QAC("What is the best app", "Defo not this one", ["This one", "Another One", "The Wrong Answer"]), new QAC("What is the best app 2", "Defo not this one", ["This one", "Another One", "The Wrong Answer"])])
     this.questionnaireService.getQuestionaire(id).then( (res) => {
       this.questionnaire = res;
-      console.log(res)
+      console.log(res);
       this.numberOfQuestion = this.questionnaire.questions.length;
 //      document.getElementById("question-" + 0).classList.remove("hidden");
-      
+
     });
     //this.questionnaireService.updateQuestionaire("1", this.questionnaire )
     //End test
@@ -79,23 +79,23 @@ export class QuestionnaireComponent implements OnInit {
 //
 //                    }
   }
-  
+
   nextQuestion(qNo, answerType): void {
-    console.log(answerType)
-    if(answerType == 1) {
-      this.correctAnswers += 1
+    console.log(answerType);
+    if (answerType == 1) {
+      this.correctAnswers += 1;
     }
     this.answerTracker[qNo] = answerType;
-    let nextQ = qNo + 1;
+    const nextQ = qNo + 1;
 
-    if(nextQ < this.numberOfQuestion){
-      document.getElementById("question-" + nextQ).classList.remove("hidden");
-      document.getElementById("question-" + qNo).classList.add("hidden");
+    if (nextQ < this.numberOfQuestion){
+      document.getElementById('question-' + nextQ).classList.remove('hidden');
+      document.getElementById('question-' + qNo).classList.add('hidden');
     } else {
-      console.log(this.questionnaireId, this.answerTracker)
-      this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId),this.answerTracker);
-      document.getElementById("question-" + qNo).classList.add("hidden");
-      document.getElementById("finish").classList.remove("hidden");
+      console.log(this.questionnaireId, this.answerTracker);
+      this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
+      document.getElementById('question-' + qNo).classList.add('hidden');
+      document.getElementById('finish').classList.remove('hidden');
 
     }
   }

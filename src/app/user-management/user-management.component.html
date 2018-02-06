@@ -1,5 +1,8 @@
-<p>
-  user-management works!
+<p *ngIf="code == 202">
+  User Added An admin will me notified. Please come back later to see you permissions.
+</p>
+<p *ngIf="code == 203">
+ You have already been added to the system. Please contact an admin if you need further help. 
 </p>
 
 <form *ngFor="let user of users ">
@@ -26,4 +29,4 @@
   <button mat-raised-button name="sub" (click)="updateUser(user)" color="accent" class="btn">Save</button>
 </form>
 
-<button mat-raised-button (click)="addUser()"  color="primary">Add User</button>
+<button *ngIf="users" mat-raised-button (click)="addUser()"  color="primary">Add User</button>

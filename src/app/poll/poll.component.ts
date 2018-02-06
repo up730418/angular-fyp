@@ -30,7 +30,7 @@ export class PollComponent implements OnInit {
   public messages: Array<any>;
   public socket: WebSocket;
   public pollId: any;
-  @Input() pollid; //Id pased in component def e.g. <app-poll pollid="15"> 
+  @Input() pollid; //Id pased in component def e.g. <app-poll pollid="15">
 
   public colors: Array<any> = [
     { // Blue
@@ -84,7 +84,7 @@ export class PollComponent implements OnInit {
               private loginService: LoginService,
               private pollService: PollService,
               ) {
-    
+
     this.messages = [];
     this.data = [];
     this.label = [];
@@ -93,7 +93,7 @@ export class PollComponent implements OnInit {
   ngOnInit() {
     //Check if pollid is defined in comp def. If not use url params
     this.pollId = this.pollid ? this.pollid : this.route.snapshot.params['id'];
-    
+
     this.loginService.login.subscribe((login) => {
       if (login && this.label === []){
          this.getPollData(this.pollId);

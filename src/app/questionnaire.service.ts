@@ -62,8 +62,8 @@ export class QuestionnaireService {
                       })
                 .catch(this.handleError);
   }
-  
-  
+
+
   addQuestionnaireResult(id: number, data): Promise<any> {
     const url =  this.serverUrl + '/api/questionnaire/'  + id;
     const headers = new Headers({ 'Content-Type': 'application/json',

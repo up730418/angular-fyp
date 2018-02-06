@@ -49,7 +49,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
     StudentLessonComponent,
     QuestionnaireComponent,
     QuestionnaireEditorComponent,
-    UserManagementComponent
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +75,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
     PollService,
     LoginService,
     LessonService,
-    QuestionnaireService, 
+    QuestionnaireService,
   ],
 
   bootstrap: [AppComponent],
@@ -84,6 +84,6 @@ import { UserManagementComponent } from './user-management/user-management.compo
     LoginDialog,
     WebsocketDialogueComponent,
   ],
-  
+
 })
 export class AppModule { }

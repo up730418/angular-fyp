@@ -58,7 +58,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(){
     this.room = this.chatid ? this.chatid : this.route.snapshot.params['id'];
     this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
-    console.log(this.room)
+    console.log(this.room);
     this.loginService.login.subscribe((login) => {
       if (login){
         this.getChatData(this.room);

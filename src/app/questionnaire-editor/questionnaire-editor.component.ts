@@ -25,11 +25,11 @@ export class QuestionnaireEditorComponent implements OnInit {
   addOnBlur = true;
   lesson: Array<string>;
   assosiatLesson: string;
-  
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private questionnaireService: QuestionnaireService,
-    private loginService: LoginService,) { }
+    private loginService: LoginService, ) { }
 
   ngOnInit() {
     this.loginService.login.subscribe((login) => {
@@ -42,7 +42,7 @@ export class QuestionnaireEditorComponent implements OnInit {
     if (this.loginService.signedIn){
       this.getQuestionnaire();
     }
-    
+
     this.route.params.subscribe(params => {  this.assosiatLesson = params['lesson'];  });
 
   }
@@ -52,7 +52,7 @@ export class QuestionnaireEditorComponent implements OnInit {
         .switchMap((params: Params) => this.questionnaireService.getQuestionaire(params['id']))
         .subscribe(questionnaire => {
                       if (questionnaire == null) {
-                        this.model = new Questionnaire(NaN, "", [], this.loginService.userName, [], [new QAC("", "", [])]);
+                        this.model = new Questionnaire(NaN, '', [], this.loginService.userName, [], [new QAC('', '', [])]);
                       } else {
 
                         this.model = questionnaire;
@@ -100,9 +100,9 @@ export class QuestionnaireEditorComponent implements OnInit {
     }
   }
 
-  addQAC() : void {
-    this.model.questions.push(new QAC("", "", []));
-    console.log(this.model.questions)
+  addQAC(): void {
+    this.model.questions.push(new QAC('', '', []));
+    console.log(this.model.questions);
   }
 
   addAccess(event: MatChipInputEvent): void {
