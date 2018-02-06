@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { AppConstant } from '../../environments/environment';
 import { LessonService } from '../lesson.service';
 import { LoginService } from '../login.service';
 
@@ -17,9 +18,14 @@ export class StudentLessonComponent implements OnInit {
 
   lesson: Lesson;
   lessonId: string;
+  socket
+  url = AppConstant.BASE_API_URL;
+
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
-              private lessonService: LessonService, ) {
+              private lessonService: LessonService, 
+              @Inject(DOCUMENT) private document: Document,) {
+    
     this.loginService.checkSignIn();
     this.lessonId = this.route.snapshot.params['id'];
 
@@ -37,12 +43,58 @@ export class StudentLessonComponent implements OnInit {
     });
     //Check if user is already signed in or not
     this.loginService.checkSignIn();
+    this.socket = new WebSocket('ws://' + this.url + ':1337/', this.lessonId);
+  }
+  
+  ngAfterViewInit(){
+
+    this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log(data)
+      if(data.type == "pollSwitch") {
+        this.activatePoll(data.compId)
+      }
+      if(data.type == "quizSwitch") {
+        this.activateQuiz(data.compId)
+      } 
+    };
+    this.socket.onclose = () => {
+        console.log('/The socket connection has been closed');
+        //this.openDialog();
+    };
+    this.socket.onopen = () => {
+        console.log('/The socket connection has been established');
+    };
   }
 
   getLesson(): void {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;
         });
+  }
+  activatePoll(pollId): void {
+    console.log(pollId)
+    let hidden = document.getElementById("poll-" + pollId).classList.contains("hidden")
+    
+    if(hidden){
+      document.getElementById("poll-" + pollId).classList.remove("hidden")
+    
+    } else {
+      document.getElementById("poll-" + pollId).classList.add("hidden")
+      
+    }
+  }
+
+  activateQuiz(quizId): void {
+    let hidden = document.getElementById("quiz-" + quizId).classList.contains("hidden")
+    
+    if(hidden){
+      document.getElementById("quiz-" + quizId).classList.remove("hidden")
+    
+    } else {
+      document.getElementById("quiz-" + quizId).classList.add("hidden")
+      
+    }
   }
 
 }

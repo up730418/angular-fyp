@@ -9,7 +9,7 @@
     <mat-card-content>
       <div class="poll presentData"  *ngFor="let poll of lesson.polls">
         <h4>{{poll.title}}</h4>
-        <button mat-raised-button (click)="sendPoll(poll.id)" color="primary">Send Poll</button>
+        <button mat-raised-button (click)="activatePoll(poll.id)" color="primary">Send Poll</button>
         <button mat-raised-button routerLink="/poll/{{poll.id}}" color="accent">View Poll</button>
       </div>
     </mat-card-content>
@@ -22,7 +22,7 @@
     <mat-card-content>
       <div class="quiz presentData"  *ngFor="let questionair of lesson.questionairs">
         <h4>{{questionair.title}}</h4>
-        <button mat-raised-button (click)="sendQuestionair(questionair.id)" color="primary">Send Quiz</button>
+        <button mat-raised-button (click)="activateQuiz(questionair.id)" color="primary">Send Quiz</button>
         <button mat-raised-button routerLink="/questionair-results/{{questionair.id}}" color="accent">View Quiz</button>
       </div>
     </mat-card-content>

@@ -2,10 +2,13 @@
 
 <section id="lessonContent" *ngIf="lesson">
 
-  <mat-card  *ngFor="let poll of lesson.polls; trackBy:customTrackBy" class="fullCard">
+  <mat-card  *ngFor="let poll of lesson.polls; trackBy:customTrackBy" class="fullCard hidden" id="poll-{{poll.id}}">
     <app-poll *ngIf="poll.id" title="{{poll.title}}"  pollid="{{poll.id}}" class="{{poll.id}}"></app-poll>
   </mat-card>
-
+  
+  <mat-card  *ngFor="let quiz of lesson.questionairs; trackBy:customTrackBy" class="fullCard hidden" id="quiz-{{quiz.id}}">
+    <app-questionnaire *ngIf="quiz.id" title="{{quiz.title}}"  questionnaireid="{{quiz.id}}" class="{{quiz.id}}"></app-questionnaire>
+  </mat-card>
   
   <mat-card *ngIf="lesson" class="fullCard">
     <app-chat chatid="lesson{{lesson.lessonId}}"></app-chat>

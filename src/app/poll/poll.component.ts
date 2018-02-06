@@ -7,7 +7,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
-
+import { AppConstant } from '../../environments/environment';
 import { DOCUMENT } from '@angular/common';
 import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { WebsocketDialogueComponent } from '../websocket-dialogue/websocket-dialogue.component';
@@ -26,7 +26,7 @@ import { PollService } from '../poll.service';
 
 export class PollComponent implements OnInit {
   title = 'Error pole does not exist or you don\'t have access';
-  public url = 'localhost';
+  public url = AppConstant.BASE_API_URL;
   public messages: Array<any>;
   public socket: WebSocket;
   public pollId: any;
