@@ -49,7 +49,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
     StudentLessonComponent,
     QuestionnaireComponent,
     QuestionnaireEditorComponent,
-    UserManagementComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

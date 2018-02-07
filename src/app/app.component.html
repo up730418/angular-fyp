@@ -23,8 +23,10 @@
 <mat-sidenav-container>
   <mat-sidenav mode="over" opened="false" position="start" #sidenav>
     <mat-nav-list>
-     <a mat-list-item routerLink="chat/room1" (click)="sidenav.toggle()"> Chat Room 1</a> 
-     <a mat-list-item routerLink="chat/room2" (click)="sidenav.toggle()"> Chat Room 2</a> 
+     <a mat-list-item routerLink="home" (click)="sidenav.toggle()"> Home</a> 
+     <a mat-list-item routerLink="home/design" (click)="sidenav.toggle()"> Design</a> 
+     <a mat-list-item routerLink="home/present" (click)="sidenav.toggle()"> Present</a> 
+     <a mat-list-item routerLink="/home/review" (click)="sidenav.toggle()"> Review</a> 
     </mat-nav-list>
   </mat-sidenav>
 

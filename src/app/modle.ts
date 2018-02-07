@@ -86,3 +86,19 @@ export class QAC {
     public otherAnswer: Array<any>,
     ) { }
 }
+
+export class LO {
+  constructor(
+    public LOId: number,
+    public title: string,
+    public questionnaireId: Array<any>,
+    ) { }
+}
+
+export class TeachingClass {
+  constructor(
+    public classId: number,
+    public name: string,
+    public students: Array<any>,
+    ) { }
+}
