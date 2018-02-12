@@ -5,7 +5,7 @@
       </mat-card-header>
       <mat-card-content *ngIf="pollModel">
         <h3>{{pollModel.title}}</h3>
-        <p *ngFor="let question of pollModel.questions">{{question.question}}: {{question.percentage}}%</p>
+        <p *ngFor="let question of pollModel.questions">{{question.question}}: {{question.percentage}}&#37;</p>
         <mat-button-toggle-group #group="matButtonToggleGroup" >
           <mat-button-toggle color="primary" *ngFor="let poll of polls; let i = index;" (click)="createPollModel(i)" value="{{i}}" [checked]="i === 0">
             {{i}}
@@ -22,7 +22,7 @@
       <mat-card-content *ngIf="questionnaireModel">
 <!--        ToDO FIX THIS-->
         <h3>{{questionnaireModel.title}}</h3>
-        <p *ngFor="let question of questionnaireModel.questions">{{question.question}}: {{question.percentage}}%</p>
+        <p *ngFor="let question of questionnaireModel.questions">{{question.question}}: {{question.percentage}}&#37;</p>
         <mat-button-toggle-group #group="matButtonToggleGroup" >
           <mat-button-toggle color="primary" *ngFor="let questionnaire of questionnairs; let i = index;" (click)="createQuestionnaireModel(i)" value="{{i}}" [checked]="i === 0">
             {{i}}
@@ -49,7 +49,10 @@
         <mat-card-title>Lesson Average</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <h4>Present this Lesson</h4>
+        <div id="averageLessonBox" [style.backgroundColor]="averageLessonColour">
+          <p>{{averageLessonScore}}&#37;</p>
+        
+        </div>
       </mat-card-content>
 </mat-card>
 </div>

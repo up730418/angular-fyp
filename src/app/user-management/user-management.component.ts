@@ -27,7 +27,7 @@ export class UserManagementComponent implements OnInit {
         this.users = users;
       });
     }
-   
+
     this.loginService.login.subscribe((login) => {
       if (login){
          this.getUsers().then(users => {
@@ -39,7 +39,7 @@ export class UserManagementComponent implements OnInit {
 
     }
 //    this.updateUser({userName:"up730418@myport.ac.uk", firstName: "Robert", lastName: "Wheelhouse", userType: "Admin"})
-  
+
 
 
 

@@ -18,14 +18,14 @@ export class StudentLessonComponent implements OnInit {
 
   lesson: Lesson;
   lessonId: string;
-  socket
+  socket;
   url = AppConstant.BASE_API_URL;
 
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
-              private lessonService: LessonService, 
-              @Inject(DOCUMENT) private document: Document,) {
-    
+              private lessonService: LessonService,
+              @Inject(DOCUMENT) private document: Document, ) {
+
     this.loginService.checkSignIn();
     this.lessonId = this.route.snapshot.params['id'];
 
@@ -45,18 +45,18 @@ export class StudentLessonComponent implements OnInit {
     this.loginService.checkSignIn();
     this.socket = new WebSocket('ws://' + this.url + ':1337/', this.lessonId);
   }
-  
+
   ngAfterViewInit(){
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data)
-      if(data.type == "pollSwitch") {
-        this.activatePoll(data.compId)
+      console.log(data);
+      if (data.type == 'pollSwitch') {
+        this.activatePoll(data.compId);
       }
-      if(data.type == "quizSwitch") {
-        this.activateQuiz(data.compId)
-      } 
+      if (data.type == 'quizSwitch') {
+        this.activateQuiz(data.compId);
+      }
     };
     this.socket.onclose = () => {
         console.log('/The socket connection has been closed');
@@ -73,27 +73,27 @@ export class StudentLessonComponent implements OnInit {
         });
   }
   activatePoll(pollId): void {
-    console.log(pollId)
-    let hidden = document.getElementById("poll-" + pollId).classList.contains("hidden")
-    
-    if(hidden){
-      document.getElementById("poll-" + pollId).classList.remove("hidden")
-    
+    console.log(pollId);
+    const hidden = document.getElementById('poll-' + pollId).classList.contains('hidden');
+
+    if (hidden){
+      document.getElementById('poll-' + pollId).classList.remove('hidden');
+
     } else {
-      document.getElementById("poll-" + pollId).classList.add("hidden")
-      
+      document.getElementById('poll-' + pollId).classList.add('hidden');
+
     }
   }
 
   activateQuiz(quizId): void {
-    let hidden = document.getElementById("quiz-" + quizId).classList.contains("hidden")
-    
-    if(hidden){
-      document.getElementById("quiz-" + quizId).classList.remove("hidden")
-    
+    const hidden = document.getElementById('quiz-' + quizId).classList.contains('hidden');
+
+    if (hidden){
+      document.getElementById('quiz-' + quizId).classList.remove('hidden');
+
     } else {
-      document.getElementById("quiz-" + quizId).classList.add("hidden")
-      
+      document.getElementById('quiz-' + quizId).classList.add('hidden');
+
     }
   }
 

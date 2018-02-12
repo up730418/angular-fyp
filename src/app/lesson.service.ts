@@ -44,8 +44,8 @@ export class LessonService {
                 .toPromise()
                 .then(response => response.json() as Lesson[])
                 .catch(this.handleError);
-  }  
-  
+  }
+
   getPolls(lessonId: string): Promise<Poll[]> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
@@ -57,7 +57,7 @@ export class LessonService {
                 .then(response => response.json() as Poll[])
                 .catch(this.handleError);
   }
-  
+
   getQuestionnairs(lessonId: string): Promise<Questionnaire[]> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});

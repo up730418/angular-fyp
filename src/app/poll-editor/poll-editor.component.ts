@@ -39,7 +39,7 @@ export class PollEditorComponent implements OnInit {
     if (this.loginService.signedIn){
       this.getPoll();
     }
-    
+
     this.loginService.login.subscribe((login) => {
       if (login){
          this.getPoll();

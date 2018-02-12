@@ -17,17 +17,19 @@ import { Lesson, Poll, Questionnaire, QA, UA, UAA, QAC, LO } from './../modle';
 export class LessonReviewComponent implements OnInit {
   polls: Poll[];
   questionnairs: Questionnaire[];
-  pollModel
-  questionnaireModel
+  pollModel;
+  questionnaireModel;
+  averageLessonScore: number;
   lesson: Lesson;
   lessonId: string;
-  socket
+  socket;
+  averageLessonColour: string;
   url = AppConstant.BASE_API_URL;
 
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
-              private lessonService: LessonService, ) 
-  { 
+              private lessonService: LessonService, )
+  {
     this.lessonId = this.route.snapshot.params['id'];
 
     if (this.loginService.signedIn){
@@ -43,7 +45,7 @@ export class LessonReviewComponent implements OnInit {
          this.getLesson();
          this.getRelatedPolls();
         this.getRelatedQuizes();
-        
+
        }
     });
     //Check if user is already signed in or not
@@ -59,66 +61,112 @@ export class LessonReviewComponent implements OnInit {
   getRelatedPolls() {
     this.lessonService.getPolls(this.lessonId).then(polls => {
       this.polls = polls;
-      this.createPollModel(0)
+      this.createPollModel(0);
     });
   }
 
   getRelatedQuizes() {
     this.lessonService.getQuestionnairs(this.lessonId).then(questionnairs => {
       this.questionnairs = questionnairs;
-      this.createQuestionnaireModel(0)
-      console.log(this.questionnaireModel)
+      this.createQuestionnaireModel(0);
+      console.log(this.questionnaireModel);
+      this.createAverageModel();
     });
   }
-  
+
   createPollModel(pollIndex: number) {
-    let answers = []
+    const answers = [];
     //Get non blank answers
-    let answersToCheck = this.polls[pollIndex].answers.filter(answer => answer.user !== "" )
+    const answersToCheck = this.polls[pollIndex].answers.filter(answer => answer.user !== '' );
     //Add no times a question was answered to an array
     answersToCheck.forEach((answer, i) => {
-        
-        let index = parseInt(answer.answer)
-        answers[index] = answers[index] ? answers[index] + 1 : 1
-    })
-    
-    let noAnswers = answersToCheck.length
+
+        const index = parseInt(answer.answer);
+        answers[index] = answers[index] ? answers[index] + 1 : 1;
+    });
+
+    const noAnswers = answersToCheck.length;
     //Create the model to be displayed in the HTML
-    this.pollModel = {title: this.polls[pollIndex].title, questions: []}
+    this.pollModel = {title: this.polls[pollIndex].title, questions: []};
     //Push the answer to each question to the display model
     this.polls[pollIndex].questions.forEach((quest, i) => {
-      let percentage = answers[i] ? (100/ noAnswers * answers[i]) : 0
-      let qa = {question: quest, percentage: percentage }
-      this.pollModel.questions.push(qa)
-    })
+      const percentage = answers[i] ? (100 / noAnswers * answers[i]) : 0;
+      const qa = {question: quest, percentage: percentage.toFixed(2) };
+      this.pollModel.questions.push(qa);
+    });
   }
 
   createQuestionnaireModel(questionnaireIndex: number) {
-    let answers = []
+    const answers = [];
     //Add no times a question was answered to an array
     this.questionnairs[questionnaireIndex].answers.forEach((answer, i) => {
-        console.log(answer)
+        console.log(answer);
         answer.answer.forEach((ans, i) => {
-          if(ans === 1){
-            answers[i] = answers[i] ? answers[i] + 1 : 1
+          if (ans === 1){
+            answers[i] = answers[i] ? answers[i] + 1 : 1;
           }
-        })
-    })
-    
+        });
+    });
+
     //Create the model to be displayed in the HTML
-    this.questionnaireModel = {title: this.questionnairs[questionnaireIndex].title, questions: []}
-    
-    let noAnswers = this.questionnairs[questionnaireIndex].answers.length
+    this.questionnaireModel = {title: this.questionnairs[questionnaireIndex].title, questions: []};
+
+    const noAnswers = this.questionnairs[questionnaireIndex].answers.length;
     //Push the answer to each question to the display model
     this.questionnairs[questionnaireIndex].questions.forEach((quest, i) => {
-      let percentage = answers[i] ? (100/ noAnswers * answers[i]) : 0
-      let qa = {question: quest.question, percentage: percentage }
-      this.questionnaireModel.questions.push(qa)
-    })
-    
-    let average = 0
-    this.questionnaireModel.questions.forEach(quest => average += quest.percentage)
-    average = average / this.questionnairs[questionnaireIndex].questions.length
-    this.questionnaireModel.questions.push({question: "Overal Averags", percentage: average })
+      const percentage = answers[i] ? 100 / noAnswers * answers[i] : 0;
+      const qa = {question: quest.question, percentage: percentage.toFixed(2) };
+      this.questionnaireModel.questions.push(qa);
+    });
+
+    let average = 0;
+    this.questionnaireModel.questions.forEach(quest => average += quest.percentage);
+    average = average / this.questionnairs[questionnaireIndex].questions.length;
+    this.questionnaireModel.questions.push({question: 'Overal Averags', percentage: average.toFixed(2) });
   }
+
+  //Work out the average amount of correct answers for
+  //All  questionairs attached to this lesson
+  createAverageModel(){
+    this.averageLessonScore = 0;
+    for (const qi in this.questionnairs) {
+      console.log(qi);
+      const answers = [];
+      this.questionnairs[qi].answers.forEach((answer, i) => {
+        console.log(answer);
+        answer.answer.forEach((ans, i) => {
+          if (ans === 1){
+            answers[i] = answers[i] ? answers[i] + 1 : 1;
+          }
+        });
+      });
+      let questionnaireModel;
+      //Create the model to be displayed in the HTML
+      questionnaireModel = {title: this.questionnairs[qi].title, questions: []};
+
+      const noAnswers = this.questionnairs[qi].answers.length;
+      //Push the answer to each question to the display model
+      this.questionnairs[qi].questions.forEach((quest, i) => {
+        const percentage = answers[i] ? (100 / noAnswers * answers[i]) : 0;
+        const qa = {question: quest.question, percentage: percentage };
+        questionnaireModel.questions.push(qa);
+      });
+
+      let average = 0;
+      questionnaireModel.questions.forEach(quest => average += quest.percentage);
+      average = average / this.questionnairs[qi].questions.length;
+      this.averageLessonScore += average;
+    }
+    this.averageLessonScore = parseFloat((this.averageLessonScore / this.questionnairs.length).toFixed(2));
+    //Set the background colour of the percent board
+    if (this.averageLessonScore >= 70){
+      this.averageLessonColour = 'lightgreen';
+    } else if (this.averageLessonScore >= 50){
+      this.averageLessonColour = 'blue';
+    } else {
+      this.averageLessonColour = 'red';
+
+    }
+  }
+
 }

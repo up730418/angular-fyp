@@ -96,10 +96,10 @@ export class QuestionnaireComponent implements OnInit {
       this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
       document.getElementById('question-' + qNo).classList.add('hidden');
       document.getElementById('finish').classList.remove('hidden');
-      this.saveResults()
+      this.saveResults();
     }
   }
-  
+
   saveResults() {
     this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
   }

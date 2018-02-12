@@ -20,7 +20,7 @@ export class LessonPresenterComponent implements OnInit {
 
   lesson: Lesson;
   lessonId: string;
-  socket
+  socket;
   url = AppConstant.BASE_API_URL;
 
   constructor(private route: ActivatedRoute,
@@ -50,8 +50,8 @@ export class LessonPresenterComponent implements OnInit {
   ngAfterViewInit(){
 
     this.socket.onmessage = (event) => {
-      
-       
+
+
     };
     this.socket.onclose = () => {
         console.log('/The socket connection has been closed');
@@ -68,11 +68,11 @@ export class LessonPresenterComponent implements OnInit {
         });
   }
   activatePoll(pollId) {
-    this.socket.send(JSON.stringify({type: "pollSwitch", compId: pollId, lessonId: this.lessonId}));
+    this.socket.send(JSON.stringify({type: 'pollSwitch', compId: pollId, lessonId: this.lessonId}));
   }
 
   activateQuiz(quizId) {
-    this.socket.send(JSON.stringify({type: "quizSwitch", compId: quizId, lessonId: this.lessonId}));
+    this.socket.send(JSON.stringify({type: 'quizSwitch', compId: quizId, lessonId: this.lessonId}));
   }
 
 }
