@@ -11,6 +11,7 @@ import { PollEditorComponent } from './poll-editor/poll-editor.component';
 
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.component';
+import { LessonReviewComponent } from './lesson-review/lesson-review.component';
 
 import { StudentLessonComponent } from './student-lesson/student-lesson.component';
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'lessons', component: LessonsComponent },
   { path: 'lessons/:id', component: LessonsComponent },
   { path: 'lesson-presenter/:id', component: LessonPresenterComponent },
+  { path: 'lesson-review/:id', component: LessonReviewComponent },
   { path: 'student-lesson/:id', component: StudentLessonComponent },
   { path: 'questionnaire/:id', component: QuestionnaireComponent },
   { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent },

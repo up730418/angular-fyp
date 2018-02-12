@@ -8,7 +8,7 @@ import {MatChipInputEvent} from '@angular/material';
 import {ENTER, COMMA} from '@angular/cdk/keycodes';
 
 import { QuestionnaireService } from '../questionnaire.service';
-import { Questionnaire, QAC } from '../modle';
+import { Questionnaire, QAC, UAA } from '../modle';
 
 import { LoginService } from '../login.service';
 
@@ -52,7 +52,7 @@ export class QuestionnaireEditorComponent implements OnInit {
         .switchMap((params: Params) => this.questionnaireService.getQuestionaire(params['id']))
         .subscribe(questionnaire => {
                       if (questionnaire == null) {
-                        this.model = new Questionnaire(NaN, '', [], this.loginService.userName, [], [new QAC('', '', [])]);
+                        this.model = new Questionnaire(NaN, '', [], this.loginService.userName, [], [new QAC('', '', [])], [new UAA("", [])]);
                       } else {
 
                         this.model = questionnaire;

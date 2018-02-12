@@ -20,6 +20,7 @@
         <button mat-raised-button (click)="deletePoll(poll.id)" *ngIf="poll.title"> Delete </button> 
       </div>
       
+<!--
       <h4>Chats:</h4>
       <div *ngFor="let chat of lesson.chats"> 
         <span>{{chat.title}}:</span> <br>
@@ -27,6 +28,7 @@
         <button mat-button routerLink="/chat-editor/{{chat.id}}" *ngIf="chat.title" color="accent"> Edit </button> 
         <button mat-button routerLink="/chat-editor/{{chat.id}" *ngIf="chat.title"> Delete </button> 
       </div>
+-->
       
       <h4>Quizes:</h4>
       <div *ngFor="let quiz of lesson.questionairs"> 
@@ -41,7 +43,7 @@
       <h4>Other</h4>
       <button mat-raised-button routerLink="/lesson-presenter/{{lesson.lessonId}}" color="primary">View Lesson</button>
       <button mat-raised-button routerLink="/poll-editor/na/{{lesson.lessonId}}" color="accent">Add Poll</button>
-      <button mat-raised-button routerLink="/chat-editor/na/{{lesson.lessonId}}" color="accent">Add Chat</button>
+<!--      <button mat-raised-button routerLink="/chat-editor/na/{{lesson.lessonId}}" color="accent">Add Chat</button>-->
       <button mat-raised-button routerLink="/questionair-editor/na/{{lesson.lessonId}}" color="accent">Add Questionair</button>
       <button mat-raised-button (click)="deleteLesson(lesson.lessonId)">Delete Lesson</button>
     </mat-card-actions>

@@ -1,0 +1,8 @@
+.halfCard{
+  width: 43%;
+  display: flex;
+  margin-top: 1em;
+  margin-right: 1em;
+  min-width: 20em;
+
+}

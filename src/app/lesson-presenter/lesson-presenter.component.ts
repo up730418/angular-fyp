@@ -62,16 +62,16 @@ export class LessonPresenterComponent implements OnInit {
     };
   }
 
-  getLesson(): void {
+  getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;
         });
   }
-  activatePoll(pollId): void {
+  activatePoll(pollId) {
     this.socket.send(JSON.stringify({type: "pollSwitch", compId: pollId, lessonId: this.lessonId}));
   }
 
-  activateQuiz(quizId): void {
+  activateQuiz(quizId) {
     this.socket.send(JSON.stringify({type: "quizSwitch", compId: quizId, lessonId: this.lessonId}));
   }
 

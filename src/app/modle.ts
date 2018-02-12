@@ -45,6 +45,7 @@ export class Questionnaire {
     public owner: string,
     public lesson: Array<string>,
     public questions: [ QAC ],
+    public answers: [ UAA ],
   ) { }
 }
 
@@ -69,6 +70,13 @@ export class UA {
   constructor(
     public user: string,
     public answer: string,
+    ) { }
+}
+
+export class UAA {
+  constructor(
+    public user: string,
+    public answer: Array<any>,
     ) { }
 }
 

@@ -7,7 +7,7 @@ import { AppConstant } from '../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 
-import { Lesson, } from './modle';
+import { Lesson, Poll, Questionnaire } from './modle';
 
 import { LoginService } from './login.service';
 
@@ -43,6 +43,30 @@ export class LessonService {
     return this.http.get(url, options)
                 .toPromise()
                 .then(response => response.json() as Lesson[])
+                .catch(this.handleError);
+  }  
+  
+  getPolls(lessonId: string): Promise<Poll[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.loginService.authtoken});
+    const options = new RequestOptions({ headers: headers });
+    const url = this.serverUrl + '/api/lesson/polls/' + lessonId;
+
+    return this.http.get(url, options)
+                .toPromise()
+                .then(response => response.json() as Poll[])
+                .catch(this.handleError);
+  }
+  
+  getQuestionnairs(lessonId: string): Promise<Questionnaire[]> {
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.loginService.authtoken});
+    const options = new RequestOptions({ headers: headers });
+    const url = this.serverUrl + '/api/lesson/questionnairs/' + lessonId;
+
+    return this.http.get(url, options)
+                .toPromise()
+                .then(response => response.json() as Questionnaire[])
                 .catch(this.handleError);
   }
 

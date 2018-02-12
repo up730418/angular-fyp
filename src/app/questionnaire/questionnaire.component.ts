@@ -80,7 +80,7 @@ export class QuestionnaireComponent implements OnInit {
 //                    }
   }
 
-  nextQuestion(qNo, answerType): void {
+  nextQuestion(qNo, answerType) {
     console.log(answerType);
     if (answerType == 1) {
       this.correctAnswers += 1;
@@ -96,8 +96,12 @@ export class QuestionnaireComponent implements OnInit {
       this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
       document.getElementById('question-' + qNo).classList.add('hidden');
       document.getElementById('finish').classList.remove('hidden');
-
+      this.saveResults()
     }
+  }
+  
+  saveResults() {
+    this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
   }
 
 }

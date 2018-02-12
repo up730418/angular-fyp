@@ -33,6 +33,7 @@ import { StudentLessonComponent } from './student-lesson/student-lesson.componen
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnaire-editor.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { LessonReviewComponent } from './lesson-review/lesson-review.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
     StudentLessonComponent,
     QuestionnaireComponent,
     QuestionnaireEditorComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    LessonReviewComponent,
   ],
   imports: [
     BrowserModule,
