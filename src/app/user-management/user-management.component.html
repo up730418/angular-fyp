@@ -1,5 +1,5 @@
 <p *ngIf="code == 202">
-  User Added An admin will me notified. Please come back later to see you permissions.
+  User added an admin will me notified. Please come back later to see your permissions.
 </p>
 <p *ngIf="code == 203">
  You have already been added to the system. Please contact an admin if you need further help. 
@@ -30,3 +30,28 @@
 </form>
 
 <button *ngIf="users" mat-raised-button (click)="addUser()"  color="primary">Add User</button>
+
+<form *ngFor="let teachingClass of teachingClasss ">
+  <mat-form-field class="full-width">
+    <input matInput id="className" name="className" placeholder="Class Name" [(ngModel)]="teachingClass.name" maxlength="50" requiered  >
+  </mat-form-field>
+  
+  <mat-form-field class="full-width">
+    <mat-chip-list #studentChipList>
+      <mat-chip color="warn" *ngFor="let student of teachingClass.students" [selectable]="selectable"
+               [removable]="removable" (remove)="removeStudent(student, teachingClass)" >
+        {{student}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+       <input placeholder="Students in class"
+           [matChipInputFor]="studentChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addStudent($event, teachingClass)" />
+
+    </mat-chip-list>
+  </mat-form-field>
+  <button mat-raised-button name="teachingClassSub" (click)="updateTeachingClass(teachingClass)" color="accent" class="btn">Save</button>
+</form>
+
+<button *ngIf="teachingClasss" mat-raised-button (click)="addTeachingClass()"  color="primary">Add Class</button>

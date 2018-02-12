@@ -84,7 +84,7 @@ export class PollEditorComponent implements OnInit {
   }
 
 
-  addQuestion(event: MatChipInputEvent): void {
+  addQuestion(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
@@ -97,14 +97,14 @@ export class PollEditorComponent implements OnInit {
     }
   }
 
-  removeQuestion(question: any): void {
+  removeQuestion(question: any) {
     const index = this.model.questions.indexOf(question);
 
     if (index >= 0) {
       this.model.questions.splice(index, 1);
     }
   }
-  addAccess(event: MatChipInputEvent): void {
+  addAccess(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
@@ -119,7 +119,7 @@ export class PollEditorComponent implements OnInit {
     }
   }
 
-  removeAccess(access: any): void {
+  removeAccess(access: any) {
     const index = this.model.access.indexOf(access);
 
     if (index >= 0) {
@@ -127,7 +127,7 @@ export class PollEditorComponent implements OnInit {
     }
   }
 
-  addLesson(event: MatChipInputEvent): void {
+  addLesson(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
@@ -141,7 +141,7 @@ export class PollEditorComponent implements OnInit {
     }
   }
 
-  removeLesson(lesson: any): void {
+  removeLesson(lesson: any) {
     const index = this.lesson.indexOf(lesson);
 
     if (index >= 0) {
@@ -149,7 +149,7 @@ export class PollEditorComponent implements OnInit {
     }
   }
 
-  deletePoll(): void{
+  deletePoll() {
     this.pollService.deletePoll(this.model.pollId).then(res => {
       console.log(res == 'Accepted');
       if (res != 'Accepted'){
