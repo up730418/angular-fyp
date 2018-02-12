@@ -22,7 +22,13 @@ export class UserManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.loginService.login.subscribe((login) => {
+    if (this.loginService.signedIn){
+      this.getUsers().then(users => {
+        this.users = users;
+      });
+    }
+   
+    this.loginService.login.subscribe((login) => {
       if (login){
          this.getUsers().then(users => {
             this.users = users;
@@ -31,13 +37,9 @@ export class UserManagementComponent implements OnInit {
     });
     this.loginService.checkSignIn();
 
-    if (this.loginService.signedIn){
-      this.getUsers().then(users => {
-        this.users = users;
-      });
     }
 //    this.updateUser({userName:"up730418@myport.ac.uk", firstName: "Robert", lastName: "Wheelhouse", userType: "Admin"})
-  }
+  
 
 
 

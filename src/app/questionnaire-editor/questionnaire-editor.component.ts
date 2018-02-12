@@ -32,6 +32,9 @@ export class QuestionnaireEditorComponent implements OnInit {
     private loginService: LoginService, ) { }
 
   ngOnInit() {
+    if (this.loginService.signedIn){
+      this.getQuestionnaire();
+    }
     this.loginService.login.subscribe((login) => {
       if (login){
          this.getQuestionnaire();
@@ -39,9 +42,6 @@ export class QuestionnaireEditorComponent implements OnInit {
     });
     this.loginService.checkSignIn();
 
-    if (this.loginService.signedIn){
-      this.getQuestionnaire();
-    }
 
     this.route.params.subscribe(params => {  this.assosiatLesson = params['lesson'];  });
 

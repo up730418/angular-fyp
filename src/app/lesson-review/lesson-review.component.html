@@ -7,7 +7,7 @@
         <h3>{{pollModel.title}}</h3>
         <p *ngFor="let question of pollModel.questions">{{question.question}}: {{question.percentage}}%</p>
         <mat-button-toggle-group #group="matButtonToggleGroup" >
-          <mat-button-toggle color="primary" *ngFor="let poll of polls; let i = index;" (click)="createPollModel(i)" value="{{name}}">
+          <mat-button-toggle color="primary" *ngFor="let poll of polls; let i = index;" (click)="createPollModel(i)" value="{{i}}" [checked]="i === 0">
             {{i}}
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -17,14 +17,14 @@
 
   <mat-card class="halfCard" >
       <mat-card-header>
-        <mat-card-title>Quizes</mat-card-title>
+        <mat-card-title>Questionnaire:</mat-card-title>
       </mat-card-header>
       <mat-card-content *ngIf="questionnaireModel">
 <!--        ToDO FIX THIS-->
         <h3>{{questionnaireModel.title}}</h3>
         <p *ngFor="let question of questionnaireModel.questions">{{question.question}}: {{question.percentage}}%</p>
         <mat-button-toggle-group #group="matButtonToggleGroup" >
-          <mat-button-toggle color="primary" *ngFor="let questionnaire of questionnairs; let i = index;" (click)="createQuestionnaireModel(i)" value="{{name}}">
+          <mat-button-toggle color="primary" *ngFor="let questionnaire of questionnairs; let i = index;" (click)="createQuestionnaireModel(i)" value="{{i}}" [checked]="i === 0">
             {{i}}
           </mat-button-toggle>
         </mat-button-toggle-group>

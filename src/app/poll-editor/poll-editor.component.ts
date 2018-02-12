@@ -36,6 +36,10 @@ export class PollEditorComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    if (this.loginService.signedIn){
+      this.getPoll();
+    }
+    
     this.loginService.login.subscribe((login) => {
       if (login){
          this.getPoll();
@@ -43,9 +47,6 @@ export class PollEditorComponent implements OnInit {
     });
     this.loginService.checkSignIn();
 
-    if (this.loginService.signedIn){
-      this.getPoll();
-    }
 
     this.route.params.subscribe(params => {  this.assosiatLesson = params['lesson'];  });
 
