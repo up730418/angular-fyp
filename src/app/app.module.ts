@@ -51,7 +51,7 @@ import { LessonReviewComponent } from './lesson-review/lesson-review.component';
     QuestionnaireComponent,
     QuestionnaireEditorComponent,
     UserManagementComponent,
-    LessonReviewComponent,
+    LessonReviewComponent
   ],
   imports: [
     BrowserModule,
