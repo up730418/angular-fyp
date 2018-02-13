@@ -33,9 +33,9 @@
       <h4>Quizes:</h4>
       <div *ngFor="let quiz of lesson.questionairs"> 
         <span>{{quiz.title}}:</span> <br>
-        <button mat-button routerLink="/quiz/{{quiz.id}}" *ngIf="quiz.title" color="primary"> view </button>
-        <button mat-button routerLink="/quiz-editor/{{quiz.id}}" *ngIf="quiz.title" color="accent"> Edit </button> 
-        <button mat-button routerLink="/quiz-editor/{{quiz.id}}" *ngIf="quiz.title"> Delete </button> 
+        <button mat-button routerLink="/questionnaire/{{quiz.id}}" *ngIf="quiz.title" color="primary"> view </button>
+        <button mat-button routerLink="/questionnaire-editor/{{quiz.id}}" *ngIf="quiz.title" color="accent"> Edit </button> 
+        <button mat-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title"> Delete </button> 
       </div>
     
     </mat-card-content>
@@ -44,7 +44,7 @@
       <button mat-raised-button routerLink="/lesson-presenter/{{lesson.lessonId}}" color="primary">View Lesson</button>
       <button mat-raised-button routerLink="/poll-editor/na/{{lesson.lessonId}}" color="accent">Add Poll</button>
 <!--      <button mat-raised-button routerLink="/chat-editor/na/{{lesson.lessonId}}" color="accent">Add Chat</button>-->
-      <button mat-raised-button routerLink="/questionair-editor/na/{{lesson.lessonId}}" color="accent">Add Questionair</button>
+      <button mat-raised-button routerLink="/questionnaire-editor/na/{{lesson.lessonId}}" color="accent">Add Questionair</button>
       <button mat-raised-button (click)="deleteLesson(lesson.lessonId)">Delete Lesson</button>
     </mat-card-actions>
     </div>

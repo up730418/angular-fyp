@@ -69,7 +69,6 @@ export class LessonReviewComponent implements OnInit {
     this.lessonService.getQuestionnairs(this.lessonId).then(questionnairs => {
       this.questionnairs = questionnairs;
       this.createQuestionnaireModel(0);
-      console.log(this.questionnaireModel);
       this.createAverageModel();
     });
   }
@@ -100,7 +99,6 @@ export class LessonReviewComponent implements OnInit {
     const answers = [];
     //Add no times a question was answered to an array
     this.questionnairs[questionnaireIndex].answers.forEach((answer, i) => {
-        console.log(answer);
         answer.answer.forEach((ans, i) => {
           if (ans === 1){
             answers[i] = answers[i] ? answers[i] + 1 : 1;
@@ -120,7 +118,7 @@ export class LessonReviewComponent implements OnInit {
     });
 
     let average = 0;
-    this.questionnaireModel.questions.forEach(quest => average += quest.percentage);
+    this.questionnaireModel.questions.forEach(quest => average += parseFloat(quest.percentage));
     average = average / this.questionnairs[questionnaireIndex].questions.length;
     this.questionnaireModel.questions.push({question: 'Overal Averags', percentage: average.toFixed(2) });
   }

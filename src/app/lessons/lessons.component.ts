@@ -53,7 +53,7 @@ export class LessonsComponent implements OnInit {
     this.loginService.checkSignIn();
   }
 
-  getLessons(): void {
+  getLessons() {
 
     // If a single  lesson has been selected
     if (this.lessonId){
@@ -79,7 +79,7 @@ export class LessonsComponent implements OnInit {
   }
 
   // Delete a lesson perminently
-  deleteLesson(id: number): void{
+  deleteLesson(id: number) {
     this.lessonService.deleteLesson(id).then(res => {
       if (res != 'Accepted'){
           console.error('Error Unable to delete');
@@ -90,7 +90,7 @@ export class LessonsComponent implements OnInit {
   }
 
   // Delete a poll permenintly and remove it from the lesson
-  deletePoll(id: number): void{
+  deletePoll(id: number) {
     this.pollService.deletePoll(id).then(res => {
       if (res != 'Accepted'){
           console.error('Error Unable to delete');
