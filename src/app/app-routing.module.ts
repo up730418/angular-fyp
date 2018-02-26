@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { StudentHomeComponent } from './student-home/student-home.component';
 
 import { ChatComponent } from './chat/chat.component';
 
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent, canActivate: [UserEntryGuard] },
   { path: 'home/:id', component: HomeComponent },
-  { path: 'studentHome', redirectTo: 'chat/1', pathMatch: 'full' },
+  { path: 'studentHome', component: StudentHomeComponent },
   { path: 'chat/:id', component: ChatComponent },
   { path: 'poll/:id', component: PollComponent },
   { path: 'poll-editor/:id', component: PollEditorComponent, canActivate: [UserTeacherGuard] },

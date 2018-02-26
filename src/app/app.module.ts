@@ -57,7 +57,7 @@ import { StudentHomeComponent } from './student-home/student-home.component';
     QuestionnaireEditorComponent,
     UserManagementComponent,
     LessonReviewComponent,
-    StudentHomeComponent,
+    StudentHomeComponent
   ],
   imports: [
     BrowserModule,
