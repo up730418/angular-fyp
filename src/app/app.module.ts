@@ -37,6 +37,7 @@ import { LessonReviewComponent } from './lesson-review/lesson-review.component';
 
 import { UserTeacherGuard } from './guards/user-teacher.guard';
 import { UserEntryGuard } from './guards/user-entry.guard';
+import { StudentHomeComponent } from './student-home/student-home.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { UserEntryGuard } from './guards/user-entry.guard';
     QuestionnaireEditorComponent,
     UserManagementComponent,
     LessonReviewComponent,
+    StudentHomeComponent,
   ],
   imports: [
     BrowserModule,

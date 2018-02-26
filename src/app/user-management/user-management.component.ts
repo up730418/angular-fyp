@@ -21,7 +21,7 @@ export class UserManagementComponent implements OnInit {
   code: number;
   teachingClasss: TeachingClass[];
   separatorKeysCodes = [ENTER, COMMA];
-  visible = true; 
+  visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
@@ -120,13 +120,13 @@ export class UserManagementComponent implements OnInit {
     const options = new RequestOptions({ headers: headers });
     const url = this.serverUrl + '/api/teachingClass/';
     const body = JSON.stringify(data);
-    console.log(body)
+    console.log(body);
     return this.http.put(url, body, options)
                 .toPromise()
                 .then(response => response)
                 .catch(this.handleError);
   }
-  
+
   createTeachingClass(data): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
@@ -141,19 +141,19 @@ export class UserManagementComponent implements OnInit {
   }
 
   addTeachingClass() {
-    let newId = this.teachingClasss[this.teachingClasss.length - 1].classId + 1
+    const newId = this.teachingClasss[this.teachingClasss.length - 1].classId + 1;
     this.teachingClasss.push(new TeachingClass( newId, '', []));
-    
+
   }
   private handleError(error: any): Promise<any> {
     console.error('An error has occured', error);
     return Promise.reject(error.message || error);
   }
-  
+
   addStudent(event: MatChipInputEvent, teachingClass: TeachingClass) {
     const input = event.input;
     const value = event.value;
-    
+
     if ((value || '').trim()) {
       teachingClass.students.push( value.trim() );
     }
@@ -170,5 +170,5 @@ export class UserManagementComponent implements OnInit {
       teachingClass.students.splice(index, 1);
     }
   }
-  
+
 }

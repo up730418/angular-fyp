@@ -16,9 +16,9 @@ export class LoginService {
   private serverUrl;
 
   @Output() login = new EventEmitter(false);
-  
-  constructor(public dialog: MatDialog, 
-              private http: Http,) {
+
+  constructor(public dialog: MatDialog,
+              private http: Http, ) {
     this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':' + AppConstant.BASE_API_PORT;
     this.signedIn = false;
   }
@@ -60,7 +60,7 @@ export class LoginService {
 
     });
   }
-    
+
   public checkUserType() {
     this.checkSignIn();
 //    return "Student";
@@ -71,10 +71,10 @@ export class LoginService {
 
     return this.http.get(url, options)
                 .toPromise()
-                .then(response => response["_body"] )
+                .then(response => response['_body'] )
                 .catch(this.handleError);
   }
-  
+
   private handleError(error: any): Promise<any> {
     console.error('An error has occured', error);
     return Promise.reject(error.message || error);

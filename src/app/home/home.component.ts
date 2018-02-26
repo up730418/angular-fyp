@@ -36,10 +36,9 @@ export class HomeComponent implements OnInit {
     this.loginService.checkSignIn();
 
     this.templateToLoad = this.route.snapshot.params['id'];
-    console.log(this.templateToLoad);
   }
 
-  getLessons(): void {
+  getLessons() {
     this.lessonService.getLessons().then(lessons => {
         this.lessons = lessons;
       });

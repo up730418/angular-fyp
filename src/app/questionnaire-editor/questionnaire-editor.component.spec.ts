@@ -3,9 +3,14 @@ import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/tes
 import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
         MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
         MatChipsModule, MatCardModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { QuestionnaireEditorComponent } from './questionnaire-editor.component';
 import { LoginService, LoginDialog } from '../login.service';
+import { QuestionnaireService } from '../questionnaire.service';
 
 describe('QuestionnaireEditorComponent', () => {
   let component: QuestionnaireEditorComponent;
@@ -24,6 +29,11 @@ describe('QuestionnaireEditorComponent', () => {
         LoginDialog
       ],
       imports: [
+        HttpModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        BrowserDynamicTestingModule,
+        RouterTestingModule,
         MatInputModule,
         MatToolbarModule,
         MatIconModule,
@@ -35,6 +45,10 @@ describe('QuestionnaireEditorComponent', () => {
         MatChipsModule,
         MatCardModule,
       ],
+      providers: [
+        LoginService,
+        QuestionnaireService,
+      ]
     })
     .compileComponents();
   }));
