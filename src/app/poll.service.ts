@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/toPromise';
 
 import { Injectable } from '@angular/core';
-import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { Title } from '@angular/platform-browser';
+import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AppConstant } from '../environments/environment';
 

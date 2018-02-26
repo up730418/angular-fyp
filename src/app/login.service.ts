@@ -1,5 +1,7 @@
 import { Injectable, Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Headers,  Http, Response, RequestOptions, Request, RequestMethod} from '@angular/http';
+import { AppConstant } from '../environments/environment';
 
 declare const gapi: any;
 
@@ -11,10 +13,13 @@ export class LoginService {
   public name: string;
   public userName: string;
   public expiresAt: number;
+  private serverUrl;
 
   @Output() login = new EventEmitter(false);
-
-  constructor(public dialog: MatDialog, ) {
+  
+  constructor(public dialog: MatDialog, 
+              private http: Http,) {
+    this.serverUrl = 'http://' + AppConstant.BASE_API_URL + ':' + AppConstant.BASE_API_PORT;
     this.signedIn = false;
   }
 
@@ -34,28 +39,46 @@ export class LoginService {
   }
 
 
-  openDialog(): void {
-      const dialogRef = this.dialog.open(LoginDialog, {
-      });
+  openDialog() {
+    const dialogRef = this.dialog.open(LoginDialog, {
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result){
-          this.user = result;
-          this.authtoken = result.Zi.id_token;
-          this.signedIn = true;
-          this.name = result.w3.ig;
-          this.userName = result.w3.U3;
-          this.expiresAt = result.Zi.expires_at;
-          localStorage.setItem('authToken', result.Zi.id_token);
-          localStorage.setItem('authName', result.w3.ig);
-          localStorage.setItem('authUserName', result.w3.U3);
-          localStorage.setItem('authExpiresAt', result.Zi.expires_at);
-        }
-        this.login.emit(this.signedIn);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        this.user = result;
+        this.authtoken = result.Zi.id_token;
+        this.signedIn = true;
+        this.name = result.w3.ig;
+        this.userName = result.w3.U3;
+        this.expiresAt = result.Zi.expires_at;
+        localStorage.setItem('authToken', result.Zi.id_token);
+        localStorage.setItem('authName', result.w3.ig);
+        localStorage.setItem('authUserName', result.w3.U3);
+        localStorage.setItem('authExpiresAt', result.Zi.expires_at);
+      }
+      this.login.emit(this.signedIn);
 
-      });
-    }
+    });
+  }
+    
+  public checkUserType() {
+    this.checkSignIn();
+//    return "Student";
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.authtoken});
+    const options = new RequestOptions({ headers: headers });
+    const url = this.serverUrl + '/api/user/userType';
 
+    return this.http.get(url, options)
+                .toPromise()
+                .then(response => response["_body"] )
+                .catch(this.handleError);
+  }
+  
+  private handleError(error: any): Promise<any> {
+    console.error('An error has occured', error);
+    return Promise.reject(error.message || error);
+  }
 
 }
 

@@ -20,24 +20,27 @@ import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnai
 
 import { UserManagementComponent } from './user-management/user-management.component';
 
+import { UserTeacherGuard } from './guards/user-teacher.guard';
+import { UserEntryGuard } from './guards/user-entry.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [UserEntryGuard] },
   { path: 'home/:id', component: HomeComponent },
-  { path: 'chat/:id', component: ChatComponent },
+  { path: 'studentHome', redirectTo: 'chat/1', pathMatch: 'full' },
   { path: 'chat/:id', component: ChatComponent },
   { path: 'poll/:id', component: PollComponent },
-  { path: 'poll-editor/:id', component: PollEditorComponent },
-  { path: 'poll-editor/:id/:lesson', component: PollEditorComponent },
-  { path: 'lessons', component: LessonsComponent },
-  { path: 'lessons/:id', component: LessonsComponent },
-  { path: 'lesson-presenter/:id', component: LessonPresenterComponent },
-  { path: 'lesson-review/:id', component: LessonReviewComponent },
+  { path: 'poll-editor/:id', component: PollEditorComponent, canActivate: [UserTeacherGuard] },
+  { path: 'poll-editor/:id/:lesson', component: PollEditorComponent, canActivate: [UserTeacherGuard] },
+  { path: 'lessons', component: LessonsComponent, canActivate: [UserTeacherGuard] },
+  { path: 'lessons/:id', component: LessonsComponent, canActivate: [UserTeacherGuard] },
+  { path: 'lesson-presenter/:id', component: LessonPresenterComponent, canActivate: [UserTeacherGuard] },
+  { path: 'lesson-review/:id', component: LessonReviewComponent, /*canActivate: [UserTeacherGuard] Strange bug here..*/},
   { path: 'student-lesson/:id', component: StudentLessonComponent },
   { path: 'questionnaire/:id', component: QuestionnaireComponent },
-  { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent },
-  { path: 'questionnaire-editor/:id/:lesson', component: QuestionnaireEditorComponent },
-  { path: 'user-management', component: UserManagementComponent },
+  { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent, canActivate: [UserTeacherGuard] },
+  { path: 'questionnaire-editor/:id/:lesson', component: QuestionnaireEditorComponent, canActivate: [UserTeacherGuard] },
+  { path: 'user-management', component: UserManagementComponent, canActivate: [UserTeacherGuard] },
 
 ];
 

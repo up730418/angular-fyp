@@ -35,6 +35,10 @@ import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnai
 import { UserManagementComponent } from './user-management/user-management.component';
 import { LessonReviewComponent } from './lesson-review/lesson-review.component';
 
+import { UserTeacherGuard } from './guards/user-teacher.guard';
+import { UserEntryGuard } from './guards/user-entry.guard';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +82,8 @@ import { LessonReviewComponent } from './lesson-review/lesson-review.component';
     LoginService,
     LessonService,
     QuestionnaireService,
+    UserTeacherGuard,
+    UserEntryGuard,
   ],
 
   bootstrap: [AppComponent],
