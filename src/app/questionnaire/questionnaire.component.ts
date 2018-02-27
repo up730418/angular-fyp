@@ -56,7 +56,6 @@ export class QuestionnaireComponent implements OnInit {
     //this.questionnaire = new Questionnaire(1, "Quest 1", [], "up730418@myport.ac.uk", [new QAC("What is the best app", "Defo not this one", ["This one", "Another One", "The Wrong Answer"]), new QAC("What is the best app 2", "Defo not this one", ["This one", "Another One", "The Wrong Answer"])])
     this.questionnaireService.getQuestionaire(id).then( (res) => {
       this.questionnaire = res;
-      console.log(res);
       this.numberOfQuestion = this.questionnaire.questions.length;
 //      document.getElementById("question-" + 0).classList.remove("hidden");
 

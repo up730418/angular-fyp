@@ -3,6 +3,9 @@ import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location, DOCUMENT } from '@angular/common';
 
+import {MatChipInputEvent} from '@angular/material';
+import {ENTER, COMMA} from '@angular/cdk/keycodes';
+
 import { PollService } from '../poll.service';
 import { LessonService } from '../lesson.service';
 import { LoginService } from '../login.service';
@@ -18,7 +21,12 @@ import { Lesson } from './../modle';
 export class LessonsComponent implements OnInit {
   lessons: Lesson[];
   lessonId: string;
-
+  separatorKeysCodes = [ENTER, COMMA];
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  
   constructor(private route: ActivatedRoute,
               private router: Router,
               private pollService: PollService,
@@ -101,11 +109,34 @@ export class LessonsComponent implements OnInit {
   }
 
  //Update the lessons title
-  updateTitle(id: number): void {
+  updateTitle(id: number) {
     let lessonToUpdate;
     this.lessons.forEach(lesson => { if (lesson.lessonId == id) lessonToUpdate = lesson; });
     this.lessonService.updateLesson(id.toString(), lessonToUpdate);
 
+  }
+  
+  addAccess(event: MatChipInputEvent, index: any) {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.lessons[index].access.push( value.trim() );
+    }
+
+    if (input) {
+      input.value = '';
+          console.log(value);
+
+    }
+  }
+
+  removeAccess(access: any, i: any) {
+    const index = this.lessons[i].access.indexOf(access);
+
+    if (index >= 0) {
+      this.lessons[i].access.splice(index, 1);
+    }
   }
 
 }

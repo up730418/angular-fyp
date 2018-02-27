@@ -71,7 +71,7 @@ export class LoginService {
 
     return this.http.get(url, options)
                 .toPromise()
-                .then(response => /*response['_body']*/ "Student" )
+                .then(response => response['_body'] /*"Student"*/ )
                 .catch(this.handleError);
   }
 

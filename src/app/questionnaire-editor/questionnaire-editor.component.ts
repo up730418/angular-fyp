@@ -47,7 +47,7 @@ export class QuestionnaireEditorComponent implements OnInit {
 
   }
 
-  getQuestionnaire(): void{
+  getQuestionnaire(){
     this.route.params
         .switchMap((params: Params) => this.questionnaireService.getQuestionaire(params['id']))
         .subscribe(questionnaire => {
@@ -77,7 +77,7 @@ export class QuestionnaireEditorComponent implements OnInit {
     });
   }
 
-  addQuestion(event: MatChipInputEvent, QACIndex: any): void {
+  addQuestion(event: MatChipInputEvent, QACIndex: any) {
     const input = event.input;
     const value = event.value;
     const i = parseInt(QACIndex);
@@ -92,7 +92,7 @@ export class QuestionnaireEditorComponent implements OnInit {
     }
   }
 
-  removeQuestion(answer: any, QACIndex: any): void {
+  removeQuestion(answer: any, QACIndex: any) {
     const index = this.model.questions[QACIndex].otherAnswer.indexOf(answer);
 
     if (index >= 0) {
@@ -100,12 +100,12 @@ export class QuestionnaireEditorComponent implements OnInit {
     }
   }
 
-  addQAC(): void {
+  addQAC() {
     this.model.questions.push(new QAC('', '', []));
     console.log(this.model.questions);
   }
 
-  addAccess(event: MatChipInputEvent): void {
+  addAccess(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
@@ -119,7 +119,7 @@ export class QuestionnaireEditorComponent implements OnInit {
     }
   }
 
-  removeAccess(access: any): void {
+  removeAccess(access: any) {
     const index = this.model.access.indexOf(access);
 
     if (index >= 0) {
@@ -127,7 +127,7 @@ export class QuestionnaireEditorComponent implements OnInit {
     }
   }
 
-  addLesson(event: MatChipInputEvent): void {
+  addLesson(event: MatChipInputEvent) {
     const input = event.input;
     const value = event.value;
 
@@ -140,7 +140,7 @@ export class QuestionnaireEditorComponent implements OnInit {
     }
   }
 
-  removeLesson(lesson: any): void {
+  removeLesson(lesson: any) {
     const index = this.lesson.indexOf(lesson);
 
     if (index >= 0) {

@@ -3,7 +3,7 @@
 
 <div id="lessonContainer" class="cardContainer"  *ngIf="lessons">
   
-  <mat-card class="one" *ngFor="let lesson of lessons" id="lesson-{{lesson.lessonId}}">
+  <mat-card class="one" *ngFor="let lesson of lessons; let i = index " id="lesson-{{lesson.lessonId}}">
     <div *ngIf="lesson"> 
     <mat-card-header >
       <mat-form-field class="full-width">
@@ -38,7 +38,24 @@
         <button mat-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title"> Delete </button> 
       </div>
     
+      <mat-form-field class="full-width">
+        <mat-chip-list #accessChipList>
+          <mat-chip color="warn" *ngFor="let access of lesson.access" [selectable]="selectable"
+                   [removable]="removable" (remove)="removeAccess(access, i)" >
+            {{access}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+           <input placeholder="Lesson access"
+               [matChipInputFor]="accessChipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="addAccess($event, i)" />
+
+        </mat-chip-list>
+      </mat-form-field>
+    
     </mat-card-content>
+      
     <mat-card-actions class="buttonContainer">
       <h4>Other</h4>
       <button mat-raised-button routerLink="/lesson-presenter/{{lesson.lessonId}}" color="primary">View Lesson</button>

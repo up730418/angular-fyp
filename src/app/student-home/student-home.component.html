@@ -1,8 +1,15 @@
-<mat-card>
-    <mat-card-header>
-      <mat-card-title>Your Lessons</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <button mat-button *ngFor="let lesson of lessons" routerLink="/student-lesson/{{lesson.lessonId}}" color="primary">{{lesson.title}}</button>
-    </mat-card-content>
-</mat-card>
+<div *ngIf="lessons">
+  <h2>Your Lessons</h2>
+  <mat-card *ngFor="let teachingClasses of lessons[(lessons.length - 1)]; let i = index">
+      <mat-card-header>
+        <mat-card-title>{{teachingClasses}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <div *ngFor="let lesson of lessons">
+            <div *ngIf="lesson.access">
+              <button mat-button *ngIf="lesson.access.indexOf(teachingClasses) > -1" routerLink="/student-lesson/{{lesson.lessonId}}" color="primary">{{lesson.title}}</button>
+            </div>
+          </div>
+      </mat-card-content>
+  </mat-card>
+</div>
