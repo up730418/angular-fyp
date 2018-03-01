@@ -14,7 +14,7 @@ export class UserEntryGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
+      this.loginService.checkSignIn()
       return this.checkUser();
     }
 

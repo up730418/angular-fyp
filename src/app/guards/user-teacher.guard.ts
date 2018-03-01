@@ -14,14 +14,12 @@ export class UserTeacherGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      console.log('here is the guard');
-
+      this.loginService.checkSignIn()
       return this.checkTeacher();
     }
 
   checkTeacher(): Promise<boolean> {
     return this.loginService.checkUserType().then(userType => {
-      console.log(userType);
       if (userType === 'Teacher' || userType === 'Admin') {
         return true;
       }
