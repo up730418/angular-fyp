@@ -6,7 +6,7 @@
   <mat-card class="one" *ngFor="let lesson of lessons; let i = index " id="lesson-{{lesson.lessonId}}">
     <div *ngIf="lesson"> 
     <mat-card-header >
-      <mat-form-field class="full-width">
+      <mat-form-field class="fullWidth">
         <input matInput type="text" (keyup.enter)="updateTitle(lesson.lessonId)" [(ngModel)]="lesson.title" placeholder="Lesson Title" name="lessonTitle">    
       </mat-form-field>
 <!--      <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> -->
@@ -38,7 +38,7 @@
         <button mat-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title" color="warn"> Delete </button> 
       </div>
     
-      <mat-form-field class="full-width">
+      <mat-form-field class="fullWidth">
         <mat-chip-list #accessChipList>
           <mat-chip color="warn" *ngFor="let access of lesson.access" [selectable]="selectable"
                    [removable]="removable" (remove)="removeAccess(access, i)" >
@@ -56,7 +56,7 @@
       </mat-form-field>
       
       <div *ngFor="let lo of lesson.lessonObjectives; let i = index">
-        <mat-form-field class="full-width">
+        <mat-form-field class="fullWidth">
           <input matInput type="text" [(ngModel)]="lo.title" (keyup.enter)="updateTitle(lesson.lessonId)" placeholder="Lesson Objective {{i}}" name="lessonObjective">    
         </mat-form-field>
       </div>

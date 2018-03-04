@@ -63,6 +63,7 @@ overflow: none;
 
 }
 
+/*
 @media screen and (max-width: 48em){
   input[type=text]{
       width: 100%;
@@ -75,3 +76,4 @@ overflow: none;
   }
 
 }
+*/
