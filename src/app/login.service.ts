@@ -13,6 +13,7 @@ export class LoginService {
   public name: string;
   public userName: string;
   public expiresAt: number;
+  public dialogeIsOpen: boolean = false;
   private serverUrl;
 
   @Output() login = new EventEmitter(false);
@@ -40,10 +41,15 @@ export class LoginService {
 
 
   openDialog() {
-    const dialogRef = this.dialog.open(LoginDialog, {
-    });
-
+    let dialogRef;
+    
+    if(!this.dialogeIsOpen){
+      dialogRef = this.dialog.open(LoginDialog, {
+      });
+    }
+    this.dialogeIsOpen = true;
     dialogRef.afterClosed().subscribe(result => {
+      this.dialogeIsOpen = false;
       if (result){
         this.user = result;
         this.authtoken = result.Zi.id_token;

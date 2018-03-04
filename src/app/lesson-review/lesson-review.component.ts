@@ -20,10 +20,12 @@ export class LessonReviewComponent implements OnInit {
   pollModel;
   questionnaireModel;
   averageLessonScore: number;
+  averageLessonColour: string;
+  studentConfidenceScore: number;
+  studentConfidenceColour: string;
   lesson: Lesson;
   lessonId: string;
   socket;
-  averageLessonColour: string;
   url = AppConstant.BASE_API_URL;
 
   constructor(private route: ActivatedRoute,
@@ -35,6 +37,7 @@ export class LessonReviewComponent implements OnInit {
     if (this.loginService.signedIn){
       this.getLesson();
       this.getRelatedPolls();
+      this.getRelatedQuizes();
     }
   }
 
@@ -54,8 +57,9 @@ export class LessonReviewComponent implements OnInit {
 
   getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
-          this.lesson = lesson;
-        });
+        this.lesson = lesson;
+        this.createStudentConfidenceModel()
+      });
   }
 
   getRelatedPolls() {
@@ -163,6 +167,26 @@ export class LessonReviewComponent implements OnInit {
       this.averageLessonColour = 'blue';
     } else {
       this.averageLessonColour = 'red';
+
+    }
+  }
+  
+  createStudentConfidenceModel() {
+    let confidence = 0
+    console.log(this.lesson.confidence)
+    this.lesson.confidence.forEach((result) => {
+      confidence += result.level;
+    })
+    console.log(confidence)
+    this.studentConfidenceScore = (confidence / this.lesson.confidence.length) * 10;
+    console.log(this.studentConfidenceScore)
+    
+    if (this.studentConfidenceScore >= 70){
+      this.studentConfidenceColour = 'lightgreen';
+    } else if (this.studentConfidenceScore >= 50){
+      this.studentConfidenceColour = 'blue';
+    } else {
+      this.studentConfidenceColour = 'red';
 
     }
   }

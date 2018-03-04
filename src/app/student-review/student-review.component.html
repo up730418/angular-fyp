@@ -1,0 +1,32 @@
+<h1> Lesson Review</h1>
+<div *ngIf="lessons">
+
+  <mat-card *ngFor="let teachingClasses of lessons[(lessons.length - 1)]; let i = index">
+      <mat-card-header>
+        <mat-card-title>{{teachingClasses}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <div *ngFor="let lesson of lessons">
+            <div *ngIf="lesson.access">
+              <div *ngIf="lesson.access.indexOf(teachingClasses) > -1" >
+                <button mat-button (click)="reviewLesson(lesson.lessonId)" color="primary">{{lesson.title}}</button>
+
+                <div class="hidden" id="lessonData-{{lesson.lessonId}}">
+                  <div *ngIf="questionnaireModel">
+                    <h3>{{questionnaireModel.title}}</h3>
+                    <p *ngFor="let question of questionnaireModel.questions">{{question.question}}: {{question.correct}}</p>
+                    <mat-button-toggle-group #group="matButtonToggleGroup" >
+                      <mat-button-toggle color="primary" *ngFor="let questionnaire of questionnairs; let i = index;" (click)="updateQuestionaireModel(i)" value="{{i}}" [checked]="i === 0">
+                        {{i}}
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+      </mat-card-content>
+  </mat-card>
+</div>

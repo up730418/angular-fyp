@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../login.service';
 
@@ -7,7 +7,8 @@ import { LoginService } from '../login.service';
 @Injectable()
 export class UserTeacherGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, ) {
+  constructor(private loginService: LoginService,
+              private router: Router,) {
 
   }
 
@@ -23,8 +24,8 @@ export class UserTeacherGuard implements CanActivate {
       if (userType === 'Teacher' || userType === 'Admin') {
         return true;
       }
+      this.router.navigate(['/home']);
       return false;
     });
-//      return false;
   }
 }

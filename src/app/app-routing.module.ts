@@ -15,6 +15,7 @@ import { LessonPresenterComponent } from './lesson-presenter/lesson-presenter.co
 import { LessonReviewComponent } from './lesson-review/lesson-review.component';
 
 import { StudentLessonComponent } from './student-lesson/student-lesson.component';
+import { StudentReviewComponent } from './student-review/student-review.component';
 
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionnaireEditorComponent } from './questionnaire-editor/questionnaire-editor.component';
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent, canActivate: [UserEntryGuard] },
   { path: 'home/:id', component: HomeComponent },
-  { path: 'studentHome', component: StudentHomeComponent },
+  { path: 'student-home', component: StudentHomeComponent },
   { path: 'chat/:id', component: ChatComponent },
   { path: 'poll/:id', component: PollComponent },
   { path: 'poll-editor/:id', component: PollEditorComponent, canActivate: [UserTeacherGuard] },
@@ -36,8 +37,9 @@ const routes: Routes = [
   { path: 'lessons', component: LessonsComponent, canActivate: [UserTeacherGuard] },
   { path: 'lessons/:id', component: LessonsComponent, canActivate: [UserTeacherGuard] },
   { path: 'lesson-presenter/:id', component: LessonPresenterComponent, canActivate: [UserTeacherGuard] },
-  { path: 'lesson-review/:id', component: LessonReviewComponent, /*canActivate: [UserTeacherGuard] Strange bug here..*/},
+  { path: 'lesson-review/:id', component: LessonReviewComponent, canActivate: [UserTeacherGuard] /*Strange bug here..*/},
   { path: 'student-lesson/:id', component: StudentLessonComponent },
+  { path: 'student-review', component: StudentReviewComponent },
   { path: 'questionnaire/:id', component: QuestionnaireComponent },
   { path: 'questionnaire-editor/:id', component: QuestionnaireEditorComponent, canActivate: [UserTeacherGuard] },
   { path: 'questionnaire-editor/:id/:lesson', component: QuestionnaireEditorComponent, canActivate: [UserTeacherGuard] },

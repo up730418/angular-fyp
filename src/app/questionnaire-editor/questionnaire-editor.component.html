@@ -10,18 +10,18 @@
     <input matInput type="text" [(ngModel)]="model.title" placeholder="Title" name="title" required>    
   </mat-form-field>
   
-  <div *ngFor="let question of model.questions; let i = index trackBy: trackByFn">
-    <mat-form-field class="full-width">
+  <div *ngFor="let question of model.questions; let i = index trackBy: trackByFn" class="questionArea">
+    <mat-form-field class="full-width ">
       <input matInput type="text" [(ngModel)]="question.question" placeholder="Question" name="question{{i}}" required>    
     </mat-form-field>
-    <mat-form-field class="full-width">
+    <mat-form-field class="full-width indent">
       <input matInput type="text" [(ngModel)]="question.correctAnswer" placeholder="Correct Answer" name="correctAnswer{{i}}" required>    
     </mat-form-field>
     
-    <mat-form-field class="full-width">
+    <mat-form-field class="full-width indent">
       <mat-chip-list #questionChipList>
         <mat-chip color="primary" *ngFor="let answer of question.otherAnswer;" [selectable]="selectable"
-                 [removable]="removable" (remove)="removeQuestion(answer, i)">
+                 [removable]="removable" (remove)="removeQuestion(answer, i)" >
           {{answer}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
@@ -34,7 +34,7 @@
       </mat-chip-list>
     </mat-form-field>
     
-    <button mat-raised-button type="button" (click)="addQAC()"> Add Question </button>
+    <button mat-raised-button type="button" (click)="addQAC()" class="addQAC"> Add Question </button>
     
   </div>
   
@@ -73,6 +73,6 @@
 
     </mat-chip-list>
   </mat-form-field>
-  <button mat-raised-button type="submit" color="primary"> Save </button>
+  <button mat-raised-button type="submit" color="primary" class="addQAC"> Save </button>
 </form>
   

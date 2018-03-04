@@ -21,3 +21,7 @@ mat-sidenav-container {
   min-height: 100vh;
   
 }
+
+#appName {
+  margin-left: 1em;
+}

@@ -2,7 +2,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/switchMap';
 
 import { Observable } from 'rxjs/Observable';
-import { Input, Injectable, EventEmitter, Attribute, Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+import { Input, Injectable, EventEmitter, Attribute, Component, OnInit, OnChanges, ViewEncapsulation, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -30,6 +30,7 @@ export class PollComponent implements OnInit {
   public messages: Array<any>;
   public socket: WebSocket;
   public pollId: any;
+  public dialogueIsOpen: boolean = false;
   @Input() pollid; //Id pased in component def e.g. <app-poll pollid="15">
 
   public colors: Array<any> = [
@@ -121,29 +122,31 @@ export class PollComponent implements OnInit {
     };
   }
 
-  openDialog(): void {
+  openDialog() {
+
     const dialogRef = this.dialog.open(WebsocketDialogueComponent, {
       width: '250px',
       data: {type: 'poll'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.dialogueIsOpen = false
       if (result === true) {
         window.location.reload();
       }
     });
   }
 
-  addData(i): void {
+  addData(i) {
     this.socket.send(JSON.stringify({type: 'poll', vote: i, pollId: this.pollId, user: this.loginService.userName}));
 
   }
 
-  addResponse(message): void{
+  addResponse(message){
 
   }
 
-  pollHandler(index, votes): void {
+  pollHandler(index, votes) {
 
     votes = votes == null ? 1 : votes;
     //find the number of the button pressed
@@ -153,7 +156,8 @@ export class PollComponent implements OnInit {
   }
 
  getPollData(room: string): Promise<string> {
-    const url = 'http://' + this.url + ':8080/api/poll/' + room;
+
+   const url = 'http://' + this.url + ':8080/api/poll/' + room;
     const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });

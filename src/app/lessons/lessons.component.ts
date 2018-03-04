@@ -10,7 +10,7 @@ import { PollService } from '../poll.service';
 import { LessonService } from '../lesson.service';
 import { LoginService } from '../login.service';
 
-import { Lesson } from './../modle';
+import { Lesson, UC } from './../modle';
 
 @Component({
   selector: 'app-lessons',
@@ -67,7 +67,7 @@ export class LessonsComponent implements OnInit {
     if (this.lessonId){
       // if the user wishes to create a new lesson
       if (this.lessonId === 'na'){
-        this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], [], this.loginService.userName)).then(res => {
+        this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], [], this.loginService.userName, [new  UC('', 0)])).then(res => {
           this.router.navigateByUrl(`/lessons/${res}`);
         });
       } else {

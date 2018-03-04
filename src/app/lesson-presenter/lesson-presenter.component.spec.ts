@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
         MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
-        MatChipsModule, MatCardModule } from '@angular/material';
+        MatChipsModule, MatCardModule, MatSlideToggleModule, MatSliderModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,6 +45,7 @@ describe('LessonPresenterComponent', () => {
         MatButtonModule,
         MatChipsModule,
         MatCardModule,
+        MatSlideToggleModule,
       ],
       providers: [ LoginService, LessonService ]
     })

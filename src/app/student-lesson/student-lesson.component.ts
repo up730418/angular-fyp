@@ -20,6 +20,8 @@ export class StudentLessonComponent implements OnInit {
   lessonId: string;
   socket;
   url = AppConstant.BASE_API_URL;
+  confidenceSlider: number;
+  showConfidenceBar: boolean;
 
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
@@ -28,7 +30,7 @@ export class StudentLessonComponent implements OnInit {
 
     this.loginService.checkSignIn();
     this.lessonId = this.route.snapshot.params['id'];
-
+//    this.showConfidenceBar = true;
     if (this.loginService.signedIn){
       this.getLesson();
     }
@@ -56,6 +58,8 @@ export class StudentLessonComponent implements OnInit {
       }
       if (data.type == 'quizSwitch') {
         this.activateQuiz(data.compId);
+      }if (data.type == 'confidenceSwitch') {
+        this.showConfidenceBar = true;
       }
     };
     this.socket.onclose = () => {
@@ -67,12 +71,12 @@ export class StudentLessonComponent implements OnInit {
     };
   }
 
-  getLesson(): void {
+  getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;
         });
   }
-  activatePoll(pollId): void {
+  activatePoll(pollId) {
     console.log(pollId);
     const hidden = document.getElementById('poll-' + pollId).classList.contains('hidden');
 
@@ -85,7 +89,7 @@ export class StudentLessonComponent implements OnInit {
     }
   }
 
-  activateQuiz(quizId): void {
+  activateQuiz(quizId) {
     const hidden = document.getElementById('quiz-' + quizId).classList.contains('hidden');
 
     if (hidden){
@@ -95,6 +99,11 @@ export class StudentLessonComponent implements OnInit {
       document.getElementById('quiz-' + quizId).classList.add('hidden');
 
     }
+  }
+  
+  saveConfidence(){
+    const data = {lessonId: this.lessonId, level: this.confidenceSlider}
+    this.lessonService.saveConfidence(data);
   }
 
 }

@@ -10,6 +10,7 @@ export class Poll {
     public access: Array<string>,
     public owner: string,
     public lesson: Array<string>,
+    public hidden: boolean,
     public answers: [ UA ],
   ) { }
 }
@@ -34,6 +35,7 @@ export class Lesson {
     public questionairs: Array<any>,
     public access: Array<any>,
     public owner: string,
+    public confidence: [UC],
   ) { }
 }
 
@@ -44,6 +46,7 @@ export class Questionnaire {
     public access: Array<any>,
     public owner: string,
     public lesson: Array<string>,
+    public hidden: boolean,
     public questions: [ QAC ],
     public answers: [ UAA ],
   ) { }
@@ -108,5 +111,11 @@ export class TeachingClass {
     public classId: number,
     public name: string,
     public students: Array<any>,
+    ) { }
+}
+export class UC {
+  constructor(
+    public userName: string,
+    public level: number,
     ) { }
 }

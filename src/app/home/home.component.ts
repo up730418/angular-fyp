@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { LoginService } from '../login.service';
 import { LessonService } from '../lesson.service';
@@ -19,12 +19,19 @@ export class HomeComponent implements OnInit {
   lessons: Lesson[];
 
   constructor(private route: ActivatedRoute,
+               private router: Router,
               private loginService: LoginService,
               private lessonService: LessonService, ) {
 
     if (this.loginService.signedIn){
       this.getLessons();
     }
+   this.router.events.subscribe(event => {
+     // when the templateToLoad changes, refresh model
+     if (this.templateToLoad !== this.route.snapshot.params['id']){
+       this.templateToLoad = this.route.snapshot.params['id'];
+     }
+   });
   }
 
   ngOnInit() {

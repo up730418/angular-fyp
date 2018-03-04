@@ -1,12 +1,29 @@
 <h1 *ngIf="lesson"> {{lesson.title}} </h1>
 
 <section id="lessonContent" *ngIf="lesson">
-
-  <mat-card  *ngFor="let poll of lesson.polls; trackBy:customTrackBy" class="fullCard hidden" id="poll-{{poll.id}}">
+  <mat-card *ngIf="showConfidenceBar" class="fullCard">
+    <h3>How confident are you that you understand the lesson material?</h3>
+     <mat-slider
+        id="confidenceSliderThing"
+        class="confidenceSliderzz"
+        disabled="false"
+        invert="false"
+        max="10"
+        min="0"
+        step="1"
+        thumb-label="true"
+        tick-interval="false"
+        [(ngModel)]="confidenceSlider"
+        vertical="false">
+    </mat-slider>
+    <button mat-raised-button id="saveConfidence" color="accent" (click)="saveConfidence()">Save Confidence</button>
+  </mat-card>
+  
+  <mat-card  *ngFor="let poll of lesson.polls; trackBy:customTrackBy" [ngClass]="{hidden: poll.hidden, fullCard: true}" id="poll-{{poll.id}}">
     <app-poll *ngIf="poll.id" title="{{poll.title}}"  pollid="{{poll.id}}" class="{{poll.id}}"></app-poll>
   </mat-card>
   
-  <mat-card  *ngFor="let quiz of lesson.questionairs; trackBy:customTrackBy" class="fullCard hidden" id="quiz-{{quiz.id}}">
+  <mat-card  *ngFor="let quiz of lesson.questionairs; trackBy:customTrackBy" [ngClass]="{hidden: quiz.hidden, fullCard: true}" id="quiz-{{quiz.id}}">
     <app-questionnaire *ngIf="quiz.id" title="{{quiz.title}}"  questionnaireid="{{quiz.id}}" class="{{quiz.id}}"></app-questionnaire>
   </mat-card>
   

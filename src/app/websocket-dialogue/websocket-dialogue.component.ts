@@ -10,7 +10,6 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatButton} from '@angular/mate
 })
 
 export class WebsocketDialogueComponent {
-
  constructor(
     public dialogRef: MatDialogRef<WebsocketDialogueComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,

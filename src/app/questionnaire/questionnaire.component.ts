@@ -55,6 +55,11 @@ export class QuestionnaireComponent implements OnInit {
     //Test stuff
     //this.questionnaire = new Questionnaire(1, "Quest 1", [], "up730418@myport.ac.uk", [new QAC("What is the best app", "Defo not this one", ["This one", "Another One", "The Wrong Answer"]), new QAC("What is the best app 2", "Defo not this one", ["This one", "Another One", "The Wrong Answer"])])
     this.questionnaireService.getQuestionaire(id).then( (res) => {
+      console.log(res.questions)
+      res.questions.forEach((question) =>{
+        let rand = Math.floor(Math.random() * res.questions.length);
+        question.otherAnswer.splice(rand,0,question.correctAnswer)
+      })
       this.questionnaire = res;
       this.numberOfQuestion = this.questionnaire.questions.length;
 //      document.getElementById("question-" + 0).classList.remove("hidden");
@@ -81,26 +86,33 @@ export class QuestionnaireComponent implements OnInit {
 
   nextQuestion(qNo, answerType) {
     console.log(answerType);
-    if (answerType == 1) {
+    const answerCorrect = answerType === this.questionnaire.questions[qNo].correctAnswer
+    if (answerCorrect) {
       this.correctAnswers += 1;
     }
-    this.answerTracker[qNo] = answerType;
+    this.answerTracker[qNo] = answerCorrect? 1 : 0;
     const nextQ = qNo + 1;
 
     if (nextQ < this.numberOfQuestion){
-      document.getElementById('question-' + nextQ).classList.remove('hidden');
-      document.getElementById('question-' + qNo).classList.add('hidden');
+      document.getElementById('question-' + this.questionnaireId + '-' + nextQ).classList.remove('hidden');
+      document.getElementById('question-' + this.questionnaireId + '-' + qNo).classList.add('hidden');
     } else {
-      console.log(this.questionnaireId, this.answerTracker);
       this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
-      document.getElementById('question-' + qNo).classList.add('hidden');
-      document.getElementById('finish').classList.remove('hidden');
+      document.getElementById('question-' + this.questionnaireId + '-' + qNo).classList.add('hidden');
+      document.getElementById(this.questionnaireId + '-finish').classList.remove('hidden');
       this.saveResults();
+      
     }
   }
 
   saveResults() {
     this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
+  }
+  
+  restart() {
+      this.correctAnswers = 0;
+      document.getElementById('question-' + this.questionnaireId + '-0').classList.remove('hidden');
+      document.getElementById(this.questionnaireId + '-finish').classList.add('hidden');
   }
 
 }

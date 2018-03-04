@@ -1,7 +1,6 @@
 <h1 *ngIf="lesson">{{lesson.title}}</h1>
 
 <section id="interactionContainer">
-  
   <mat-card id="polls" class="presentHalf" *ngIf="lesson">
     <mat-card-header>
       <mat-card-title>Polls</mat-card-title>
@@ -9,7 +8,8 @@
     <mat-card-content>
       <div class="poll presentData"  *ngFor="let poll of lesson.polls">
         <h4>{{poll.title}}</h4>
-        <button mat-raised-button (click)="activatePoll(poll.id)" color="primary">Send Poll</button>
+        <mat-slide-toggle (click)="activatePoll(poll.id)" color="primary" [checked]="!poll.hidden">Toggle Poll</mat-slide-toggle>
+<!--        <button mat-raised-button (click)="activatePoll(poll.id)" color="primary">Send Poll</button>-->
         <button mat-raised-button routerLink="/poll/{{poll.id}}" color="accent">View Poll</button>
       </div>
     </mat-card-content>
@@ -22,7 +22,8 @@
     <mat-card-content>
       <div class="quiz presentData"  *ngFor="let questionair of lesson.questionairs">
         <h4>{{questionair.title}}</h4>
-        <button mat-raised-button (click)="activateQuiz(questionair.id)" color="primary">Send Quiz</button>
+      <mat-slide-toggle (click)="activateQuiz(questionair.id)" color="primary" [checked]="!questionair.hidden">Toggle Quiz</mat-slide-toggle>
+<!--        <button mat-raised-button (click)="activateQuiz(questionair.id)" color="primary">Send Quiz</button>-->
         <button mat-raised-button routerLink="/questionnaire-editor/{{questionair.id}}" color="accent">View Quiz</button>
       </div>
     </mat-card-content>
@@ -33,3 +34,4 @@
   </mat-card>
 
 </section>
+<button mat-raised-button id="endLesson" color="warn" (click)="endLesson()">End Lessson</button>

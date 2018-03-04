@@ -1,4 +1,4 @@
-#interactionContainer{
+#interactionContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -7,12 +7,10 @@
 }
 .presentHalf {
   width: 40%;
-/*  width: 50%;*/
   min-height: 30vh;
-/*  overflow-y: auto;*/
   margin: 1em;
 }
-.presentData{
+.presentData {
   display: block;
 }
 .presentData > h4 {
@@ -24,9 +22,12 @@
   width: 20%;
 }
 
-.chatCard{
+.chatCard {
   
   width: 90%;
   height: auto;
   margin-bottom: 1em;
+}
+#endLesson {
+ margin: 1em;
 }

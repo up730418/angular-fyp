@@ -5,7 +5,7 @@
  You have already been added to the system. Please contact an admin if you need further help. 
 </p>
 
-<form *ngFor="let user of users ">
+<form *ngFor="let user of users " class="indent">
   <mat-form-field class="full-width">
     <input matInput id="userName" name="userName" placeholder="User Name" [(ngModel)]="user.userName" maxlength="50" requiered  >
   </mat-form-field>

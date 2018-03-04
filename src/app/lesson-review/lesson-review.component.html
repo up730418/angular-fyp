@@ -45,14 +45,27 @@
 
 
   <mat-card class="halfCard">
+    <mat-card-title>Lesson Average</mat-card-title>
+    <mat-card-content>
+      <div id="averageLessonBox"  class="averageBox" [style.backgroundColor]="averageLessonColour">
+        <p>{{averageLessonScore}}&#37;</p>
+
+      </div>
+      <br/>
+      <mat-card-title>Student Confidence</mat-card-title>
+      <div id="studentConfidenceBox" class="averageBox" [style.backgroundColor]="studentConfidenceColour">
+        <p>{{studentConfidenceScore}}&#37;</p>
+
+      </div>
+    </mat-card-content>
+</mat-card>  
+  
+  <mat-card class="halfCard">
       <mat-card-header>
-        <mat-card-title>Lesson Average</mat-card-title>
+        <mat-card-title>Student data</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div id="averageLessonBox" [style.backgroundColor]="averageLessonColour">
-          <p>{{averageLessonScore}}&#37;</p>
-        
-        </div>
+<!--        <app-student-review access="Computing" lessonId="3" userName="up730418@myport.ac.uk"></app-student-review>-->
       </mat-card-content>
 </mat-card>
 </div>

@@ -13,3 +13,8 @@
   margin-right: 0;
   height: 90vh;
 }
+
+.mat-slider { 
+  width: 100% !important;
+  height: 1em;
+}

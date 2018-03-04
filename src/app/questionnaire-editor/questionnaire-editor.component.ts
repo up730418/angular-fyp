@@ -52,7 +52,7 @@ export class QuestionnaireEditorComponent implements OnInit {
         .switchMap((params: Params) => this.questionnaireService.getQuestionaire(params['id']))
         .subscribe(questionnaire => {
                       if (questionnaire == null) {
-                        this.model = new Questionnaire(NaN, '', [], this.loginService.userName, [], [new QAC('', '', [])], [new UAA('', [])]);
+                        this.model = new Questionnaire(NaN, '', [], this.loginService.userName, [], true, [new QAC('', '', [])], [new UAA('', [])]);
                       } else {
 
                         this.model = questionnaire;

@@ -58,7 +58,7 @@ export class PollEditorComponent implements OnInit {
         .subscribe(poll => {
           console.log(poll);
                       if (poll == null) {
-                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [], [new UA('', '' )]);
+                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [], true, [new UA('', '' )]);
                       } else {
 
                         this.model = poll;

@@ -9,7 +9,7 @@
       <mat-form-field class="full-width">
         <input matInput type="text" (keyup.enter)="updateTitle(lesson.lessonId)" [(ngModel)]="lesson.title" placeholder="Lesson Title" name="lessonTitle">    
       </mat-form-field>
-        <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> 
+      <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> 
     </mat-card-header>
     <mat-card-content>
       <h4>Polls:</h4>
@@ -17,7 +17,7 @@
         <span>{{poll.title}}:</span> <br>
         <button mat-raised-button routerLink="/poll/{{poll.id}}" *ngIf="poll.title" color="primary"> view </button>
         <button mat-raised-button routerLink="/poll-editor/{{poll.id}}" *ngIf="poll.title" color="accent"> Edit </button> 
-        <button mat-raised-button (click)="deletePoll(poll.id)" *ngIf="poll.title"> Delete </button> 
+        <button mat-raised-button (click)="deletePoll(poll.id)" *ngIf="poll.title" color="warn"> Delete </button> 
       </div>
       
 <!--
@@ -35,7 +35,7 @@
         <span>{{quiz.title}}:</span> <br>
         <button mat-button routerLink="/questionnaire/{{quiz.id}}" *ngIf="quiz.title" color="primary"> view </button>
         <button mat-button routerLink="/questionnaire-editor/{{quiz.id}}" *ngIf="quiz.title" color="accent"> Edit </button> 
-        <button mat-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title"> Delete </button> 
+        <button mat-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title" color="warn"> Delete </button> 
       </div>
     
       <mat-form-field class="full-width">
@@ -53,7 +53,8 @@
 
         </mat-chip-list>
       </mat-form-field>
-    
+      <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> 
+
     </mat-card-content>
       
     <mat-card-actions class="buttonContainer">
@@ -62,7 +63,7 @@
       <button mat-raised-button routerLink="/poll-editor/na/{{lesson.lessonId}}" color="accent">Add Poll</button>
 <!--      <button mat-raised-button routerLink="/chat-editor/na/{{lesson.lessonId}}" color="accent">Add Chat</button>-->
       <button mat-raised-button routerLink="/questionnaire-editor/na/{{lesson.lessonId}}" color="accent">Add Questionair</button>
-      <button mat-raised-button (click)="deleteLesson(lesson.lessonId)">Delete Lesson</button>
+      <button mat-raised-button (click)="deleteLesson(lesson.lessonId)" color="warn">Delete Lesson</button>
     </mat-card-actions>
     </div>
   </mat-card>

@@ -22,3 +22,7 @@ body {
 .mat-card {
   margin: 1em;
 }
+
+.hidden {
+  display: none !important;
+}

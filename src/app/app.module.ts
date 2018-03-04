@@ -7,7 +7,8 @@ import { environment } from '../environments/environment';
 
 import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
         MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
-        MatChipsModule, MatCardModule, MatSelectModule } from '@angular/material';
+        MatChipsModule, MatCardModule, MatSelectModule, MatSlideToggleModule,
+        MatSliderModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -38,6 +39,7 @@ import { LessonReviewComponent } from './lesson-review/lesson-review.component';
 import { UserTeacherGuard } from './guards/user-teacher.guard';
 import { UserEntryGuard } from './guards/user-entry.guard';
 import { StudentHomeComponent } from './student-home/student-home.component';
+import { StudentReviewComponent } from './student-review/student-review.component';
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { StudentHomeComponent } from './student-home/student-home.component';
     UserManagementComponent,
     LessonReviewComponent,
     StudentHomeComponent,
+    StudentReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,8 @@ import { StudentHomeComponent } from './student-home/student-home.component';
     MatChipsModule,
     MatCardModule,
     MatSelectModule,
+    MatSlideToggleModule,
+    MatSliderModule,
   ],
   providers: [
     PollService,

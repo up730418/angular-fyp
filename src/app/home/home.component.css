@@ -1,7 +1,7 @@
 mat-card {
   width: 20%;
   min-width: 15em;
-  height: 50vh;
+  min-height: 50vh;
   margin: 1em;
 }
 

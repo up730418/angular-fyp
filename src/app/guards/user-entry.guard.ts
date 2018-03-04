@@ -14,14 +14,13 @@ export class UserEntryGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      this.loginService.checkSignIn()
       return this.checkUser();
     }
 
   checkUser(): Promise<boolean> {
     return this.loginService.checkUserType().then(userType => {
       if (userType === 'Student') {
-        this.router.navigate(['/studentHome']);
+        this.router.navigate(['/student-home']);
       }
       else if (userType === 'Teacher' || userType === 'Admin') {
         return true;
