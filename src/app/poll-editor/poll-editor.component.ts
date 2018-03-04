@@ -56,7 +56,6 @@ export class PollEditorComponent implements OnInit {
     this.route.params
         .switchMap((params: Params) => this.pollService.getPoll(params['id']))
         .subscribe(poll => {
-          console.log(poll);
                       if (poll == null) {
                         this.model = new Poll(NaN, '', [], [], this.loginService.userName, [], true, [new UA('', '' )]);
                       } else {
@@ -69,7 +68,7 @@ export class PollEditorComponent implements OnInit {
                       }
 
                     },
-                  error => console.log);
+                  error => console.error);
 
    }
   onSubmit() {
@@ -77,7 +76,6 @@ export class PollEditorComponent implements OnInit {
       if (res.toString() != 'ok'){
         this.router.navigateByUrl(`/poll-editor/${res}`);
       } else {
-        console.log('ok');
       }
 
     });
@@ -114,7 +112,6 @@ export class PollEditorComponent implements OnInit {
 
     if (input) {
       input.value = '';
-          console.log(value);
 
     }
   }
@@ -137,7 +134,6 @@ export class PollEditorComponent implements OnInit {
 
     if (input) {
       input.value = '';
-    console.log(value);
     }
   }
 
@@ -151,7 +147,6 @@ export class PollEditorComponent implements OnInit {
 
   deletePoll() {
     this.pollService.deletePoll(this.model.pollId).then(res => {
-      console.log(res == 'Accepted');
       if (res != 'Accepted'){
           console.error('Error Unable to delete');
         } else {

@@ -8,14 +8,14 @@ import { LoginService } from '../login.service';
 export class UserTeacherGuard implements CanActivate {
 
   constructor(private loginService: LoginService,
-              private router: Router,) {
+              private router: Router, ) {
 
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      this.loginService.checkSignIn()
+      this.loginService.checkSignIn();
       return this.checkTeacher();
     }
 

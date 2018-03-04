@@ -1,19 +1,33 @@
 import { TestBed, async } from '@angular/core/testing';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+
 import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
         MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
         MatChipsModule, MatCardModule } from '@angular/material';
+import { HttpModule } from '@angular/http';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { LoginService, LoginDialog } from './login.service';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+
   beforeEach(async(() => {
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [LoginDialog]
+      }
+    });
+
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        LoginDialog,
       ],
       imports: [
+        HttpModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         MatInputModule,
@@ -27,6 +41,8 @@ describe('AppComponent', () => {
         MatChipsModule,
         MatCardModule,
       ],
+      providers: [ LoginService,
+                 ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

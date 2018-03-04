@@ -43,7 +43,6 @@ export class PollService {
     return this.http.post(url, data, options)
                 .toPromise()
                 .then((res) => {
-      console.log(res['_body']);
       return res['_body'];
     })
                 .catch(this.handleError);
@@ -74,7 +73,6 @@ export class PollService {
     return this.http.delete(url, options)
                 .toPromise()
                 .then((res) => {
-      console.log(res['_body']);
       return res['_body'];
     })
                 .catch(this.handleError);

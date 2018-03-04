@@ -63,7 +63,7 @@ export class QuestionnaireEditorComponent implements OnInit {
                       }
 
                     },
-                  error => console.log);
+                  error => console.error);
   }
 
   onSubmit() {
@@ -71,7 +71,6 @@ export class QuestionnaireEditorComponent implements OnInit {
       if (res.toString() != 'ok'){
         this.router.navigateByUrl(`/questionnaire-editor/${res}`);
       } else {
-        console.log('ok');
       }
 
     });

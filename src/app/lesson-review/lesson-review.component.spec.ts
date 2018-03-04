@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginService, LoginDialog } from '../login.service';
 import { LessonService } from '../lesson.service';
+import { StudentReviewComponent } from '../student-review/student-review.component';
+
 import { LessonReviewComponent } from './lesson-review.component';
 
 describe('LessonReviewComponent', () => {
@@ -26,7 +28,8 @@ describe('LessonReviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         LessonReviewComponent,
-        LoginDialog
+        LoginDialog,
+        StudentReviewComponent,
       ],
       imports: [
         HttpModule,

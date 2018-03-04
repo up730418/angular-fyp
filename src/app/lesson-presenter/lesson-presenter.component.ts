@@ -74,9 +74,9 @@ export class LessonPresenterComponent implements OnInit {
   activateQuiz(quizId) {
     this.socket.send(JSON.stringify({type: 'quizSwitch', compId: quizId, lessonId: this.lessonId}));
   }
-  
+
   endLesson() {
-    this.socket.send(JSON.stringify({type: 'confidenceSwitch', compId: true, lessonId: this.lessonId}))
+    this.socket.send(JSON.stringify({type: 'confidenceSwitch', compId: true, lessonId: this.lessonId}));
     this.lessonService.endLesson(this.lessonId);
   }
 

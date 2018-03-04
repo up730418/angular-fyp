@@ -35,7 +35,8 @@ export class Lesson {
     public questionairs: Array<any>,
     public access: Array<any>,
     public owner: string,
-    public confidence: [UC],
+    public lessonObjectives: Array<LO>,
+    public confidence: Array<UC>,
   ) { }
 }
 
@@ -100,7 +101,7 @@ export class QAC {
 
 export class LO {
   constructor(
-    public LOId: number,
+//    public LOId: number,
     public title: string,
     public questionnaireId: Array<any>,
     ) { }

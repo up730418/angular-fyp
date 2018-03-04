@@ -100,9 +100,9 @@ export class StudentLessonComponent implements OnInit {
 
     }
   }
-  
+
   saveConfidence(){
-    const data = {lessonId: this.lessonId, level: this.confidenceSlider}
+    const data = {lessonId: this.lessonId, level: this.confidenceSlider};
     this.lessonService.saveConfidence(data);
   }
 

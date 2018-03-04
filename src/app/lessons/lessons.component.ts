@@ -10,7 +10,7 @@ import { PollService } from '../poll.service';
 import { LessonService } from '../lesson.service';
 import { LoginService } from '../login.service';
 
-import { Lesson, UC } from './../modle';
+import { Lesson, UC, LO } from './../modle';
 
 @Component({
   selector: 'app-lessons',
@@ -26,7 +26,7 @@ export class LessonsComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private pollService: PollService,
@@ -67,7 +67,7 @@ export class LessonsComponent implements OnInit {
     if (this.lessonId){
       // if the user wishes to create a new lesson
       if (this.lessonId === 'na'){
-        this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], [], this.loginService.userName, [new  UC('', 0)])).then(res => {
+        this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], [], this.loginService.userName,  [new LO('', [])], [new  UC('', 0)])).then(res => {
           this.router.navigateByUrl(`/lessons/${res}`);
         });
       } else {
@@ -115,7 +115,7 @@ export class LessonsComponent implements OnInit {
     this.lessonService.updateLesson(id.toString(), lessonToUpdate);
 
   }
-  
+
   addAccess(event: MatChipInputEvent, index: any) {
     const input = event.input;
     const value = event.value;
@@ -126,7 +126,6 @@ export class LessonsComponent implements OnInit {
 
     if (input) {
       input.value = '';
-          console.log(value);
 
     }
   }
@@ -137,6 +136,9 @@ export class LessonsComponent implements OnInit {
     if (index >= 0) {
       this.lessons[i].access.splice(index, 1);
     }
+  }
+  addObjective(lesson: Lesson) {
+    lesson.lessonObjectives.push(new LO('', []));
   }
 
 }

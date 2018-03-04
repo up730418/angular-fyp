@@ -13,7 +13,7 @@ export class LoginService {
   public name: string;
   public userName: string;
   public expiresAt: number;
-  public dialogeIsOpen: boolean = false;
+  public dialogeIsOpen = false;
   private serverUrl;
 
   @Output() login = new EventEmitter(false);
@@ -42,29 +42,34 @@ export class LoginService {
 
   openDialog() {
     let dialogRef;
-    
-    if(!this.dialogeIsOpen){
+
+    if (!this.dialogeIsOpen){
       dialogRef = this.dialog.open(LoginDialog, {
       });
     }
     this.dialogeIsOpen = true;
-    dialogRef.afterClosed().subscribe(result => {
-      this.dialogeIsOpen = false;
-      if (result){
-        this.user = result;
-        this.authtoken = result.Zi.id_token;
-        this.signedIn = true;
-        this.name = result.w3.ig;
-        this.userName = result.w3.U3;
-        this.expiresAt = result.Zi.expires_at;
-        localStorage.setItem('authToken', result.Zi.id_token);
-        localStorage.setItem('authName', result.w3.ig);
-        localStorage.setItem('authUserName', result.w3.U3);
-        localStorage.setItem('authExpiresAt', result.Zi.expires_at);
-      }
-      this.login.emit(this.signedIn);
+    try{
+      dialogRef.afterClosed().subscribe(result => {
+        this.dialogeIsOpen = false;
+        if (result){
+          this.user = result;
+          this.authtoken = result.Zi.id_token;
+          this.signedIn = true;
+          this.name = result.w3.ig;
+          this.userName = result.w3.U3;
+          this.expiresAt = result.Zi.expires_at;
+          localStorage.setItem('authToken', result.Zi.id_token);
+          localStorage.setItem('authName', result.w3.ig);
+          localStorage.setItem('authUserName', result.w3.U3);
+          localStorage.setItem('authExpiresAt', result.Zi.expires_at);
+        }
+        this.login.emit(this.signedIn);
 
-    });
+      });
+
+    } catch (e){
+      // Do nothinng
+    }
   }
 
   public checkUserType() {

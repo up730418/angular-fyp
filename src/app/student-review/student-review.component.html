@@ -1,17 +1,18 @@
-<h1> Lesson Review</h1>
+<h1 *ngIf="!userName"> Lesson Review</h1>
 <div *ngIf="lessons">
 
   <mat-card *ngFor="let teachingClasses of lessons[(lessons.length - 1)]; let i = index">
       <mat-card-header>
-        <mat-card-title>{{teachingClasses}}</mat-card-title>
+        <mat-card-title *ngIf="!userName">{{teachingClasses}}</mat-card-title>
+        <mat-card-title *ngIf="userName">{{userName}}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
           <div *ngFor="let lesson of lessons">
             <div *ngIf="lesson.access">
               <div *ngIf="lesson.access.indexOf(teachingClasses) > -1" >
-                <button mat-button (click)="reviewLesson(lesson.lessonId)" color="primary">{{lesson.title}}</button>
+                <button mat-button (click)="reviewLesson(lesson.lessonId, userName)" color="primary">{{lesson.title}}</button>
 
-                <div class="hidden" id="lessonData-{{lesson.lessonId}}">
+                <div class="hidden" id="{{userName}}-lessonData-{{lesson.lessonId}}">
                   <div *ngIf="questionnaireModel">
                     <h3>{{questionnaireModel.title}}</h3>
                     <p *ngFor="let question of questionnaireModel.questions">{{question.question}}: {{question.correct}}</p>

@@ -3,6 +3,7 @@ import { MatInputModule, MatToolbarModule, MatIconModule, MatSidenavModule,
         MatListModule, MatButtonToggleModule, MatDialogModule, MatButtonModule,
         MatChipsModule, MatCardModule } from '@angular/material';
 import { HttpModule } from '@angular/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { UserTeacherGuard } from './user-teacher.guard';
 import { LoginService } from '../login.service';
@@ -12,6 +13,7 @@ describe('UserTeacherGuard', () => {
     TestBed.configureTestingModule({
       providers: [UserTeacherGuard, LoginService],
       imports: [
+        RouterTestingModule,
         HttpModule,
         MatInputModule,
         MatToolbarModule,

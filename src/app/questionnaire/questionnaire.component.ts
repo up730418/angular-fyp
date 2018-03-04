@@ -52,45 +52,24 @@ export class QuestionnaireComponent implements OnInit {
 
   getQuestionnaireData(id: string){
 
-    //Test stuff
-    //this.questionnaire = new Questionnaire(1, "Quest 1", [], "up730418@myport.ac.uk", [new QAC("What is the best app", "Defo not this one", ["This one", "Another One", "The Wrong Answer"]), new QAC("What is the best app 2", "Defo not this one", ["This one", "Another One", "The Wrong Answer"])])
     this.questionnaireService.getQuestionaire(id).then( (res) => {
-      console.log(res.questions)
-      res.questions.forEach((question) =>{
-        let rand = Math.floor(Math.random() * res.questions.length);
-        question.otherAnswer.splice(rand,0,question.correctAnswer)
-      })
+      res.questions.forEach((question) => {
+        const rand = Math.floor(Math.random() * res.questions.length);
+        question.otherAnswer.splice(rand, 0, question.correctAnswer);
+      });
       this.questionnaire = res;
       this.numberOfQuestion = this.questionnaire.questions.length;
-//      document.getElementById("question-" + 0).classList.remove("hidden");
 
     });
-    //this.questionnaireService.updateQuestionaire("1", this.questionnaire )
-    //End test
-//    this.questionnaireService.getQuestionaire(id))
-//        .subscribe(poll => {
-//          console.log(poll);
-//                      if (poll == null) {
-//                        this.model = new Poll(NaN, '', [], [], this.loginService.userName, [], [new UA('', '' )]);
-//                      } else {
-//
-//                        this.model = poll;
-//                      }
-//                      if (this.assosiatLesson != undefined){
-//                        //If a lessonId has been pased in the url push it to the lesson array
-//                        this.model.lesson.push(this.assosiatLesson.toString());
-//                      }
-//
-//                    }
+
   }
 
   nextQuestion(qNo, answerType) {
-    console.log(answerType);
-    const answerCorrect = answerType === this.questionnaire.questions[qNo].correctAnswer
+    const answerCorrect = answerType === this.questionnaire.questions[qNo].correctAnswer;
     if (answerCorrect) {
       this.correctAnswers += 1;
     }
-    this.answerTracker[qNo] = answerCorrect? 1 : 0;
+    this.answerTracker[qNo] = answerCorrect ? 1 : 0;
     const nextQ = qNo + 1;
 
     if (nextQ < this.numberOfQuestion){
@@ -101,14 +80,14 @@ export class QuestionnaireComponent implements OnInit {
       document.getElementById('question-' + this.questionnaireId + '-' + qNo).classList.add('hidden');
       document.getElementById(this.questionnaireId + '-finish').classList.remove('hidden');
       this.saveResults();
-      
+
     }
   }
 
   saveResults() {
     this.questionnaireService.addQuestionnaireResult(parseInt(this.questionnaireId), this.answerTracker);
   }
-  
+
   restart() {
       this.correctAnswers = 0;
       document.getElementById('question-' + this.questionnaireId + '-0').classList.remove('hidden');

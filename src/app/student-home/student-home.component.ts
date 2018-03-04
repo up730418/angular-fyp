@@ -17,7 +17,7 @@ export class StudentHomeComponent implements OnInit {
   url = AppConstant.BASE_API_URL;
   lessons: Lesson[];
   constructor(private loginService: LoginService,
-              private lessonService: LessonService,) { 
+              private lessonService: LessonService, ) {
     if (this.loginService.signedIn){
       this.getLessons();
     }
@@ -33,7 +33,7 @@ export class StudentHomeComponent implements OnInit {
     //Check if user is already signed in or not
     this.loginService.checkSignIn();
   }
-  
+
   getLessons() {
     this.lessonService.getStudentLessons().then(lessons => {
       this.lessons = lessons;

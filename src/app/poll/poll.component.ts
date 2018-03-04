@@ -30,7 +30,7 @@ export class PollComponent implements OnInit {
   public messages: Array<any>;
   public socket: WebSocket;
   public pollId: any;
-  public dialogueIsOpen: boolean = false;
+  public dialogueIsOpen = false;
   @Input() pollid; //Id pased in component def e.g. <app-poll pollid="15">
 
   public colors: Array<any> = [
@@ -114,11 +114,9 @@ export class PollComponent implements OnInit {
         this.pollHandler(parseInt(data.user), parseInt(data.message));
     };
     this.socket.onclose = () => {
-        console.log('/The socket connection has been closed');
         this.openDialog();
     };
     this.socket.onopen = () => {
-        console.log('/The socket connection has been established');
     };
   }
 
@@ -130,7 +128,7 @@ export class PollComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dialogueIsOpen = false
+      this.dialogueIsOpen = false;
       if (result === true) {
         window.location.reload();
       }

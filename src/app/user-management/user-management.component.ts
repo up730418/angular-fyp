@@ -114,13 +114,31 @@ export class UserManagementComponent implements OnInit {
                 .catch(this.handleError);
   }
 
+  getTeachingClassByName(name: string): Promise<TeachingClass> {
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.loginService.authtoken});
+    const options = new RequestOptions({ headers: headers });
+    const url = this.serverUrl + '/api/teachingClass/' + name;
+
+    return this.http.get(url, options)
+                .toPromise()
+                .then((response) => {
+                                  if (response.status === 200){
+                                    return response.json() as TeachingClass;
+                                  } else {
+                                    this.code = response.status;
+                                  }
+
+                                  } )
+                .catch(this.handleError);
+  }
+
   updateTeachingClass(data): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
     const url = this.serverUrl + '/api/teachingClass/';
     const body = JSON.stringify(data);
-    console.log(body);
     return this.http.put(url, body, options)
                 .toPromise()
                 .then(response => response)

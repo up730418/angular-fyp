@@ -5,7 +5,9 @@ mat-card {
   height: auto;
   margin: 1em;
 }
-
+.full-width {
+  width: 90%;
+}
 .cardContainer {
   width: 90%;
   display: flex;

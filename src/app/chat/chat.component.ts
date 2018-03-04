@@ -58,7 +58,6 @@ export class ChatComponent implements OnInit {
   ngOnInit(){
     this.room = this.chatid ? this.chatid : this.route.snapshot.params['id'];
     this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
-    console.log(this.room);
     this.loginService.login.subscribe((login) => {
       if (login){
         this.getChatData(this.room);
@@ -80,14 +79,12 @@ export class ChatComponent implements OnInit {
         this.addMessage(JSON.parse(event.data), true);
     };
     this.socket.onclose = () => {
-        console.log('/The socket connection has been closed');
     };
     this.socket.onopen = () => {
-        console.log('/The socket connection has been established');
     };
   }
 
-  addMessage(data, notifi): void {
+  addMessage(data, notifi) {
 
     let cssClass = 'otherMessage';
     let colour: string;
@@ -152,7 +149,7 @@ export class ChatComponent implements OnInit {
     document.getElementById('testMessage').scrollTop = document.getElementById('testMessage').scrollHeight;
   }
 
-  sendMessage(): void {
+  sendMessage() {
     //this.userNameChange();
     if (this.mess.trim() != ''){
       try{
@@ -166,7 +163,7 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  userNameChange(): void {
+  userNameChange() {
     //Remove all messages curently marked as the userers
     const elementsToRemove = document.querySelectorAll('.myMessage');
     for (let i = 0; i < elementsToRemove.length; i++) {
@@ -184,10 +181,9 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  askNotification(): void {
+  askNotification() {
     Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
-      //console.log("boop")
       if (permission === 'granted') {
         //var notification = new Notification("Hi there!");
       }
@@ -198,7 +194,6 @@ export class ChatComponent implements OnInit {
   }
 
   getChatData(room: string): Promise<string> {
-//    console.log(" attempted get")
     const url = 'http://' + this.url + ':' + AppConstant.BASE_API_PORT + '/api/chat/' + room;
     const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken });
@@ -209,7 +204,6 @@ export class ChatComponent implements OnInit {
                 .then(response => {
 
                   const x = response.json();
-                  //console.log()
                   x.reverse();
                   x.forEach((message) => {
                     this.addMessage(message, false);

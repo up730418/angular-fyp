@@ -38,8 +38,8 @@
       <mat-card-header>
         <mat-card-title>Lesson Objectives</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
-        <h4>Present this Lesson</h4>
+      <mat-card-content *ngIf="lesson">
+        <p *ngFor="let ob of lesson.lessonObjectives; let i = index"> {{i}}. {{ob.title}} </p>
       </mat-card-content>
   </mat-card>
 
@@ -64,8 +64,14 @@
       <mat-card-header>
         <mat-card-title>Student data</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
-<!--        <app-student-review access="Computing" lessonId="3" userName="up730418@myport.ac.uk"></app-student-review>-->
+      <mat-card-content *ngIf="lesson">
+        <div *ngFor="let access of lesson.access">
+          <div *ngFor="let tc  of teachingClasses">
+            <div *ngIf="tc.name == access">
+              <app-student-review  *ngFor="let student of tc.students" access="{{access}}" lessonId="{{lessonId}}" userName="{{student}}"></app-student-review>
+            </div>
+          </div>
+        </div>
       </mat-card-content>
 </mat-card>
 </div>

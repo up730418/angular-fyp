@@ -9,7 +9,7 @@
       <mat-form-field class="full-width">
         <input matInput type="text" (keyup.enter)="updateTitle(lesson.lessonId)" [(ngModel)]="lesson.title" placeholder="Lesson Title" name="lessonTitle">    
       </mat-form-field>
-      <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> 
+<!--      <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> -->
     </mat-card-header>
     <mat-card-content>
       <h4>Polls:</h4>
@@ -49,16 +49,23 @@
                [matChipInputFor]="accessChipList"
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                [matChipInputAddOnBlur]="addOnBlur"
-               (matChipInputTokenEnd)="addAccess($event, i)" />
+               (matChipInputTokenEnd)="addAccess($event, i)"
+               (keyup.comma)="updateTitle(lesson.lessonId)" />
 
         </mat-chip-list>
       </mat-form-field>
-      <button mat-button (click)="updateTitle(lesson.lessonId)" > update </button> 
-
+      
+      <div *ngFor="let lo of lesson.lessonObjectives; let i = index">
+        <mat-form-field class="full-width">
+          <input matInput type="text" [(ngModel)]="lo.title" (keyup.enter)="updateTitle(lesson.lessonId)" placeholder="Lesson Objective {{i}}" name="lessonObjective">    
+        </mat-form-field>
+      </div>
+      <button mat-raised-button (click)="addObjective(lesson)" color="accent"> Add Objective </button> 
     </mat-card-content>
       
     <mat-card-actions class="buttonContainer">
       <h4>Other</h4>
+      <button mat-raised-button (click)="updateTitle(lesson.lessonId)" > update </button> 
       <button mat-raised-button routerLink="/lesson-presenter/{{lesson.lessonId}}" color="primary">View Lesson</button>
       <button mat-raised-button routerLink="/poll-editor/na/{{lesson.lessonId}}" color="accent">Add Poll</button>
 <!--      <button mat-raised-button routerLink="/chat-editor/na/{{lesson.lessonId}}" color="accent">Add Chat</button>-->

@@ -8,7 +8,7 @@ import { PollService } from '../poll.service';
 import { QuestionnaireService } from '../questionnaire.service';
 import { LoginService } from '../login.service';
 
-import { Lesson, Poll, Questionnaire, QA, UA, UAA, QAC, LO } from './../modle';
+import { Lesson, Poll, Questionnaire, QA, UA, UAA, QAC, LO, TeachingClass } from './../modle';
 @Component({
   selector: 'app-lesson-review',
   templateUrl: './lesson-review.component.html',
@@ -26,6 +26,7 @@ export class LessonReviewComponent implements OnInit {
   lesson: Lesson;
   lessonId: string;
   socket;
+  teachingClasses: TeachingClass[];
   url = AppConstant.BASE_API_URL;
 
   constructor(private route: ActivatedRoute,
@@ -33,7 +34,7 @@ export class LessonReviewComponent implements OnInit {
               private lessonService: LessonService, )
   {
     this.lessonId = this.route.snapshot.params['id'];
-
+    this.teachingClasses = [];
     if (this.loginService.signedIn){
       this.getLesson();
       this.getRelatedPolls();
@@ -58,8 +59,15 @@ export class LessonReviewComponent implements OnInit {
   getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
         this.lesson = lesson;
-        this.createStudentConfidenceModel()
+        this.createStudentConfidenceModel();
+        this.lesson.access.forEach((access) => {
+          this.lessonService.getTeachingClassByName(access).then((tc) => {
+            this.teachingClasses.push(tc);
+          });
+        });
       });
+
+
   }
 
   getRelatedPolls() {
@@ -132,10 +140,8 @@ export class LessonReviewComponent implements OnInit {
   createAverageModel(){
     this.averageLessonScore = 0;
     for (const qi in this.questionnairs) {
-      console.log(qi);
       const answers = [];
       this.questionnairs[qi].answers.forEach((answer, i) => {
-        console.log(answer);
         answer.answer.forEach((ans, i) => {
           if (ans === 1){
             answers[i] = answers[i] ? answers[i] + 1 : 1;
@@ -170,17 +176,14 @@ export class LessonReviewComponent implements OnInit {
 
     }
   }
-  
+
   createStudentConfidenceModel() {
-    let confidence = 0
-    console.log(this.lesson.confidence)
+    let confidence = 0;
     this.lesson.confidence.forEach((result) => {
       confidence += result.level;
-    })
-    console.log(confidence)
+    });
     this.studentConfidenceScore = (confidence / this.lesson.confidence.length) * 10;
-    console.log(this.studentConfidenceScore)
-    
+
     if (this.studentConfidenceScore >= 70){
       this.studentConfidenceColour = 'lightgreen';
     } else if (this.studentConfidenceScore >= 50){

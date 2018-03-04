@@ -7,7 +7,7 @@ import { AppConstant } from '../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 
-import { Lesson, Poll, Questionnaire } from './modle';
+import { Lesson, Poll, Questionnaire, TeachingClass } from './modle';
 
 import { LoginService } from './login.service';
 
@@ -45,7 +45,7 @@ export class LessonService {
                 .then(response => response.json() as Lesson[])
                 .catch(this.handleError);
   }
-  
+
   getStudentLessons(): Promise<Lesson[]> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
@@ -91,7 +91,6 @@ export class LessonService {
     return this.http.post(url, data, options)
                 .toPromise()
                 .then((res) => {
-      console.log(res['_body']);
       return res['_body'];
     })
                 .catch(this.handleError);
@@ -110,7 +109,7 @@ export class LessonService {
     })
                 .catch(this.handleError);
   }
-  
+
   saveConfidence(data): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken});
@@ -123,15 +122,15 @@ export class LessonService {
       return res['_body'];
     })
                 .catch(this.handleError);
-  }  
-  
+  }
+
   endLesson(lessonId): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                                   'Authorization': 'Bearer ' + this.loginService.authtoken});
     const options = new RequestOptions({ headers: headers });
-    let data = JSON.stringify({lessonId: lessonId});
+    const data = JSON.stringify({lessonId: lessonId});
     const url = `${this.serverUrl}/api/lesson/endLesson/${lessonId}`;
-    
+
     return this.http.post(url, data, options)
                 .toPromise()
                 .then((res) => {
@@ -139,7 +138,7 @@ export class LessonService {
     })
                 .catch(this.handleError);
   }
-  
+
    getConfidence(lessonId: string): Promise<any> {
     const headers = new Headers({ 'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.loginService.authtoken});
@@ -152,7 +151,22 @@ export class LessonService {
                 .catch(this.handleError);
   }
 
+  getTeachingClassByName(name: string): Promise<TeachingClass> {
+    const headers = new Headers({ 'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.loginService.authtoken});
+    const options = new RequestOptions({ headers: headers });
+    const url = this.serverUrl + '/api/teachingClass/' + name;
 
+    return this.http.get(url, options)
+                .toPromise()
+                .then((response) => {
+
+                                  if (response.status === 200){
+                                    return response.json() as TeachingClass;
+                                  }
+    })
+                .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     const body = res.json();
