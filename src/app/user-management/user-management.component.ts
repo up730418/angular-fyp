@@ -32,7 +32,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getUsers().then(users => {
         this.users = users;
       });
@@ -42,7 +42,7 @@ export class UserManagementComponent implements OnInit {
     }
 
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getUsers().then(users => {
             this.users = users;
           });
@@ -68,7 +68,7 @@ export class UserManagementComponent implements OnInit {
     return this.http.get(url, options)
                 .toPromise()
                 .then((response) => {
-                                  if (response.status === 200){
+                                  if (response.status === 200) {
                                     return response.json() as User[];
                                   } else {
                                     this.code = response.status;
@@ -104,7 +104,7 @@ export class UserManagementComponent implements OnInit {
     return this.http.get(url, options)
                 .toPromise()
                 .then((response) => {
-                                  if (response.status === 200){
+                                  if (response.status === 200) {
                                     return response.json() as User[];
                                   } else {
                                     this.code = response.status;
@@ -123,7 +123,7 @@ export class UserManagementComponent implements OnInit {
     return this.http.get(url, options)
                 .toPromise()
                 .then((response) => {
-                                  if (response.status === 200){
+                                  if (response.status === 200) {
                                     return response.json() as TeachingClass;
                                   } else {
                                     this.code = response.status;

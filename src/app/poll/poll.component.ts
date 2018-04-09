@@ -96,7 +96,7 @@ export class PollComponent implements OnInit {
     this.pollId = this.pollid ? this.pollid : this.route.snapshot.params['id'];
 
     this.loginService.login.subscribe((login) => {
-      if (login && this.label === []){
+      if (login && this.label === []) {
          this.getPollData(this.pollId);
        }
     });
@@ -105,7 +105,7 @@ export class PollComponent implements OnInit {
     this.socket = new WebSocket('ws://' + this.url + ':1334/', this.pollId);
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
 //    this.getChatData(this.room);
 
 //    this.askNotification()
@@ -118,6 +118,9 @@ export class PollComponent implements OnInit {
     };
     this.socket.onopen = () => {
     };
+  }
+  ngOnDestroy() {
+    this.socket.close(1000);
   }
 
   openDialog() {
@@ -140,7 +143,7 @@ export class PollComponent implements OnInit {
 
   }
 
-  addResponse(message){
+  addResponse(message) {
 
   }
 
@@ -173,7 +176,7 @@ export class PollComponent implements OnInit {
                   this.label.forEach(() => this.data.push(0));
 
                   data.answers.forEach((result) => {
-                  if (result.answer){
+                  if (result.answer) {
                     this.pollHandler(parseInt(result.answer), 1);
                   }
 

@@ -21,8 +21,7 @@ export class UserEntryGuard implements CanActivate {
     return this.loginService.checkUserType().then(userType => {
       if (userType === 'Student') {
         this.router.navigate(['/student-home']);
-      }
-      else if (userType === 'Teacher' || userType === 'Admin') {
+      } else if (userType === 'Teacher' || userType === 'Admin') {
         return true;
       }
       return false;

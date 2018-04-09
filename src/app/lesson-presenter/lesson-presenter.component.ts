@@ -20,7 +20,7 @@ export class LessonPresenterComponent implements OnInit {
 
   lesson: Lesson;
   lessonId: string;
-  socket;
+  socket: WebSocket;
   url = AppConstant.BASE_API_URL;
 
   constructor(private route: ActivatedRoute,
@@ -29,7 +29,7 @@ export class LessonPresenterComponent implements OnInit {
 
     this.lessonId = this.route.snapshot.params['id'];
 
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLesson();
     }
   }
@@ -37,7 +37,7 @@ export class LessonPresenterComponent implements OnInit {
   ngOnInit() {
     //Check when the login status of a user changes
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getLesson();
        }
     });
@@ -47,7 +47,7 @@ export class LessonPresenterComponent implements OnInit {
     //this.quizSocket = new WebSocket('ws://' + this.url + ':1336/');
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
 
     this.socket.onmessage = (event) => {
 
@@ -61,7 +61,9 @@ export class LessonPresenterComponent implements OnInit {
         console.log('/The socket connection has been established');
     };
   }
-
+  ngOnDestroy() {
+    this.socket.close(1000);
+  }
   getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;

@@ -27,7 +27,7 @@ export class AppComponent {
   constructor(private loginService: LoginService, ) {
     this.checkUserType();
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.checkUserType();
        }
     });
@@ -35,12 +35,12 @@ export class AppComponent {
 
   checkUserType() {
     this.loginService.checkUserType().then(userType => {
-      if (userType == 'Admin'){
+      if (userType == 'Admin') {
         this.menuItems = (this.adminItems);
       } else if (userType == 'Teacher') {
         this.menuItems = (this.teacherItems);
 
-      } else  if (userType == 'Student'){
+      } else  if (userType == 'Student') {
         this.menuItems = (this.studentItems);
 
       }

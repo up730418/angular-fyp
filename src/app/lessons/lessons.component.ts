@@ -36,13 +36,13 @@ export class LessonsComponent implements OnInit {
     this.lessons = [];
     this.lessonId = this.route.snapshot.params['id'];
     //If user is signed in get lesson data
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLessons();
     }
 
     this.router.events.subscribe(event => {
      // when the lesson id changes, refresh model
-     if (this.lessonId !== this.route.snapshot.params['id']){
+     if (this.lessonId !== this.route.snapshot.params['id']) {
        this.lessonId = this.route.snapshot.params['id'];
        this.getLessons();
      }
@@ -53,7 +53,7 @@ export class LessonsComponent implements OnInit {
   ngOnInit() {
     //Check when the login status of a user changes
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getLessons();
        }
     });
@@ -64,9 +64,9 @@ export class LessonsComponent implements OnInit {
   getLessons() {
 
     // If a single  lesson has been selected
-    if (this.lessonId){
+    if (this.lessonId) {
       // if the user wishes to create a new lesson
-      if (this.lessonId === 'na'){
+      if (this.lessonId === 'na') {
         this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], [], this.loginService.userName,  [new LO('', [])], [new  UC('', 0)])).then(res => {
           this.router.navigateByUrl(`/lessons/${res}`);
         });
@@ -89,7 +89,7 @@ export class LessonsComponent implements OnInit {
   // Delete a lesson perminently
   deleteLesson(id: number) {
     this.lessonService.deleteLesson(id).then(res => {
-      if (res != 'Accepted'){
+      if (res != 'Accepted') {
           console.error('Error Unable to delete');
         } else {
            document.getElementById('lesson-' + id).remove();
@@ -100,7 +100,7 @@ export class LessonsComponent implements OnInit {
   // Delete a poll permenintly and remove it from the lesson
   deletePoll(id: number) {
     this.pollService.deletePoll(id).then(res => {
-      if (res != 'Accepted'){
+      if (res != 'Accepted') {
           console.error('Error Unable to delete');
         } else {
            document.getElementById('poll-' + id).remove();
@@ -111,7 +111,7 @@ export class LessonsComponent implements OnInit {
  //Update the lessons title
   updateTitle(id: number) {
     let lessonToUpdate;
-    this.lessons.forEach(lesson => { if (lesson.lessonId == id) lessonToUpdate = lesson; });
+    this.lessons.forEach(lesson => { if (lesson.lessonId == id) { lessonToUpdate = lesson; } });
     this.lessonService.updateLesson(id.toString(), lessonToUpdate);
 
   }

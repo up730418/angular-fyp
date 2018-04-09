@@ -26,8 +26,8 @@ export class ChatComponent implements OnInit {
   title: string;
   @Input() chatid;
   private url;
-  private messages: Array<any>;
   private socket: WebSocket;
+  private messages: Array<any>;
   private room: any;
 
   constructor(private http: Http,
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
 
    this.router.events.subscribe(event => {
      // when the room id changes, refresh model
-     if (this.room !== this.route.snapshot.params['id']){
+     if (this.room !== this.route.snapshot.params['id']) {
        document.getElementById('testMessage').innerHTML = '';
        this.room = this.route.snapshot.params['id'];
        this.getChatData(this.room);
@@ -55,11 +55,11 @@ export class ChatComponent implements OnInit {
    });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.room = this.chatid ? this.chatid : this.route.snapshot.params['id'];
     this.socket = new WebSocket('ws://' + this.url + ':1335/', this.room);
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
         this.getChatData(this.room);
         this.userName = this.loginService.userName;
         this.userNameChange();
@@ -68,7 +68,7 @@ export class ChatComponent implements OnInit {
   }
 
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.loginService.checkSignIn();
     this.getChatData(this.room);
 
@@ -79,9 +79,16 @@ export class ChatComponent implements OnInit {
         this.addMessage(JSON.parse(event.data), true);
     };
     this.socket.onclose = () => {
+      console.log('closed chat');
     };
     this.socket.onopen = () => {
+      console.log('chat Open');
+      console.log(this.socket);
     };
+  }
+
+  ngOnDestroy() {
+    this.socket.close(1000);
   }
 
   addMessage(data, notifi) {
@@ -90,14 +97,13 @@ export class ChatComponent implements OnInit {
     let colour: string;
     const commentor = data['user'];
 
-    if (this.userName == commentor){
+    if (this.userName == commentor) {
         cssClass = 'myMessage';
-    }else{
-      if (this.userColour[commentor]){
+    } else {
+      if (this.userColour[commentor]) {
           colour = this.userColour[commentor];
 
-      }
-      else{
+      } else {
           colour = this.colours[Math.floor(Math.random() * this.colours.length)].toString();
           this.userColour[commentor] = colour;
       }
@@ -107,14 +113,14 @@ export class ChatComponent implements OnInit {
 //      }
     }
 
-    if (data.user && data.user.length > 25){
+    if (data.user && data.user.length > 25) {
       data.user = data.user.substring(0, 25) + '...';
     }
 
     let className = !data['user'] ? 'anon' : data['user'];
     className = className.replace(/\s/g, '');
 
-    if (data.data && typeof data.data == 'string' && (data.data.includes('.gif') || data.data.includes('.jpg') || data.data.includes('.png') ) ){
+    if (data.data && typeof data.data == 'string' && (data.data.includes('.gif') || data.data.includes('.jpg') || data.data.includes('.png') ) ) {
       //Add a gif to the chat
       const newDiv = document.createElement('div');
       const divText = document.createTextNode(`${data['user']}: \n\n`);
@@ -128,8 +134,7 @@ export class ChatComponent implements OnInit {
 
       document.getElementById('testMessage').appendChild(newDiv);
 
-    }
-    else{
+    } else {
       //Add a normal text element to the chat
       const newDiv = document.createElement('div');
       const divText = document.createTextNode(`${data['user']}:`);
@@ -151,13 +156,13 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     //this.userNameChange();
-    if (this.mess.trim() != ''){
-      try{
+    if (this.mess.trim() != '') {
+      try {
         this.socket.send(JSON.stringify({message : this.mess,
                  room : this.room, user: this.userName, type: 'chat'}));
         this.mess = '';
 
-      }catch (e){
+      } catch (e) {
           console.error('Unable to send message');
       }
     }
@@ -186,8 +191,7 @@ export class ChatComponent implements OnInit {
       // If the user accepts, let's create a notification
       if (permission === 'granted') {
         //var notification = new Notification("Hi there!");
-      }
-      else{
+      } else {
         console.error(permission);
       }
     });

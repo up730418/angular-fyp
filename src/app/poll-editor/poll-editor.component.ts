@@ -36,12 +36,12 @@ export class PollEditorComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getPoll();
     }
 
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getPoll();
        }
     });
@@ -62,7 +62,7 @@ export class PollEditorComponent implements OnInit {
 
                         this.model = poll;
                       }
-                      if (this.assosiatLesson != undefined){
+                      if (this.assosiatLesson != undefined) {
                         //If a lessonId has been pased in the url push it to the lesson array
                         this.model.lesson.push(this.assosiatLesson.toString());
                       }
@@ -73,7 +73,7 @@ export class PollEditorComponent implements OnInit {
    }
   onSubmit() {
     this.pollService.updatePoll(this.model.pollId.toString(), this.model).then((res) => {
-      if (res.toString() != 'ok'){
+      if (res.toString() != 'ok') {
         this.router.navigateByUrl(`/poll-editor/${res}`);
       } else {
       }
@@ -147,7 +147,7 @@ export class PollEditorComponent implements OnInit {
 
   deletePoll() {
     this.pollService.deletePoll(this.model.pollId).then(res => {
-      if (res != 'Accepted'){
+      if (res != 'Accepted') {
           console.error('Error Unable to delete');
         } else {
           this.router.navigateByUrl(`/poll-editor/na`);

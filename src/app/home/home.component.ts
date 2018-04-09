@@ -23,12 +23,12 @@ export class HomeComponent implements OnInit {
               private loginService: LoginService,
               private lessonService: LessonService, ) {
 
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLessons();
     }
    this.router.events.subscribe(event => {
      // when the templateToLoad changes, refresh model
-     if (this.templateToLoad !== this.route.snapshot.params['id']){
+     if (this.templateToLoad !== this.route.snapshot.params['id']) {
        this.templateToLoad = this.route.snapshot.params['id'];
      }
    });
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
         this.getLessons();
        }
     });

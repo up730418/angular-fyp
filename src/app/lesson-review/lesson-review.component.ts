@@ -31,11 +31,10 @@ export class LessonReviewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
-              private lessonService: LessonService, )
-  {
+              private lessonService: LessonService, ) {
     this.lessonId = this.route.snapshot.params['id'];
     this.teachingClasses = [];
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLesson();
       this.getRelatedPolls();
       this.getRelatedQuizes();
@@ -45,7 +44,7 @@ export class LessonReviewComponent implements OnInit {
   ngOnInit() {
     //Check when the login status of a user changes
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getLesson();
          this.getRelatedPolls();
         this.getRelatedQuizes();
@@ -112,7 +111,7 @@ export class LessonReviewComponent implements OnInit {
     //Add no times a question was answered to an array
     this.questionnairs[questionnaireIndex].answers.forEach((answer, i) => {
         answer.answer.forEach((ans, i) => {
-          if (ans === 1){
+          if (ans === 1) {
             answers[i] = answers[i] ? answers[i] + 1 : 1;
           }
         });
@@ -137,13 +136,13 @@ export class LessonReviewComponent implements OnInit {
 
   //Work out the average amount of correct answers for
   //All  questionairs attached to this lesson
-  createAverageModel(){
+  createAverageModel() {
     this.averageLessonScore = 0;
     for (const qi in this.questionnairs) {
       const answers = [];
       this.questionnairs[qi].answers.forEach((answer, i) => {
         answer.answer.forEach((ans, i) => {
-          if (ans === 1){
+          if (ans === 1) {
             answers[i] = answers[i] ? answers[i] + 1 : 1;
           }
         });
@@ -167,9 +166,9 @@ export class LessonReviewComponent implements OnInit {
     }
     this.averageLessonScore = parseFloat((this.averageLessonScore / this.questionnairs.length).toFixed(2));
     //Set the background colour of the percent board
-    if (this.averageLessonScore >= 70){
+    if (this.averageLessonScore >= 70) {
       this.averageLessonColour = 'lightgreen';
-    } else if (this.averageLessonScore >= 50){
+    } else if (this.averageLessonScore >= 50) {
       this.averageLessonColour = 'blue';
     } else {
       this.averageLessonColour = 'red';
@@ -184,9 +183,9 @@ export class LessonReviewComponent implements OnInit {
     });
     this.studentConfidenceScore = (confidence / this.lesson.confidence.length) * 10;
 
-    if (this.studentConfidenceScore >= 70){
+    if (this.studentConfidenceScore >= 70) {
       this.studentConfidenceColour = 'lightgreen';
-    } else if (this.studentConfidenceScore >= 50){
+    } else if (this.studentConfidenceScore >= 50) {
       this.studentConfidenceColour = 'blue';
     } else {
       this.studentConfidenceColour = 'red';

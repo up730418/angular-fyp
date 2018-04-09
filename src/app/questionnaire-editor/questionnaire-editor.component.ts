@@ -32,11 +32,11 @@ export class QuestionnaireEditorComponent implements OnInit {
     private loginService: LoginService, ) { }
 
   ngOnInit() {
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getQuestionnaire();
     }
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getQuestionnaire();
        }
     });
@@ -47,7 +47,7 @@ export class QuestionnaireEditorComponent implements OnInit {
 
   }
 
-  getQuestionnaire(){
+  getQuestionnaire() {
     this.route.params
         .switchMap((params: Params) => this.questionnaireService.getQuestionaire(params['id']))
         .subscribe(questionnaire => {
@@ -57,7 +57,7 @@ export class QuestionnaireEditorComponent implements OnInit {
 
                         this.model = questionnaire;
                       }
-                      if (this.assosiatLesson != undefined){
+                      if (this.assosiatLesson != undefined) {
                         //If a lessonId has been pased in the url push it to the lesson array
                         this.model.lesson.push(this.assosiatLesson.toString());
                       }
@@ -68,7 +68,7 @@ export class QuestionnaireEditorComponent implements OnInit {
 
   onSubmit() {
     this.questionnaireService.updateQuestionaire(this.model.questionnaireId.toString(), this.model).then((res) => {
-      if (res.toString() != 'ok'){
+      if (res.toString() != 'ok') {
         this.router.navigateByUrl(`/questionnaire-editor/${res}`);
       } else {
       }

@@ -30,7 +30,7 @@ export class StudentReviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLessons();
     }
     //this.getRelatedQuizes()
@@ -43,21 +43,21 @@ export class StudentReviewComponent implements OnInit {
 //    }
   }
 
-  reviewLesson(lessonId: any, userName: any){
+  reviewLesson(lessonId: any, userName: any) {
     userName = userName ? userName : '';
     this.getRelatedQuizes(lessonId);
     //Get html Elements
     const currentLesson = document.getElementById(userName + '-lessonData-' + lessonId);
     const previousLesson = document.getElementById(userName + '-lessonData-' + this.previouseLessonId);
     //Hide old lesson and view the new one
-    if (this.previouseLessonId == lessonId && !previousLesson.classList.contains('hidden')){
+    if (this.previouseLessonId == lessonId && !previousLesson.classList.contains('hidden')) {
       //USed when user is toggling a single lesson
       previousLesson.classList.add('hidden');
     } else {
       //Show the new lesson
       currentLesson.classList.remove('hidden');
       //If the user isnt toggling a single lesson hide the old one
-      if (this.previouseLessonId && this.previouseLessonId !== lessonId){
+      if (this.previouseLessonId && this.previouseLessonId !== lessonId) {
         previousLesson.classList.add('hidden');
       }
 
@@ -66,7 +66,7 @@ export class StudentReviewComponent implements OnInit {
   }
 
   getLessons() {
-    if (this.lessonId || this.userName){
+    if (this.lessonId || this.userName) {
       this.getLesson(this.lessonId);
     } else {
       this.lessonService.getStudentLessons().then(lessons => {
@@ -103,7 +103,7 @@ export class StudentReviewComponent implements OnInit {
     const userAnswer = this.questionnairs[questionnaireIndex].answers.find((usersAnswer) => {
       return userName == usersAnswer.user;
     });
-    if (!userAnswer || userAnswer == undefined){
+    if (!userAnswer || userAnswer == undefined) {
       this.questionnaireModel = {title: this.questionnairs[questionnaireIndex].title, questions: [{question: 'You have not yet completed this questionnaire', correct: ''}]};
     } else {
       //Create the model to be displayed in the HTML

@@ -24,8 +24,8 @@ export class LoginService {
     this.signedIn = false;
   }
 
-  public checkSignIn(){
-    if (this.signedIn !== true && localStorage.getItem('authToken') && new Date(parseInt(localStorage.getItem('authExpiresAt'))) > new Date()){
+  public checkSignIn() {
+    if (this.signedIn !== true && localStorage.getItem('authToken') && new Date(parseInt(localStorage.getItem('authExpiresAt'))) > new Date()) {
       this.authtoken = localStorage.getItem('authToken');
       this.signedIn = true;
       this.name = localStorage.getItem('authName');
@@ -34,7 +34,7 @@ export class LoginService {
       this.login.emit(this.signedIn);
     }
 
-    if (!this.signedIn){
+    if (!this.signedIn) {
       this.openDialog();
     }
   }
@@ -43,15 +43,15 @@ export class LoginService {
   openDialog() {
     let dialogRef;
 
-    if (!this.dialogeIsOpen){
+    if (!this.dialogeIsOpen) {
       dialogRef = this.dialog.open(LoginDialog, {
       });
     }
     this.dialogeIsOpen = true;
-    try{
+    try {
       dialogRef.afterClosed().subscribe(result => {
         this.dialogeIsOpen = false;
-        if (result){
+        if (result) {
           this.user = result;
           this.authtoken = result.Zi.id_token;
           this.signedIn = true;
@@ -67,7 +67,7 @@ export class LoginService {
 
       });
 
-    } catch (e){
+    } catch (e) {
       // Do nothinng
     }
   }

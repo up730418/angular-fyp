@@ -31,7 +31,7 @@ export class StudentLessonComponent implements OnInit {
     this.loginService.checkSignIn();
     this.lessonId = this.route.snapshot.params['id'];
 //    this.showConfidenceBar = true;
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLesson();
     }
   }
@@ -39,7 +39,7 @@ export class StudentLessonComponent implements OnInit {
   ngOnInit() {
     //Check when the login status of a user changes
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getLesson();
        }
     });
@@ -48,7 +48,7 @@ export class StudentLessonComponent implements OnInit {
     this.socket = new WebSocket('ws://' + this.url + ':1337/', this.lessonId);
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -80,7 +80,7 @@ export class StudentLessonComponent implements OnInit {
     console.log(pollId);
     const hidden = document.getElementById('poll-' + pollId).classList.contains('hidden');
 
-    if (hidden){
+    if (hidden) {
       document.getElementById('poll-' + pollId).classList.remove('hidden');
 
     } else {
@@ -92,7 +92,7 @@ export class StudentLessonComponent implements OnInit {
   activateQuiz(quizId) {
     const hidden = document.getElementById('quiz-' + quizId).classList.contains('hidden');
 
-    if (hidden){
+    if (hidden) {
       document.getElementById('quiz-' + quizId).classList.remove('hidden');
 
     } else {
@@ -101,7 +101,7 @@ export class StudentLessonComponent implements OnInit {
     }
   }
 
-  saveConfidence(){
+  saveConfidence() {
     const data = {lessonId: this.lessonId, level: this.confidenceSlider};
     this.lessonService.saveConfidence(data);
   }

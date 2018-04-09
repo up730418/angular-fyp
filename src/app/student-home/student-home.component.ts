@@ -18,7 +18,7 @@ export class StudentHomeComponent implements OnInit {
   lessons: Lesson[];
   constructor(private loginService: LoginService,
               private lessonService: LessonService, ) {
-    if (this.loginService.signedIn){
+    if (this.loginService.signedIn) {
       this.getLessons();
     }
   }
@@ -26,7 +26,7 @@ export class StudentHomeComponent implements OnInit {
   ngOnInit() {
     //Check when the login status of a user changes
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getLessons();
        }
     });

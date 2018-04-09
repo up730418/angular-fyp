@@ -37,7 +37,7 @@ export class QuestionnaireComponent implements OnInit {
     this.questionnaireId = this.questionnaireid ? this.questionnaireid : this.route.snapshot.params['id'];
 
     this.loginService.login.subscribe((login) => {
-      if (login){
+      if (login) {
          this.getQuestionnaireData(this.questionnaireId);
        }
     });
@@ -50,7 +50,7 @@ export class QuestionnaireComponent implements OnInit {
 
   }
 
-  getQuestionnaireData(id: string){
+  getQuestionnaireData(id: string) {
 
     this.questionnaireService.getQuestionaire(id).then( (res) => {
       res.questions.forEach((question) => {
@@ -72,7 +72,7 @@ export class QuestionnaireComponent implements OnInit {
     this.answerTracker[qNo] = answerCorrect ? 1 : 0;
     const nextQ = qNo + 1;
 
-    if (nextQ < this.numberOfQuestion){
+    if (nextQ < this.numberOfQuestion) {
       document.getElementById('question-' + this.questionnaireId + '-' + nextQ).classList.remove('hidden');
       document.getElementById('question-' + this.questionnaireId + '-' + qNo).classList.add('hidden');
     } else {
