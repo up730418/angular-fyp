@@ -120,6 +120,7 @@ export class PollComponent implements OnInit {
     };
   }
   ngOnDestroy() {
+    this.socket.onclose = () => { };
     this.socket.close(1000);
   }
 
