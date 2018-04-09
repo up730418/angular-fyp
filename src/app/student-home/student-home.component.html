@@ -1,5 +1,5 @@
 <div *ngIf="lessons">
-  <h2>Your Lessons</h2>
+  <h2 id="yuorLessonTtitle">Your Lessons</h2>
   <mat-card *ngFor="let teachingClasses of lessons[(lessons.length - 1)]; let i = index">
       <mat-card-header>
         <mat-card-title>{{teachingClasses}}</mat-card-title>

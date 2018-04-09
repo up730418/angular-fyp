@@ -1,19 +1,19 @@
-<h1 *ngIf="questionnaire">{{questionnaire.title}}</h1>
+<h1 *ngIf="questionnaire" id="questionnaireTitle">{{questionnaire.title}}</h1>
 <section id="{{questionnaireId}}-question" *ngIf="questionnaire">
-  <mat-card  *ngFor="let question of questionnaire.questions; let i = index;" id="question-{{questionnaireId}}-{{i}}" [ngClass]="{'hidden': i !== 0 }">
+  <mat-card  class="questionCard" *ngFor="let question of questionnaire.questions; let i = index;" id="question-{{questionnaireId}}-{{i}}" [ngClass]="{'hidden': i !== 0 }">
     <mat-card-header>
       <mat-card-title>{{question.question}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <button mat-raised-button id="answerButton" *ngFor="let answer of question.otherAnswer" 
               color="primary" (click)="nextQuestion(i, answer)">{{answer}}</button>
-      <button mat-raised-button color="warn" (click)="nextQuestion(i, 1)">{{question.correctAnswer}}</button>
+<!--      <button mat-raised-button color="warn" (click)="nextQuestion(i, 1)">{{question.correctAnswer}}</button>-->
     </mat-card-content>
   </mat-card>
   
-  <mat-card  id="{{questionnaireId}}-finish" class="hidden">
+  <mat-card id="{{questionnaireId}}-finish" class="hidden questionCard">
     <mat-card-header>
-      <mat-card-title>Well done you have succesfull completed the quiz</mat-card-title>
+      <mat-card-title>Well done you have successfully completed the quiz</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <p> You scored: {{correctAnswers}}/{{numberOfQuestion}}</p>

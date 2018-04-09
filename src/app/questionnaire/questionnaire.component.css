@@ -2,10 +2,11 @@
   display: block !important;
 }
 
-.mat-card {
+.questionCard {
   width: 90%;
   margin: auto;
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 #answerButton {
@@ -15,4 +16,9 @@
 
 #question{
   padding-bottom: 1em;
+}
+
+#questionnaireTitle {
+  display: block;
+  text-align: center;
 }

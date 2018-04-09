@@ -5,7 +5,7 @@
  You have already been added to the system. Please contact an admin if you need further help. 
 </p>
 
-<form *ngFor="let user of users " class="indent">
+<form *ngFor="let user of users " class="userForm">
   <mat-form-field class="full-width">
     <input matInput id="userName" name="userName" placeholder="User Name" [(ngModel)]="user.userName" maxlength="50" requiered  >
   </mat-form-field>
@@ -29,14 +29,14 @@
   <button mat-raised-button name="sub" (click)="updateUser(user)" color="accent" class="btn">Save</button>
 </form>
 
-<button *ngIf="users" mat-raised-button (click)="addUser()"  color="primary">Add User</button>
+<button *ngIf="users" mat-raised-button id="addUserButton" (click)="addUser()"  color="primary">Add User</button>
 
-<form *ngFor="let teachingClass of teachingClasss ">
+<form *ngFor="let teachingClass of teachingClasss " class="classForm">
   <mat-form-field class="full-width">
     <input matInput id="className" name="className" placeholder="Class Name" [(ngModel)]="teachingClass.name" maxlength="50" requiered  >
   </mat-form-field>
   
-  <mat-form-field class="full-width">
+  <mat-form-field class="classStudentBox">
     <mat-chip-list #studentChipList>
       <mat-chip color="warn" *ngFor="let student of teachingClass.students" [selectable]="selectable"
                [removable]="removable" (remove)="removeStudent(student, teachingClass)" >
@@ -54,4 +54,4 @@
   <button mat-raised-button name="teachingClassSub" (click)="updateTeachingClass(teachingClass)" color="accent" class="btn">Save</button>
 </form>
 
-<button *ngIf="teachingClasss" mat-raised-button (click)="addTeachingClass()"  color="primary">Add Class</button>
+<button *ngIf="teachingClasss" mat-raised-button id="addClassButton" (click)="addTeachingClass()"  color="primary">Add Class</button>

@@ -33,11 +33,11 @@
       <h4>Quizes:</h4>
       <div *ngFor="let quiz of lesson.questionairs"> 
         <span>{{quiz.title}}:</span> <br>
-        <button mat-button routerLink="/questionnaire/{{quiz.id}}" *ngIf="quiz.title" color="primary"> view </button>
-        <button mat-button routerLink="/questionnaire-editor/{{quiz.id}}" *ngIf="quiz.title" color="accent"> Edit </button> 
-        <button mat-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title" color="warn"> Delete </button> 
+        <button mat-raised-button routerLink="/questionnaire/{{quiz.id}}" *ngIf="quiz.title" color="primary"> view </button>
+        <button mat-raised-button routerLink="/questionnaire-editor/{{quiz.id}}" *ngIf="quiz.title" color="accent"> Edit </button> 
+        <button mat-raised-button (click)="deleteQuestionnaire(quiz.id)" *ngIf="quiz.title" color="warn"> Delete </button> 
       </div>
-    
+      <br/>
       <mat-form-field class="fullWidth">
         <mat-chip-list #accessChipList>
           <mat-chip color="warn" *ngFor="let access of lesson.access" [selectable]="selectable"
@@ -65,7 +65,7 @@
       
     <mat-card-actions class="buttonContainer">
       <h4>Other</h4>
-      <button mat-raised-button (click)="updateTitle(lesson.lessonId)" > update </button> 
+      <button mat-raised-button (click)="updateTitle(lesson.lessonId)" > Update </button> 
       <button mat-raised-button routerLink="/lesson-presenter/{{lesson.lessonId}}" color="primary">View Lesson</button>
       <button mat-raised-button routerLink="/poll-editor/na/{{lesson.lessonId}}" color="accent">Add Poll</button>
 <!--      <button mat-raised-button routerLink="/chat-editor/na/{{lesson.lessonId}}" color="accent">Add Chat</button>-->

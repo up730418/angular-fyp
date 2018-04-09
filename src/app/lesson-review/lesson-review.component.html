@@ -38,8 +38,11 @@
       <mat-card-header>
         <mat-card-title>Lesson Objectives</mat-card-title>
       </mat-card-header>
-      <mat-card-content *ngIf="lesson">
+      <mat-card-content *ngIf="lesson; else noLO">
         <p *ngFor="let ob of lesson.lessonObjectives; let i = index"> {{i}}. {{ob.title}} </p>
+      </mat-card-content>
+      <mat-card-content #noLO>
+        <p> No lesson objectives set</p>
       </mat-card-content>
   </mat-card>
 
