@@ -52,7 +52,6 @@ export class StudentLessonComponent implements OnInit {
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data);
       if (data.type == 'pollSwitch') {
         this.activatePoll(data.compId);
       }
@@ -63,11 +62,11 @@ export class StudentLessonComponent implements OnInit {
       }
     };
     this.socket.onclose = () => {
-        console.log('/The socket connection has been closed');
+//        console.log('/The socket connection has been closed');
         //this.openDialog();
     };
     this.socket.onopen = () => {
-        console.log('/The socket connection has been established');
+//        console.log('/The socket connection has been established');
     };
   }
 
@@ -82,7 +81,6 @@ export class StudentLessonComponent implements OnInit {
         });
   }
   activatePoll(pollId) {
-    console.log(pollId);
     const hidden = document.getElementById('poll-' + pollId).classList.contains('hidden');
 
     if (hidden) {

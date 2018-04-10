@@ -79,11 +79,8 @@ export class ChatComponent implements OnInit {
         this.addMessage(JSON.parse(event.data), true);
     };
     this.socket.onclose = () => {
-      console.log('closed chat');
     };
     this.socket.onopen = () => {
-      console.log('chat Open');
-      console.log(this.socket);
     };
   }
 

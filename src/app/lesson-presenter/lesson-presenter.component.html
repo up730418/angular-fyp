@@ -1,7 +1,7 @@
 <h1 *ngIf="lesson">{{lesson.title}}</h1>
 
-<section id="slides" >
-  <mat-card id="polls" class="chatCard" *ngIf="slideURL" >
+<section id="slides" *ngIf="lesson">
+  <mat-card id="polls" class="chatCard" *ngIf="lesson.slideURL" >
     <mat-card-header>
       <mat-card-title></mat-card-title>
     </mat-card-header>
@@ -9,6 +9,7 @@
       <iframe class="slideshow" [src]="slideURL" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
     </mat-card-content>
   </mat-card>
+</section>
 <section id="interactionContainer">
   <mat-card id="polls" class="presentHalf" *ngIf="lesson">
     <mat-card-header>

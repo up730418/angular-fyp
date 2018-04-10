@@ -41,7 +41,6 @@ export class QuestionnaireService {
     return this.http.post(url, data, options)
                 .toPromise()
                 .then((res) => {
-      console.log(res['_body']);
       return res['_body'];
     })
                 .catch(this.handleError);

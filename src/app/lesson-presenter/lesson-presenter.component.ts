@@ -56,11 +56,11 @@ export class LessonPresenterComponent implements OnInit {
 
     };
     this.socket.onclose = () => {
-        console.log('/The socket connection has been closed');
+//        console.log('/The socket connection has been closed');
         //this.openDialog();
     };
     this.socket.onopen = () => {
-        console.log('/The socket connection has been established');
+//        console.log('/The socket connection has been established');
     };
   }
   ngOnDestroy() {
@@ -69,7 +69,10 @@ export class LessonPresenterComponent implements OnInit {
   getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;
-          this.slideURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.lesson.slideURL);
+          if(lesson.slideURL){
+            this.slideURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.lesson.slideURL);
+          }
+      
         });
   }
   activatePoll(pollId) {

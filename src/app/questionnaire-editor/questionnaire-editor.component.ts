@@ -113,7 +113,6 @@ export class QuestionnaireEditorComponent implements OnInit {
 
   addQAC() {
     this.model.questions.push(new QAC('', '', []));
-    console.log(this.model.questions);
   }
 
   addAccess(event: MatChipInputEvent) {
