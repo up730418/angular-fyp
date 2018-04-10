@@ -25,7 +25,6 @@ export class LessonReviewComponent implements OnInit {
   studentConfidenceColour: string;
   lesson: Lesson;
   lessonId: string;
-  socket;
   teachingClasses: TeachingClass[];
   url = AppConstant.BASE_API_URL;
 

@@ -71,6 +71,11 @@ export class StudentLessonComponent implements OnInit {
     };
   }
 
+  ngOnDestroy() {
+    this.socket.onclose = () => { };
+    this.socket.close(1000);
+  }
+
   getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;

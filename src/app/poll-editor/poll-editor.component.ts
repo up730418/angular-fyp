@@ -74,7 +74,7 @@ export class PollEditorComponent implements OnInit {
   onSubmit() {
     this.pollService.updatePoll(this.model.pollId.toString(), this.model).then((res) => {
       if (res.toString() != 'ok') {
-        this.router.navigateByUrl(`/poll-editor/${res}`);
+        this.router.navigateByUrl(`/poll-editor/${res}/${this.assosiatLesson}`);
       } else {
       }
 
@@ -150,7 +150,7 @@ export class PollEditorComponent implements OnInit {
       if (res != 'Accepted') {
           console.error('Error Unable to delete');
         } else {
-          this.router.navigateByUrl(`/poll-editor/na`);
+          this.router.navigateByUrl(`/poll-editor/na/${this.assosiatLesson}`);
         }
     });
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { AppConstant } from '../../environments/environment';
 
@@ -22,10 +23,11 @@ export class LessonPresenterComponent implements OnInit {
   lessonId: string;
   socket: WebSocket;
   url = AppConstant.BASE_API_URL;
-
+  slideURL;
   constructor(private route: ActivatedRoute,
               private loginService: LoginService,
-              private lessonService: LessonService, ) {
+              private lessonService: LessonService,
+              private sanitizer: DomSanitizer, ) {
 
     this.lessonId = this.route.snapshot.params['id'];
 
@@ -67,6 +69,7 @@ export class LessonPresenterComponent implements OnInit {
   getLesson() {
     this.lessonService.getLesson(this.lessonId).then(lesson => {
           this.lesson = lesson;
+          this.slideURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.lesson.slideURL);
         });
   }
   activatePoll(pollId) {

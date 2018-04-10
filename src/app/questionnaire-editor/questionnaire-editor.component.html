@@ -1,5 +1,4 @@
 <h3 *ngIf="!model"> Error questionnaire does not exist or you don't have access</h3>
-
 <form #pollForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="model">
   
   <mat-form-field class="full-width">
@@ -73,6 +72,9 @@
 
     </mat-chip-list>
   </mat-form-field>
-  <button mat-raised-button type="submit" color="primary" class="addQAC"> Save </button>
+  <button mat-raised-button type="submit" color="primary" class="addQAC" class="btn"> Save </button>
 </form>
+
+<button mat-raised-button *ngIf="model" (click)="deleteQuestionnaire()" color="warn"> Delete </button> 
+<button mat-raised-button *ngIf="assosiatLesson" routerLink="/lessons/{{assosiatLesson}}" class="btn" >Back to Lesson</button>
   

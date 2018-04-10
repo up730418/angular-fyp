@@ -82,3 +82,4 @@
 </form>
 
 <button mat-raised-button *ngIf="model" (click)="deletePoll()"  color="primary" class="btn">Delete</button>
+<button mat-raised-button *ngIf="assosiatLesson" routerLink="/lessons/{{assosiatLesson}}" class="btn">Back to Lesson</button>

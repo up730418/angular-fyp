@@ -7,6 +7,7 @@ import {MatChipInputEvent} from '@angular/material';
 import {ENTER, COMMA} from '@angular/cdk/keycodes';
 
 import { PollService } from '../poll.service';
+import { QuestionnaireService } from '../questionnaire.service';
 import { LessonService } from '../lesson.service';
 import { LoginService } from '../login.service';
 
@@ -30,6 +31,7 @@ export class LessonsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private pollService: PollService,
+              private questionnaireService: QuestionnaireService,
               private lessonService: LessonService,
               private loginService: LoginService,
               @Inject(DOCUMENT) private document: Document, ) {
@@ -67,7 +69,7 @@ export class LessonsComponent implements OnInit {
     if (this.lessonId) {
       // if the user wishes to create a new lesson
       if (this.lessonId === 'na') {
-        this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], [], this.loginService.userName,  [new LO('', [])], [new  UC('', 0)])).then(res => {
+        this.lessonService.updateLesson('na', new Lesson(0, 'New Lesson', [], [], [], '', [], this.loginService.userName,  [new LO('', [])], [new  UC('', 0)])).then(res => {
           this.router.navigateByUrl(`/lessons/${res}`);
         });
       } else {
@@ -108,10 +110,24 @@ export class LessonsComponent implements OnInit {
     });
   }
 
+  // Delete a Questionnaire permenintly and remove it from the lesson
+  deleteQuestionnaire(id: number) {
+    this.questionnaireService.deleteQuestionaire(id).then(res => {
+      if (res != 'Accepted') {
+          console.error('Error Unable to delete');
+        } else {
+           document.getElementById('questionnaire-' + id).remove();
+        }
+    });
+  }
+
  //Update the lessons title
   updateTitle(id: number) {
     let lessonToUpdate;
     this.lessons.forEach(lesson => { if (lesson.lessonId == id) { lessonToUpdate = lesson; } });
+    if (lessonToUpdate.slideURL.includes('"')) {
+      lessonToUpdate.slideURL = lessonToUpdate.slideURL.split('"')[1];
+    }
     this.lessonService.updateLesson(id.toString(), lessonToUpdate);
 
   }

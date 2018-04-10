@@ -26,3 +26,7 @@ body {
 .hidden {
   display: none !important;
 }
+
+.btn {
+ margin: 1em !important;
+}

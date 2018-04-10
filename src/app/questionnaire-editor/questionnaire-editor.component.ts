@@ -69,10 +69,22 @@ export class QuestionnaireEditorComponent implements OnInit {
   onSubmit() {
     this.questionnaireService.updateQuestionaire(this.model.questionnaireId.toString(), this.model).then((res) => {
       if (res.toString() != 'ok') {
-        this.router.navigateByUrl(`/questionnaire-editor/${res}`);
+        this.router.navigateByUrl(`/questionnaire-editor/${res}/${this.assosiatLesson}`);
       } else {
       }
 
+    });
+  }
+
+  // Delete a Questionnaire permenintly and remove it from the assosciated lesson
+  deleteQuestionnaire() {
+    this.questionnaireService.deleteQuestionaire(this.model.questionnaireId).then(res => {
+      if (res != 'Accepted') {
+          console.error('Error Unable to delete');
+        } else {
+          this.router.navigateByUrl(`/questionnaire-editor/na/${this.assosiatLesson}`);
+
+        }
     });
   }
 

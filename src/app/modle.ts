@@ -33,6 +33,7 @@ export class Lesson {
     public polls: Array<any>,
     public chats: Array<any>,
     public questionairs: Array<any>,
+    public slideURL: string,
     public access: Array<any>,
     public owner: string,
     public lessonObjectives: Array<LO>,
