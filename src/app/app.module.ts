@@ -60,7 +60,7 @@ import { StudentReviewComponent } from './student-review/student-review.componen
     UserManagementComponent,
     LessonReviewComponent,
     StudentHomeComponent,
-    StudentReviewComponent,
+    StudentReviewComponent
   ],
   imports: [
     BrowserModule,

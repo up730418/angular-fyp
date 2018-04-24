@@ -1,0 +1,21 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "Teaching App",
+  "scope": "/",
+  "display": "fullscreen",
+  "start_url": "http://teachingapp.toppicphotography.co.uk:8080",
+  "short_name": "Teaching App",
+  "theme_color": "#2b12ba",
+  "description": "Teaching App",
+  "orientation": "any",
+  "background_color": "transparent",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32"
+    },
+  ]
+}

@@ -12,6 +12,8 @@ import { LessonsComponent } from './lessons.component';
 import { PollService } from '../poll.service';
 import { LoginService, LoginDialog } from '../login.service';
 import { LessonService } from '../lesson.service';
+import { QuestionnaireService } from '../questionnaire.service';
+
 
 describe('LessonsComponent', () => {
   let component: LessonsComponent;
@@ -45,7 +47,10 @@ describe('LessonsComponent', () => {
         MatChipsModule,
         MatCardModule,
       ],
-      providers: [ PollService, LoginService, LessonService ]
+      providers: [ PollService,
+                  LoginService,
+                  LessonService,
+                  QuestionnaireService ]
     })
     .compileComponents();
   }));
