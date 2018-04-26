@@ -125,7 +125,7 @@ export class LessonsComponent implements OnInit {
   updateTitle(id: number) {
     let lessonToUpdate;
     this.lessons.forEach(lesson => { if (lesson.lessonId == id) { lessonToUpdate = lesson; } });
-    if (lessonToUpdate.slideURL.includes('"')) {
+    if (lessonToUpdate.slideURL && lessonToUpdate.slideURL.includes('"')) {
       lessonToUpdate.slideURL = lessonToUpdate.slideURL.split('"')[1];
     }
     this.lessonService.updateLesson(id.toString(), lessonToUpdate);
